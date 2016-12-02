@@ -49,10 +49,10 @@ class BuilderTest extends TestCase
      * @expectedException \InvalidArgumentException
      * @covers ::__construct
      */
-    public function testWrongConstructor()
+    public function testConstructorNonTraversable()
     {
-        $wrongComponents = new Select();
-        $builder = new Builder($wrongComponents);
+        $wrongComponents = 1;
+        new Builder($wrongComponents);
     }
 
     /**

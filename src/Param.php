@@ -51,13 +51,12 @@ class Param
      * @param bool $isOptional
      * @param bool $multiple
      */
-    public function __construct($name, $type, $isOptional, $multiple, $conditionGlue = ', ')
+    public function __construct($name, $type, $isOptional, $multiple)
     {
         $this->name = $name;
         $this->setType($type);
         $this->optional = (bool) $isOptional;
         $this->multiple = (bool) $multiple;
-        $this->conditionGlue = $conditionGlue;
     }
 
     /**
@@ -126,7 +125,7 @@ class Param
      */
     protected function setType($typeName)
     {
-        $componentNamespace = '\\LegoW\\LiterateSpoon\\Component\\';
+        $componentNamespace = 'LegoW\\LiterateSpoon\\Component\\';
         $stdulyCaps = str_replace(' ', '',
                 ucwords(str_replace('_', ' ', $typeName)));
         $className = $componentNamespace . $stdulyCaps;

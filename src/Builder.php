@@ -38,8 +38,7 @@ class Builder
     protected $isStringOutdated = true;
     
     /**
-     * 
-     * @param \Traversable $components
+     * @param Components[]|\Traversable $components
      * @throws \InvalidArgumentException
      */
     public function __construct($components = null)
@@ -63,6 +62,9 @@ class Builder
         return $this->queryString;
     }
     
+    /**
+     * @param ComponentInterface $component
+     */
     public function addComponent(ComponentInterface $component)
     {
         $this->isStringOutdated = true;
