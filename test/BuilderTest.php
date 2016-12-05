@@ -129,14 +129,28 @@ class BuilderTest extends TestCase
     {
         $insert = new Component\Insert('test');
         
-        $insertColumns = new Component\InsertColumns(['test-column', 'test-column2']);
+        $insertColumns = new Component\InsertColumns(['test-column', 'test-column2', 'test-column3']);
         $insert->setParam('columns', $insertColumns);
         $insert->setParam('value', new StringLiteral('valami'));
         $insert->setParam('value', new IntLiteral(5));
+        $insert->setParam('value', new Component\Literal\Placeholder(':test'));
         
         $builder = new Builder([$insert]);
         
-        $expectedString = 'INSERT INTO test (`test-column`, `test-column2`) VALUES ("valami", 5);';
+        $expectedString = 'INSERT INTO test (`test-column`, `test-column2`, `test-column3`) VALUES ("valami", 5, :test);';
+
+        $this->assertEquals($expectedString, $builder->asString());
+    }
+    
+    public function testOptionalInsert()
+    {
+        $insert = new Component\Insert('test');
+        
+        $insert->setParam('value', new StringLiteral('valami'));
+        
+        $builder = new Builder([$insert]);
+        
+        $expectedString = 'INSERT INTO test VALUES ("valami");';
         
         $this->assertEquals($expectedString, $builder->asString());
     }
