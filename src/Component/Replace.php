@@ -14,8 +14,6 @@ namespace LegoW\LiterateSpoon\Component;
 class Replace extends Insert
 {
 
-    protected $format = "REPLACE INTO :table-table_name [:columns-column_values] VALUES (:value-literal+)";
-
     public function getFormat()
     {
         $format = parent::getFormat();
