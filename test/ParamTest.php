@@ -4,10 +4,11 @@
  * All rights reserved © 2016 Legow Hosting Kft.
  */
 
-namespace LegoW\LiterateSpoon;
+namespace LegoW\LiterateSpoon\Test;
 
 use PHPUnit\Framework\TestCase;
 use LegoW\LiterateSpoon\Param;
+use LegoW\LiterateSpoon\Component;
 
 /**
  * Description of ParamTest

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0cc31acc5084d76d524fb5d1ddbba115",
+    "hash": "64567c23458b182e84cc95cd6fefc3a7",
     "content-hash": "d8e18cff8d0a620075e1c5766bc44d11",
     "packages": [],
     "packages-dev": [
@@ -559,16 +559,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.6.7",
+            "version": "5.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "38810e97481723ef918f6e35c03cb1014a645bd5"
+                "reference": "336aff0ac52e306c98e7455bc3e8d7b0bf777a5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/38810e97481723ef918f6e35c03cb1014a645bd5",
-                "reference": "38810e97481723ef918f6e35c03cb1014a645bd5",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/336aff0ac52e306c98e7455bc3e8d7b0bf777a5e",
+                "reference": "336aff0ac52e306c98e7455bc3e8d7b0bf777a5e",
                 "shasum": ""
             },
             "require": {
@@ -587,7 +587,7 @@
                 "phpunit/phpunit-mock-objects": "^3.2",
                 "sebastian/comparator": "~1.2.2",
                 "sebastian/diff": "~1.2",
-                "sebastian/environment": "^1.3 || ^2.0",
+                "sebastian/environment": "^1.3.4 || ^2.0",
                 "sebastian/exporter": "~2.0",
                 "sebastian/global-state": "~1.0",
                 "sebastian/object-enumerator": "~2.0",
@@ -611,7 +611,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.6.x-dev"
+                    "dev-master": "5.7.x-dev"
                 }
             },
             "autoload": {
@@ -637,7 +637,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-11-28 16:04:24"
+            "time": "2016-12-03 08:33:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

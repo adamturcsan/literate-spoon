@@ -9,23 +9,25 @@ namespace LegoW\LiterateSpoon\Component\Literal;
 use LegoW\LiterateSpoon\Component\Literal;
 
 /**
- * Description of String
+ * Description of BooleanLiteral
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class StringLiteral extends Literal
+class BooleanLiteral extends Literal
 {
-
     protected $format;
-
+    
     public function getFormat()
     {
-        return $this->format;
+        return $this->format ? 'true' : 'false';
     }
-
+    
     public function __construct($value)
     {
-        $this->format = '"' . $value . '"';
+        if(!is_bool($value)) {
+            throw new \InvalidArgumentException('Only accepts bool value');
+        }
+        $this->format = $value;
         $possibleChildren = [];
         parent::__construct($possibleChildren);
     }

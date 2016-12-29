@@ -7,6 +7,9 @@
 namespace LegoW\LiterateSpoon\Component\Condition;
 
 use LegoW\LiterateSpoon\Component\Condition;
+use LegoW\LiterateSpoon\Component\Columns;
+use LegoW\LiterateSpoon\Component\Literal;
+
 /**
  * Description of SubWhere
  *
@@ -28,7 +31,7 @@ class Group extends Condition
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        $this->paramGlue = $operator;
+        $this->setOperator($operator);
     }
 
     public function setOperator($operator)

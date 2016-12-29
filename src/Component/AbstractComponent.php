@@ -25,7 +25,6 @@ abstract class AbstractComponent implements ComponentInterface
     protected $params = [];
     protected $possibleChildren;
     protected $possibleParams;
-    
     protected $paramGlue = ', ';
     protected $childGlue = ' ';
 
@@ -69,25 +68,25 @@ abstract class AbstractComponent implements ComponentInterface
         }
         return $this;
     }
-    
+
     public function hasChild($name)
     {
-        if(array_key_exists($name, $this->children)) {
+        if (array_key_exists($name, $this->children)) {
             return true;
         }
         return false;
     }
-    
+
     public function getChild($name)
     {
-        if($this->hasChild($name)) {
+        if ($this->hasChild($name)) {
             return $this->children[$name];
         }
     }
 
     public function setParam($name, ComponentInterface $value)
     {
-        if(array_key_exists($name, $this->params)) {
+        if (array_key_exists($name, $this->params)) {
             if (!$this->params[$name]->isMultiple()) {
                 $this->params[$name]->setValue($value);
                 return $this;
@@ -106,13 +105,16 @@ abstract class AbstractComponent implements ComponentInterface
             if (count($values)) {
                 $string = str_replace($param->getName(),
                         implode($this->paramGlue, $values), $string);
+            } elseif ($param->isOptional()) {
+                $string = str_replace($param->getName(), '', $string);
             }
         }
         $children = $this->getChildren();
         if (count($children)) {
-            $string .= $this->childGlue . implode($this->childGlue, $this->getChildren());
+            $string .= $this->childGlue . implode($this->childGlue,
+                            $this->getChildren());
         }
-        return $string;
+        return $this->beautifyEndString($string);
     }
 
     protected function initParams($format)
@@ -129,6 +131,19 @@ abstract class AbstractComponent implements ComponentInterface
             $this->params[$name] = new Param($param, $type, $isOptional,
                     $isMultiple);
         }
+    }
+    
+    /**
+     * @param string $string
+     * @return string
+     */
+    protected function beautifyEndString($string)
+    {
+        $endString = $string;
+        while(strpos($endString, '  ') !== FALSE) {
+            $endString = str_replace('  ', ' ', $endString);
+        }
+        return $endString;
     }
 
 }

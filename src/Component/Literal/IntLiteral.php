@@ -7,6 +7,7 @@
 namespace LegoW\LiterateSpoon\Component\Literal;
 
 use LegoW\LiterateSpoon\Component\Literal;
+
 /**
  * Description of IntLiteral
  *
@@ -14,17 +15,19 @@ use LegoW\LiterateSpoon\Component\Literal;
  */
 class IntLiteral extends Literal
 {
+
     protected $format;
-    
+
     public function getFormat()
     {
-        return (string)$this->format;
+        return (string) $this->format;
     }
-    
+
     public function __construct($value)
     {
-        $this->format = (int)$value;
+        $this->format = (int) $value;
         $possibleChildren = [];
         parent::__construct($possibleChildren);
     }
+
 }

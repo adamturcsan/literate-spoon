@@ -23,6 +23,9 @@ class Custom extends Columns
     
     public function __construct($value = null)
     {
+        if($value == null) {
+            $value = '';
+        }
         $this->setValue($value);
     }
     
