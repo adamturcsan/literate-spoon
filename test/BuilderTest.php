@@ -4,7 +4,7 @@
  * All rights reserved © 2016 Legow Hosting Kft.
  */
 
-namespace LegoW\LiterateSpoon;
+namespace LegoW\LiterateSpoon\Test;
 
 use PHPUnit\Framework\TestCase;
 use LegoW\LiterateSpoon\Builder;
@@ -16,6 +16,7 @@ use LegoW\LiterateSpoon\Component\Literal\StringLiteral;
 use LegoW\LiterateSpoon\Component\Literal\IntLiteral;
 use LegoW\LiterateSpoon\Component\Condition\Compare;
 use LegoW\LiterateSpoon\Component\Condition\Group;
+use LegoW\LiterateSpoon\Component;
 
 /**
  * Description of BuilderTest
@@ -124,34 +125,34 @@ class BuilderTest extends TestCase
 
         $this->assertEquals($expectedString, $builder->asString());
     }
-    
+
     public function testInsert()
     {
         $insert = new Component\Insert('test');
-        
+
         $insertColumns = new Component\InsertColumns(['test-column', 'test-column2', 'test-column3']);
         $insert->setParam('columns', $insertColumns);
         $insert->setParam('value', new StringLiteral('valami'));
         $insert->setParam('value', new IntLiteral(5));
         $insert->setParam('value', new Component\Literal\Placeholder(':test'));
-        
+
         $builder = new Builder([$insert]);
-        
+
         $expectedString = 'INSERT INTO test (`test-column`, `test-column2`, `test-column3`) VALUES ("valami", 5, :test);';
 
         $this->assertEquals($expectedString, $builder->asString());
     }
-    
+
     public function testOptionalInsert()
     {
         $insert = new Component\Insert('test');
-        
+
         $insert->setParam('value', new StringLiteral('valami'));
-        
+
         $builder = new Builder([$insert]);
-        
+
         $expectedString = 'INSERT INTO test VALUES ("valami");';
-        
+
         $this->assertEquals($expectedString, $builder->asString());
     }
 
