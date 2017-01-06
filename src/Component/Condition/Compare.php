@@ -17,9 +17,12 @@ use LegoW\LiterateSpoon\Component\Literal;
  */
 class Compare extends Condition
 {
+    const PARAM_NAME_COLUMN = 'column';
+    const PARAM_NAME_VALUE = 'value';
+    
     public function getFormat()
     {
-        return '(:column-columns '.$this->getOperator().' :value-literal)';
+        return '(:'.self::PARAM_NAME_COLUMN.'-columns '.$this->getOperator().' :'.self::PARAM_NAME_VALUE.'-literal)';
     }
     
     public function __construct($operator = '=', Columns $columns = null, Literal $value = null)

@@ -17,16 +17,16 @@ use LegoW\LiterateSpoon\Component\Literal;
  */
 class Group extends Condition
 {
+
     const OP_AND = ' AND ';
     const OP_OR = ' OR ';
-    
     const PARAM_NAME_CONDITIONS = 'conditions';
-    
+
     public function getFormat()
     {
-        return '(:conditions-condition+)';
+        return '(:' . self::PARAM_NAME_CONDITIONS . '-condition+)';
     }
-    
+
     public function __construct($operator = self::OP_AND)
     {
         $possibleChildren = [];
@@ -46,18 +46,19 @@ class Group extends Condition
         }
         throw new \InvalidArgumentException('Not valid operator has been given');
     }
-    
+
     public function addCondition(Condition $condition)
     {
         $this->params[self::PARAM_NAME_CONDITIONS]->addValue($condition);
         return $this;
     }
-    
+
     public function compare($operator, Columns $column, Literal $value)
     {
         $compare = new Condition\Compare($operator);
-        $compare->setParam('column', $column);
-        $compare->setParam('value', $value);
+        $compare->setParam(Compare::PARAM_NAME_COLUMN, $column);
+        $compare->setParam(Compare::PARAM_NAME_VALUE, $value);
         $this->params[self::PARAM_NAME_CONDITIONS]->addValue($compare);
     }
+
 }

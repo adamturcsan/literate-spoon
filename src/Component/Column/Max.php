@@ -16,9 +16,11 @@ use LegoW\LiterateSpoon\Component\Columns;
 class Max extends Columns
 {
 
+    const PARAM_NAME_COLUMNS = 'column';
+    
     public function getFormat()
     {
-        return "MAX(:column-columns)";
+        return "MAX(:".self::PARAM_NAME_COLUMNS."-columns)";
     }
 
     public function __construct(array $columns = null)
@@ -29,7 +31,7 @@ class Max extends Columns
         parent::__construct();
         if ($columns !== null) {
             $columnsComponent = new Columns($columns);
-            $this->setParam('column', $columnsComponent);
+            $this->setParam(self::PARAM_NAME_COLUMNS, $columnsComponent);
         }
     }
 

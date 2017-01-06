@@ -7,6 +7,7 @@
 namespace LegoW\LiterateSpoon\Component;
 
 use LegoW\LiterateSpoon\Component\TableName;
+
 /**
  * Description of Insert
  *
@@ -14,8 +15,15 @@ use LegoW\LiterateSpoon\Component\TableName;
  */
 class Insert extends AbstractComponent
 {
-    protected $format = 'INSERT INTO :table-table_name [:columns-insert_columns] VALUES (:value-literal+)';
-    
+
+    const PARAM_NAME_TABLE = 'table';
+    const PARAM_NAME_COLUMNS = 'columns';
+    const PARAM_NAME_VALUES = 'value';
+
+    protected $format = 'INSERT INTO :' . self::PARAM_NAME_TABLE . '-table_name '
+            . '[:' . self::PARAM_NAME_COLUMNS . '-insert_columns]'
+            . ' VALUES (:' . self::PARAM_NAME_VALUES . '-literal+)';
+
     /**
      * 
      * @param string $tableName
@@ -24,16 +32,16 @@ class Insert extends AbstractComponent
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        if($tableName != null) {
+        if ($tableName != null) {
             $this->setTableName($tableName);
         }
     }
-    
+
     public function getFormat()
     {
         return $this->format;
     }
-    
+
     /**
      * 
      * @param string $tableName
@@ -41,6 +49,7 @@ class Insert extends AbstractComponent
     public function setTableName($tableName)
     {
         $tableName = new TableName($tableName);
-        $this->setParam('table', $tableName);
+        $this->setParam(self::PARAM_NAME_TABLE, $tableName);
     }
+
 }

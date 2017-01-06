@@ -13,10 +13,13 @@ namespace LegoW\LiterateSpoon\Component;
  */
 class Select extends AbstractComponent
 {
+    const PARAM_NAME_COLUMNS = 'columns';
+    const PARAM_NAME_TABLE = 'table';
+    
     
     public function getFormat()
     {
-        return 'SELECT :columns-columns FROM :table-table_name';
+        return 'SELECT :'.self::PARAM_NAME_COLUMNS.'-columns FROM :'.self::PARAM_NAME_TABLE.'-table_name';
     }
 
     public function __construct($tableName = null, array $columns = null)
@@ -36,14 +39,14 @@ class Select extends AbstractComponent
     public function setTableName($name)
     {
         $tableName = new TableName($name);
-        $this->setParam('table', $tableName);
+        $this->setParam(self::PARAM_NAME_TABLE, $tableName);
         return $this;
     }
     
     public function setColumns(array $columns)
     {
         $columnsComponent = new Columns($columns);
-        $this->setParam('columns', $columnsComponent);
+        $this->setParam(self::PARAM_NAME_COLUMNS, $columnsComponent);
         return $this;
     }
     
@@ -57,6 +60,6 @@ class Select extends AbstractComponent
     protected function setDefaultColumns()
     {
         $columns = new Columns();
-        $this->setParam('columns', $columns);
+        $this->setParam(self::PARAM_NAME_COLUMNS, $columns);
     }
 }
