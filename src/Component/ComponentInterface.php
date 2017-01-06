@@ -15,44 +15,39 @@ use LegoW\LiterateSpoon\Param;
  */
 interface ComponentInterface
 {
-    /**
-     * @return bool
-     */
-    public function isMultiple();
-    
+
     /**
      * Format string gives the actual query string format with named parameters
      * 
      * @return string
      */
     public function getFormat();
-    
+
     /**
      * @return Param[]
      */
     public function getParams();
-    
+
     /**
      * @param string $name
      * @param ComponentInterface $value
      */
     public function setParam($name, ComponentInterface $value);
-    
+
     /**
      * @return \Traversable
      */
     public function getChildren();
-    
+
     /**
      * 
      * @param string $name
      * @param ComponentInterface $component
      */
     public function setChild($name, ComponentInterface $component);
-    
+
     /**
      * @return string
      */
     public function __toString();
-    
 }

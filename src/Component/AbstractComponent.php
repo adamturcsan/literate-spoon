@@ -15,8 +15,6 @@ use LegoW\LiterateSpoon\Param;
  */
 abstract class AbstractComponent implements ComponentInterface
 {
-
-    protected $multiple;
     protected $children = [];
 
     /**
@@ -48,14 +46,6 @@ abstract class AbstractComponent implements ComponentInterface
     public function getParams()
     {
         return $this->params;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isMultiple()
-    {
-        return $this->multiple;
     }
 
     /**
