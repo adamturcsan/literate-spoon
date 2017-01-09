@@ -25,28 +25,30 @@ use LegoW\LiterateSpoon\Component\Literal\Placeholder;
  */
 class SelectTest extends TestCase
 {
+
     public function testDefaultConstructor()
     {
         $select = new Select();
-        $this->assertSame('SELECT * FROM :'.Select::PARAM_NAME_TABLE.'-table_name', (string)$select);
+        $this->assertSame('SELECT * FROM :' . Select::PARAM_NAME_TABLE . '-table_name',
+                (string) $select);
     }
-    
+
     public function testSetTable()
     {
         $select = new Select();
         $select->setTableName('test');
-        $this->assertSame('SELECT * FROM test', (string)$select);
+        $this->assertSame('SELECT * FROM test', (string) $select);
     }
-    
+
     /**
      * @depends testSetTable
      */
     public function testTableNameConstructor()
     {
         $select = new Select('test');
-        $this->assertSame('SELECT * FROM test', (string)$select);
+        $this->assertSame('SELECT * FROM test', (string) $select);
     }
-    
+
     /**
      * @depends testTableNameConstructor
      */
@@ -54,26 +56,62 @@ class SelectTest extends TestCase
     {
         $select = new Select('test');
         $select->setColumns(['test', 'test2']);
-        $this->assertSame('SELECT `test`, `test2` FROM test', (string)$select);
+        $this->assertSame('SELECT `test`, `test2` FROM test', (string) $select);
     }
-    
+
     /**
      * @depends testSetColumns
      */
     public function testTableAndColumnsConstructor()
     {
-        $select = new Select('test', ['test','test2']);
-        $this->assertSame('SELECT `test`, `test2` FROM test', (string)$select);
+        $select = new Select('test', ['test', 'test2']);
+        $this->assertSame('SELECT `test`, `test2` FROM test', (string) $select);
     }
-    
+
     /**
      * @depends testTableAndColumnsConstructor
      */
     public function testWhere()
     {
         $select = new Select('test', ['test', 'test2']);
-        $select->where(new Compare('=', new Columns(['test']), new Placeholder('test')));
-        
-        $this->assertSame('SELECT `test`, `test2` FROM test WHERE (`test` = :test)', (string)$select);
+        $select->where(new Compare('=', new Columns(['test']),
+                new Placeholder('test')));
+
+        $this->assertSame('SELECT `test`, `test2` FROM test WHERE (`test` = :test)',
+                (string) $select);
     }
+
+    /*
+     * Testing abstract methods
+     */
+
+    public function testSetChild()
+    {
+        $select = new Select();
+        $mockComponent = $this->createMock(\LegoW\LiterateSpoon\Component\ComponentInterface::class);
+
+        $select->setChild('WHERE', $mockComponent);
+        $this->assertAttributeContains($mockComponent, 'children', $select);
+    }
+
+    public function testGetNullChild()
+    {
+        $select = new Select();
+
+        $this->assertNull($select->getChild('NonExistant'));
+    }
+
+    /**
+     * @depends testSetChild
+     */
+    public function testGetChild()
+    {
+        $select = new Select();
+        $mockComponent = $this->createMock(\LegoW\LiterateSpoon\Component\ComponentInterface::class);
+
+        $select->setChild('WHERE', $mockComponent);
+        $this->assertSame($mockComponent, $select->getChild('WHERE'));
+    }
+
+    //@todo Test setParam and getParams
 }

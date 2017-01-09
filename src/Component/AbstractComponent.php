@@ -72,6 +72,7 @@ abstract class AbstractComponent implements ComponentInterface
         if ($this->hasChild($name)) {
             return $this->children[$name];
         }
+        return null;
     }
 
     public function setParam($name, ComponentInterface $value)
@@ -107,7 +108,7 @@ abstract class AbstractComponent implements ComponentInterface
         return $this->beautifyEndString($string);
     }
 
-    protected function initParams($format)
+    private function initParams($format)
     {
         $matches = null;
         preg_match_all('/(?<optional1>\[)?:(?<name>[a-zA-Z][a-zA-Z0-9_]*)-(?<type>[a-zA-Z_]+)(?<optional2>\])?(?<isMultiple>\+)?/',
@@ -127,7 +128,7 @@ abstract class AbstractComponent implements ComponentInterface
      * @param string $string
      * @return string
      */
-    protected function beautifyEndString($string)
+    private function beautifyEndString($string)
     {
         $endString = $string;
         while(strpos($endString, '  ') !== FALSE) {
