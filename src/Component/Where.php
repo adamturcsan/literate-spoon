@@ -28,7 +28,7 @@ class Where extends AbstractComponent
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        $this->paramGlue = $operator;
+        $this->setOperator($operator);
     }
 
     public function setOperator($operator)
@@ -55,7 +55,7 @@ class Where extends AbstractComponent
         $compare = new Condition\Compare($operator);
         $compare->setParam('column', $column);
         $compare->setParam('value', $value);
-        $this->params[self::PARAM_NAME_CONDITIONS]->addValue($compare);
+        $this->addCondition($compare);
     }
 
 }

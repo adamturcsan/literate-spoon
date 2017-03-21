@@ -13,7 +13,9 @@ namespace LegoW\LiterateSpoon\Component;
  */
 class InsertColumns extends AbstractComponent
 {
-    protected $format = '(:columns-columns)';
+    const PARAM_NAME_COLUMNS = 'columns';
+    
+    protected $format = '(:'.self::PARAM_NAME_COLUMNS.'-columns)';
     
     /**
      * {@inheritDoc}
@@ -37,6 +39,6 @@ class InsertColumns extends AbstractComponent
      */
     public function setColumns(array $columns)
     {
-        $this->setParam('columns', new Columns($columns));
+        $this->setParam(self::PARAM_NAME_COLUMNS, new Columns($columns));
     }
 }

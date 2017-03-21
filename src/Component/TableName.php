@@ -13,13 +13,14 @@ namespace LegoW\LiterateSpoon\Component;
  */
 class TableName extends AbstractComponent
 {
+
     protected $format = '';
-    
+
     public function getFormat()
     {
         return $this->format;
     }
-    
+
     /**
      * 
      * @param string $name
@@ -28,6 +29,10 @@ class TableName extends AbstractComponent
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
+        if (!is_string($name)) {
+            throw new \InvalidArgumentException('TableName\'s name must be a string');
+        }
         $this->format = $name;
     }
+
 }
