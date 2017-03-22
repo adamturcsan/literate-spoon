@@ -33,16 +33,26 @@ class OrderBy extends AbstractComponent
         return 'ORDER BY :' . self::PARAM_NAME_COLUMN_ORDER . '-order_column+';
     }
 
+    /**
+     * @param \LegoW\LiterateSpoon\Component\OrderColumn $order
+     * @return $this
+     */
     public function addOrderColumn(OrderColumn $order)
     {
         $this->setParam(self::PARAM_NAME_COLUMN_ORDER, $order);
         return $this;
     }
     
+    /**
+     * @param string $name
+     * @param string $direction
+     * @return $this
+     */
     public function setOrder($name, $direction)
     {
         $orderColumn = new OrderColumn($name, $direction);
         $this->addOrderColumn($orderColumn);
+        return $this;
     }
 
 }

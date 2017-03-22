@@ -17,7 +17,10 @@ class Max extends Columns
 {
 
     const PARAM_NAME_COLUMNS = 'column';
-    
+
+    /**
+     * @return string
+     */
     public function getFormat()
     {
         return "MAX(:".self::PARAM_NAME_COLUMNS."-columns)";

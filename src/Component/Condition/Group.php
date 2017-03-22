@@ -34,6 +34,11 @@ class Group extends Condition
         $this->setOperator($operator);
     }
 
+    /**
+     * @param string $operator
+     * @return $this
+     * @throws \InvalidArgumentException
+     */
     public function setOperator($operator)
     {
         $reflection = new \ReflectionClass($this);
@@ -41,24 +46,35 @@ class Group extends Condition
         foreach ($constants as $name => $value) {
             if (substr($name, 0, 3) === 'OP_' && $value === $operator) {
                 $this->paramGlue = $operator;
-                return;
+                return $this;
             }
         }
         throw new \InvalidArgumentException('Not valid operator has been given');
     }
 
+    /**
+     * @param Condition $condition
+     * @return $this
+     */
     public function addCondition(Condition $condition)
     {
         $this->params[self::PARAM_NAME_CONDITIONS]->addValue($condition);
         return $this;
     }
 
+    /**
+     * @param string $operator
+     * @param Columns $column
+     * @param Literal $value
+     * @return $this
+     */
     public function compare($operator, Columns $column, Literal $value)
     {
         $compare = new Condition\Compare($operator);
         $compare->setParam(Compare::PARAM_NAME_COLUMN, $column);
         $compare->setParam(Compare::PARAM_NAME_VALUE, $value);
         $this->params[self::PARAM_NAME_CONDITIONS]->addValue($compare);
+        return $this;
     }
 
 }

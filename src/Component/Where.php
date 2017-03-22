@@ -50,18 +50,29 @@ class Where extends AbstractComponent
         throw new \InvalidArgumentException('Not valid operator has been given');
     }
     
+    /**
+     * @param \LegoW\LiterateSpoon\Component\Condition $condition
+     * @return $this
+     */
     public function addCondition(Condition $condition)
     {
         $this->params[self::PARAM_NAME_CONDITIONS]->addValue($condition);
         return $this;
     }
     
+    /**
+     * @param type $operator
+     * @param \LegoW\LiterateSpoon\Component\Columns $column
+     * @param \LegoW\LiterateSpoon\Component\Literal $value
+     * @return $this
+     */
     public function compare($operator, Columns $column, Literal $value)
     {
         $compare = new Condition\Compare($operator);
         $compare->setParam('column', $column);
         $compare->setParam('value', $value);
         $this->addCondition($compare);
+        return $this;
     }
 
 }

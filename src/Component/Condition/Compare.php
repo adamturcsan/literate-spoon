@@ -20,6 +20,9 @@ class Compare extends Condition
     const PARAM_NAME_COLUMN = 'column';
     const PARAM_NAME_VALUE = 'value';
     
+    /**
+     * @return string
+     */
     public function getFormat()
     {
         return '(:'.self::PARAM_NAME_COLUMN.'-columns '.$this->getOperator().' :'.self::PARAM_NAME_VALUE.'-literal)';
@@ -38,11 +41,18 @@ class Compare extends Condition
         }
     }
     
+    /**
+     * @return string
+     */
     public function getOperator()
     {
         return $this->paramGlue;
     }
 
+    /**
+     * @param string $operator
+     * @return $this
+     */
     public function setOperator($operator)
     {
         $this->paramGlue = $operator;

@@ -60,7 +60,8 @@ class OrderByTest extends TestCase
     public function testSetOrder()
     {
         $orderBy = new OrderBy();
-        $orderBy->setOrder('test', Direction::DESC);
+        $soOrderBy = $orderBy->setOrder('test', Direction::DESC);
         $this->assertSame('ORDER BY `test` DESC', (string)$orderBy);
+        $this->assertSame($orderBy, $soOrderBy, 'Test if it returns itself');
     }
 }

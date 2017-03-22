@@ -14,6 +14,9 @@ namespace LegoW\LiterateSpoon\Component;
 class Replace extends Insert
 {
 
+    /**
+     * @return string
+     */
     public function getFormat()
     {
         $format = parent::getFormat();

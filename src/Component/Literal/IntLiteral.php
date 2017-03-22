@@ -18,6 +18,9 @@ class IntLiteral extends Literal
 
     protected $format;
 
+    /**
+     * @return string
+     */
     public function getFormat()
     {
         return (string) $this->format;

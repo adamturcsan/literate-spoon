@@ -35,9 +35,10 @@ class InsertTest extends TestCase
     public function testSetTableName()
     {
         $insert = new Insert();
-        $insert->setTableName('test');
+        $stnInsert = $insert->setTableName('test');
         $this->assertSame('INSERT INTO test VALUES (:' . Insert::PARAM_NAME_VALUES . '-literal+)',
                 (string) $insert);
+        $this->assertSame($insert, $stnInsert, 'Test if it returns itself');
     }
 
     /**
@@ -55,12 +56,44 @@ class InsertTest extends TestCase
         $insert = new Insert('test');
         $insert->setParam(Insert::PARAM_NAME_COLUMNS,
                 new InsertColumns(['test', 'test2']));
-        $this->assertSame('INSERT INTO test (`test`, `test2`) VALUES (:' . Insert::PARAM_NAME_VALUES . '-literal+)',(string)$insert);
+        $this->assertSame('INSERT INTO test (`test`, `test2`) VALUES (:' . Insert::PARAM_NAME_VALUES . '-literal+)',
+                (string) $insert);
     }
 
     public function testValuesParameter()
     {
         $insert = new Insert('test');
         $insert->setParam(Insert::PARAM_NAME_VALUES, new Placeholder('value'));
+        $this->assertSame('INSERT INTO test VALUES (:value)', (string) $insert);
     }
+
+    public function testAddColumn()
+    {
+        $insert = new Insert('test');
+        $acInsert = $insert->addColumn('test');
+        $this->assertSame('INSERT INTO test (`test`) VALUES (:' . Insert::PARAM_NAME_VALUES . '-literal+)',
+                (string) $insert);
+
+        $this->assertSame($insert, $acInsert, 'Test if it returns itself');
+    }
+
+    public function testColumns()
+    {
+        $insert = new Insert('test');
+        $acInsert = $insert->addColumns(['test1', 'test2']);
+        $this->assertSame('INSERT INTO test (`test1`, `test2`) VALUES (:' . Insert::PARAM_NAME_VALUES . '-literal+)',
+                (string) $insert);
+
+        $this->assertSame($insert, $acInsert, 'Test if it returns itself');
+    }
+
+    public function testAddValuePlaceHolderFor()
+    {
+        $insert = new Insert('test');
+        $aphInsert = $insert->addValuePlaceHolderFor('value');
+        $this->assertSame('INSERT INTO test VALUES (:value)', (string) $insert);
+
+        $this->assertSame($insert, $aphInsert, 'Test if it returns itself');
+    }
+
 }

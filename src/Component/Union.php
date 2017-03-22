@@ -16,6 +16,9 @@ class Union extends AbstractComponent
 
     const PARAM_NAME_SELECT = 'select';
 
+    /**
+     * @return string
+     */
     public function getFormat()
     {
         return ':' . self::PARAM_NAME_SELECT . '-select+';
@@ -28,6 +31,10 @@ class Union extends AbstractComponent
         $this->paramGlue = ' UNION ';
     }
 
+    /**
+     * @param \LegoW\LiterateSpoon\Component\Select $select
+     * @return $this
+     */
     public function addSelect(Select $select)
     {
         $this->setParam(self::PARAM_NAME_SELECT, $select);
