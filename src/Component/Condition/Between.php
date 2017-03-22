@@ -12,7 +12,7 @@
 
 namespace LegoW\LiterateSpoon\Component\Condition;
 
-use LegoW\LiterateSpoon\Component\AbstractComponent;
+use LegoW\LiterateSpoon\Component\Condition;
 use LegoW\LiterateSpoon\Component\Column;
 use LegoW\LiterateSpoon\Component\Literal;
 
@@ -21,14 +21,14 @@ use LegoW\LiterateSpoon\Component\Literal;
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Between extends AbstractComponent
+class Between extends Condition
 {
 
     const PARAM_NAME_COLUMN = 'column';
     const PARAM_NAME_FIRST = 'first';
     const PARAM_NAME_SECOND = 'second';
 
-    protected $format = 'BETWEEN :' . self::PARAM_NAME_COLUMN . '-column :' . self::PARAM_NAME_FIRST . '-literal AND :' . self::PARAM_NAME_SECOND . '-literal';
+    protected $format = '(:' . self::PARAM_NAME_COLUMN . '-column BETWEEN :' . self::PARAM_NAME_FIRST . '-literal AND :' . self::PARAM_NAME_SECOND . '-literal)';
 
     /**
      * @return string

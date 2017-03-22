@@ -97,4 +97,23 @@ class WhereTest extends TestCase
         $this->assertSame('WHERE (`test1` = :testParam)', (string)$where);
         $this->assertSame($where, $whereCmp);
     }
+    
+    public function testBetween()
+    {
+        $where = new Where();
+        $whereB = $where->betweenColumn('test', 'first', 'second');
+        
+        $this->assertSame('WHERE (`test` BETWEEN :first AND :second)', (string)$where);
+        $this->assertSame($where, $whereB);
+    }
+    
+    public function testComplexCompareAndBetween()
+    {
+        $where = new Where();
+        $whereB = $where->compareColumn('>', 'test1', ':param1')
+                ->betweenColumn('test2', ':param2', ':param3');
+        
+        $this->assertSame('WHERE (`test1` > :param1) AND (`test2` BETWEEN :param2 AND :param3)', (string)$where);
+        $this->assertSame($where, $whereB);
+    }
 }

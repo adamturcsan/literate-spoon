@@ -81,5 +81,15 @@ class Where extends AbstractComponent
         $param = new Literal\Placeholder($paramName);
         return $this->compare($operator, $columns, $param);
     }
+    
+    public function betweenColumn($columnName, $firstParamName, $secondParamName)
+    {
+        $between = new Condition\Between();
+        $between->setColumnName($columnName)
+                ->setFirstParam($firstParamName)
+                ->setSecondParam($secondParamName);
+        $this->addCondition($between);
+        return $this;
+    }
 
 }
