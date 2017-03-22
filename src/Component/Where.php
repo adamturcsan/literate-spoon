@@ -74,5 +74,12 @@ class Where extends AbstractComponent
         $this->addCondition($compare);
         return $this;
     }
+    
+    public function compareColumn($operator, $columnName, $paramName)
+    {
+        $columns = new Columns([$columnName]);
+        $param = new Literal\Placeholder($paramName);
+        return $this->compare($operator, $columns, $param);
+    }
 
 }

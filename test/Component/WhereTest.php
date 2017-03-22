@@ -88,4 +88,13 @@ class WhereTest extends TestCase
         
         $this->assertSame($where, $whereCmp);
     }
+    
+    public function testCompareColumn()
+    {
+        $where = new Where();
+        $whereCmp = $where->compareColumn('=', 'test1', ':testParam');
+        
+        $this->assertSame('WHERE (`test1` = :testParam)', (string)$where);
+        $this->assertSame($where, $whereCmp);
+    }
 }
