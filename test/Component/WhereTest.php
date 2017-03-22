@@ -39,6 +39,14 @@ class WhereTest extends TestCase
         $this->assertAttributeSame(Where::OP_OR, 'paramGlue', $where);
     }
     
+    public function testSetOperatorMethodChaining()
+    {
+        $where = new Where();
+        $newWhere = $where->setOperator(Where::OP_OR);
+        $this->assertSame($where, $newWhere);
+        $this->assertAttributeSame(Where::OP_OR, 'paramGlue', $where);
+    }
+    
     /**
      * @depends testSetOperator
      */
