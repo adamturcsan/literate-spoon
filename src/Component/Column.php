@@ -13,11 +13,11 @@
 namespace LegoW\LiterateSpoon\Component;
 
 /**
- * Description of Columns
+ * Description of Column
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Columns extends AbstractComponent
+class Column extends Columns
 {
     protected $format = '*';
     
@@ -29,29 +29,23 @@ class Columns extends AbstractComponent
         return $this->format;
     }
     
-    public function __construct(array $columns = null)
+    public function __construct($name = null)
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        if($columns != null) {
-            $this->setColumns($columns);
+        if($name !== null) {
+            $this->setName($name);
         }
     }
     
     /**
-     * @param array $columns
+     * @param string $name
+     * @return $this
      */
-    public function setColumns(array $columns)
+    public function setName($name)
     {
-        $columnsWithBackTick = [];
-        foreach($columns as $column) {
-            if($column instanceof Column) {
-                $columnsWithBackTick[] = (string)$column;
-            } else {
-                $columnsWithBackTick[] = '`'.$column.'`';
-            }
-        }
-        $this->format = implode(', ', $columnsWithBackTick);
+        $this->format = '`'.$name.'`';
         return $this;
     }
+
 }

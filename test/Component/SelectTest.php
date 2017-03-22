@@ -131,6 +131,27 @@ class SelectTest extends TestCase
         $select->orderBy()->setOrder('test1', Direction::DESC);
         $this->assertSame('SELECT `test1`, `test2` FROM test ORDER BY `test1` DESC', (string)$select);
     }
+    
+    public function testOrderByColumn()
+    {
+        $select = new Select('test', ['test1']);
+        $orderColumn = new \LegoW\LiterateSpoon\Component\OrderColumn('test1', Direction::DESC);
+        $order = $select->orderBy($orderColumn);
+        $this->assertSame('SELECT `test1` FROM test ORDER BY `test1` DESC', (string)$select);
+        $this->assertInstanceOf(\LegoW\LiterateSpoon\Component\OrderBy::class, $order);
+    }
 
-    //@todo Test setParam and getParams
+    public function testLimit()
+    {
+        $select = new Select('test', ['test1', 'test2']);
+        $select->limit(3,6);
+    }
+    
+    public function testGetParams()
+    {
+        $component = new Select();
+        $params = $component->getParams();
+        $this->assertCount(2, $params);
+        $this->assertContainsOnly(\LegoW\LiterateSpoon\Param::class, $params);
+    }
 }
