@@ -36,6 +36,10 @@ class Select extends AbstractComponent
         }
     }
     
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function setTableName($name)
     {
         $tableName = new TableName($name);
@@ -43,6 +47,10 @@ class Select extends AbstractComponent
         return $this;
     }
     
+    /**
+     * @param string[] $columns
+     * @return $this
+     */
     public function setColumns(array $columns)
     {
         $columnsComponent = new Columns($columns);

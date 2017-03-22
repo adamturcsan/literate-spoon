@@ -25,6 +25,9 @@ class OrderColumn extends AbstractComponent
     const PARAM_NAME_COLUMN = 'column';
     const PARAM_NAME_DIRECTION = 'direction';
 
+    /**
+     * @return string
+     */
     public function getFormat()
     {
         return ':' . self::PARAM_NAME_COLUMN . '-columns :' . self::PARAM_NAME_DIRECTION . '-direction';

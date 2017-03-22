@@ -37,6 +37,9 @@ class Insert extends AbstractComponent
         }
     }
 
+    /**
+     * @return string
+     */
     public function getFormat()
     {
         return $this->format;
@@ -50,6 +53,7 @@ class Insert extends AbstractComponent
     {
         $tableName = new TableName($tableName);
         $this->setParam(self::PARAM_NAME_TABLE, $tableName);
+        return $this;
     }
 
 }

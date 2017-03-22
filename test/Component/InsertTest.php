@@ -35,9 +35,10 @@ class InsertTest extends TestCase
     public function testSetTableName()
     {
         $insert = new Insert();
-        $insert->setTableName('test');
+        $stnInsert = $insert->setTableName('test');
         $this->assertSame('INSERT INTO test VALUES (:' . Insert::PARAM_NAME_VALUES . '-literal+)',
                 (string) $insert);
+        $this->assertSame($insert, $stnInsert, 'Test if it returns itself');
     }
 
     /**
