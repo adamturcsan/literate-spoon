@@ -50,16 +50,37 @@ class Select extends AbstractComponent
         return $this;
     }
     
+    /**
+     * 
+     * @param \LegoW\LiterateSpoon\Component\Condition $condition
+     * @param string $operator
+     * @return Where
+     */
     public function where(Condition $condition, $operator = Where::OP_AND)
     {
         $where = $this->hasChild('WHERE') ? $this->getChild('WHERE') : new Where($operator);
         $where->addCondition($condition);
         $this->setChild('WHERE', $where);
+        return $where;
     }
     
     protected function setDefaultColumns()
     {
         $columns = new Columns();
         $this->setParam(self::PARAM_NAME_COLUMNS, $columns);
+    }
+    
+    /**
+     * @param \LegoW\LiterateSpoon\Component\OrderColumn $orderColumn
+     * @return \LegoW\LiterateSpoon\Component\OrderBy
+     */
+    public function orderBy(OrderColumn $orderColumn = null)
+    {
+        $order = new OrderBy();
+        if($orderColumn !== null) {
+            $order->addOrderColumn($orderColumn);
+        }
+        $this->setChild('ORDERBY', $order);
+        return $order;
     }
 }
