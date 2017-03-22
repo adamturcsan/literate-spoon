@@ -23,11 +23,16 @@ use LegoW\LiterateSpoon\Component\Literal\Placeholder;
  */
 class BetweenTest extends TestCase
 {
+    public function testShouldBeACondition()
+    {
+        $between = new Between();
+        $this->assertInstanceOf(\LegoW\LiterateSpoon\Component\Condition::class, $between);
+    }
 
     public function testDefaultConstructor()
     {
         $between = new Between();
-        $this->assertSame('BETWEEN :' . Between::PARAM_NAME_COLUMN . '-column :' . Between::PARAM_NAME_FIRST . '-literal AND :' . Between::PARAM_NAME_SECOND . '-literal',
+        $this->assertSame('(:' . Between::PARAM_NAME_COLUMN . '-column BETWEEN :' . Between::PARAM_NAME_FIRST . '-literal AND :' . Between::PARAM_NAME_SECOND . '-literal)',
                 (string) $between);
     }
 
@@ -37,7 +42,7 @@ class BetweenTest extends TestCase
         $column = new \LegoW\LiterateSpoon\Component\Column('test1');
 
         $scBetween = $between->setColumn($column);
-        $this->assertSame('BETWEEN `test1` :' . Between::PARAM_NAME_FIRST . '-literal AND :' . Between::PARAM_NAME_SECOND . '-literal',
+        $this->assertSame('(`test1` BETWEEN :' . Between::PARAM_NAME_FIRST . '-literal AND :' . Between::PARAM_NAME_SECOND . '-literal)',
                 (string) $between);
         $this->assertSame($between, $scBetween);
     }
@@ -47,7 +52,7 @@ class BetweenTest extends TestCase
         $between = new Between();
 
         $scBetween = $between->setColumnName('test1');
-        $this->assertSame('BETWEEN `test1` :' . Between::PARAM_NAME_FIRST . '-literal AND :' . Between::PARAM_NAME_SECOND . '-literal',
+        $this->assertSame('(`test1` BETWEEN :' . Between::PARAM_NAME_FIRST . '-literal AND :' . Between::PARAM_NAME_SECOND . '-literal)',
                 (string) $between);
         $this->assertSame($between, $scBetween);
     }
@@ -57,7 +62,7 @@ class BetweenTest extends TestCase
         $between = new Between();
 
         $spBetween = $between->setFirst(new Placeholder('param1'));
-        $this->assertSame('BETWEEN :' . Between::PARAM_NAME_COLUMN . '-column :param1 AND :' . Between::PARAM_NAME_SECOND . '-literal',
+        $this->assertSame('(:' . Between::PARAM_NAME_COLUMN . '-column BETWEEN :param1 AND :' . Between::PARAM_NAME_SECOND . '-literal)',
                 (string) $between);
         $this->assertSame($between, $spBetween);
     }
@@ -67,7 +72,7 @@ class BetweenTest extends TestCase
         $between = new Between();
 
         $spBetween = $between->setSecond(new Placeholder('param2'));
-        $this->assertSame('BETWEEN :' . Between::PARAM_NAME_COLUMN . '-column :' . Between::PARAM_NAME_FIRST . '-literal AND :param2',
+        $this->assertSame('(:' . Between::PARAM_NAME_COLUMN . '-column BETWEEN :' . Between::PARAM_NAME_FIRST . '-literal AND :param2)',
                 (string) $between);
         $this->assertSame($between, $spBetween);
     }
@@ -77,7 +82,7 @@ class BetweenTest extends TestCase
         $between = new Between();
 
         $spBetween = $between->setFirstParam('param1');
-        $this->assertSame('BETWEEN :' . Between::PARAM_NAME_COLUMN . '-column :param1 AND :' . Between::PARAM_NAME_SECOND . '-literal',
+        $this->assertSame('(:' . Between::PARAM_NAME_COLUMN . '-column BETWEEN :param1 AND :' . Between::PARAM_NAME_SECOND . '-literal)',
                 (string) $between);
         $this->assertSame($between, $spBetween);
     }
@@ -87,7 +92,7 @@ class BetweenTest extends TestCase
         $between = new Between();
 
         $spBetween = $between->setSecondParam('param2');
-        $this->assertSame('BETWEEN :' . Between::PARAM_NAME_COLUMN . '-column :' . Between::PARAM_NAME_FIRST . '-literal AND :param2',
+        $this->assertSame('(:' . Between::PARAM_NAME_COLUMN . '-column BETWEEN :' . Between::PARAM_NAME_FIRST . '-literal AND :param2)',
                 (string) $between);
         $this->assertSame($between, $spBetween);
     }
