@@ -64,11 +64,13 @@ class Builder
     
     /**
      * @param ComponentInterface $component
+     * @returns $this
      */
     public function addComponent(ComponentInterface $component)
     {
         $this->isStringOutdated = true;
         $this->components[] = $component;
+        return $this;
     }
 
 }

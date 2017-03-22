@@ -64,11 +64,13 @@ class Select extends AbstractComponent
      * @param string $operator
      * @return Where
      */
-    public function where(Condition $condition, $operator = Where::OP_AND)
+    public function where(Condition $condition = null, $operator = Where::OP_AND)
     {
         $where = $this->hasChild('WHERE') ? $this->getChild('WHERE') : new Where($operator);
-        $where->addCondition($condition);
-        $this->setChild('WHERE', $where);
+        if($condition !== null) {
+            $where->addCondition($condition);
+            $this->setChild('WHERE', $where);
+        }
         return $where;
     }
     

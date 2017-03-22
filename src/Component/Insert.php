@@ -7,6 +7,7 @@
 namespace LegoW\LiterateSpoon\Component;
 
 use LegoW\LiterateSpoon\Component\TableName;
+use LegoW\LiterateSpoon\Component\Literal\Placeholder;
 
 /**
  * Description of Insert
@@ -53,6 +54,38 @@ class Insert extends AbstractComponent
     {
         $tableName = new TableName($tableName);
         $this->setParam(self::PARAM_NAME_TABLE, $tableName);
+        return $this;
+    }
+    
+    /**
+     * Add one column to the insert statement
+     * @param string $columnName
+     * @return $this
+     */
+    public function addColumn($columnName)
+    {
+        $columns = new InsertColumns([$columnName]);
+        $this->setParam(self::PARAM_NAME_COLUMNS, $columns);
+        return $this;
+    }
+    
+    public function addColumns(array $columns)
+    {
+        $columnsObj = new InsertColumns($columns);
+        $this->setParam(self::PARAM_NAME_COLUMNS, $columnsObj);
+        return $this;
+    }
+    
+    /**
+     * Add <b>:placeHolderName</b> style placeholder helping further
+     * value bindig mechanisms
+     * @param string $name
+     * @return $this
+     */
+    public function addValuePlaceHolderFor($name)
+    {
+        $placeHolder = new Placeholder($name);
+        $this->setParam(self::PARAM_NAME_VALUES, $placeHolder);
         return $this;
     }
 

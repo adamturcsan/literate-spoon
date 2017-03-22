@@ -15,7 +15,10 @@ use LegoW\LiterateSpoon\Component\Columns;
 class Custom extends Columns
 {
     protected $format;
-    
+
+    /**
+     * @return string
+     */
     public function getFormat()
     {
         return $this->format;
@@ -29,8 +32,13 @@ class Custom extends Columns
         $this->setValue($value);
     }
     
+    /**
+     * @param string $value
+     * @returns $this
+     */
     public function setValue($value)
     {
         $this->format = $value;
+        return $this;
     }
 }

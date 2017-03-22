@@ -64,8 +64,11 @@ class BuilderTest extends TestCase
     {
         $component = new Select();
         $builder = new Builder();
-        $builder->addComponent($component);
+        $acBuilder = $builder->addComponent($component);
         $this->assertAttributeEquals([$component], 'components', $builder);
+
+        $this->assertSame($builder, $acBuilder, 'Test if it returns itself');
+
         return $builder;
     }
 

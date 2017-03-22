@@ -15,16 +15,20 @@ use LegoW\LiterateSpoon\Component\Literal;
  */
 class BooleanLiteral extends Literal
 {
+
     protected $format;
-    
+
+    /**
+     * @return string
+     */
     public function getFormat()
     {
         return $this->format ? 'true' : 'false';
     }
-    
+
     public function __construct($value)
     {
-        if(!is_bool($value)) {
+        if (!is_bool($value)) {
             throw new \InvalidArgumentException('Only accepts bool value');
         }
         $this->format = $value;

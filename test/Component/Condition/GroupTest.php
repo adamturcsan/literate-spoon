@@ -43,8 +43,10 @@ class GroupTest extends TestCase
     {
         $groupCondition = new Group();
         $this->assertAttributeSame(Group::OP_AND, 'paramGlue', $groupCondition);
-        $groupCondition->setOperator(Group::OP_OR);
+        $soGroupCondition = $groupCondition->setOperator(Group::OP_OR);
         $this->assertAttributeSame(Group::OP_OR, 'paramGlue', $groupCondition);
+        $this->assertSame($groupCondition, $soGroupCondition,
+                'Test if it returns itself');
     }
 
     /**
@@ -59,12 +61,16 @@ class GroupTest extends TestCase
     public function testChainingCompare()
     {
         $groupCondition = new Group();
-        $groupCondition->compare('=', new Custom('test'),
+        $cGroupCondition = $groupCondition->compare('=', new Custom('test'),
                 new StringLiteral('test'));
         $this->assertSame('((test = "test"))', (string) $groupCondition);
-        $groupCondition->compare('>', new Custom('test2'),
-                new StringLiteral('test2'));
-        $this->assertSame('((test = "test") AND (test2 > "test2"))',
+        $this->assertSame($groupCondition, $cGroupCondition,
+                'Test if it returns itself');
+
+        $groupCondition
+                ->compare('>', new Custom('test2'), new StringLiteral('test2'))
+                ->compare('<', new Custom('test3'), new StringLiteral('test3'));
+        $this->assertSame('((test = "test") AND (test2 > "test2") AND (test3 < "test3"))',
                 (string) $groupCondition);
     }
 

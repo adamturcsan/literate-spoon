@@ -66,8 +66,9 @@ class CompareTest extends TestCase
         $compareCondition = new Compare();
         $compareCondition->setOperator('>=');
         $this->assertSame('>=', $compareCondition->getOperator());
-        $compareCondition->setOperator('<>');
+        $soCompareCondition = $compareCondition->setOperator('<>');
         $this->assertSame('<>', $compareCondition->getOperator());
+        $this->assertSame($compareCondition, $soCompareCondition, 'Test if it returns itself');
     }
 
 }
