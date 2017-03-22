@@ -17,6 +17,8 @@ use LegoW\LiterateSpoon\Component\Select;
 use LegoW\LiterateSpoon\Component\Condition\Compare;
 use LegoW\LiterateSpoon\Component\Columns;
 use LegoW\LiterateSpoon\Component\Literal\Placeholder;
+use LegoW\LiterateSpoon\Component\Direction;
+use LegoW\LiterateSpoon\Component\Where;
 
 /**
  * Description of SelectTest
@@ -80,6 +82,16 @@ class SelectTest extends TestCase
         $this->assertSame('SELECT `test`, `test2` FROM test WHERE (`test` = :test)',
                 (string) $select);
     }
+    
+    public function testWhereMethodChaining()
+    {
+        $select = new Select('test', ['test', 'test2']);
+        $select->where(new Compare('=', new Columns(['test']), new Placeholder('test')))
+                ->setOperator(Where::OP_OR)
+                ->addCondition(new Compare('<', new Columns(['test2']), new Placeholder('test2')));
+        $this->assertSame('SELECT `test`, `test2` FROM test WHERE (`test` = :test) OR (`test2` < :test2)',
+                (string) $select);
+    }
 
     /*
      * Testing abstract methods
@@ -111,6 +123,13 @@ class SelectTest extends TestCase
 
         $select->setChild('WHERE', $mockComponent);
         $this->assertSame($mockComponent, $select->getChild('WHERE'));
+    }
+    
+    public function testSetOrder()
+    {
+        $select = new Select('test', ['test1', 'test2']);
+        $select->orderBy()->setOrder('test1', Direction::DESC);
+        $this->assertSame('SELECT `test1`, `test2` FROM test ORDER BY `test1` DESC', (string)$select);
     }
 
     //@todo Test setParam and getParams

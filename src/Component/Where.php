@@ -31,6 +31,12 @@ class Where extends AbstractComponent
         $this->setOperator($operator);
     }
 
+    /**
+     * 
+     * @param string $operator
+     * @return $this
+     * @throws \InvalidArgumentException
+     */
     public function setOperator($operator)
     {
         $reflection = new \ReflectionClass($this);
@@ -38,7 +44,7 @@ class Where extends AbstractComponent
         foreach ($constants as $name => $value) {
             if (substr($name, 0, 3) === 'OP_' && $value === $operator) {
                 $this->paramGlue = $operator;
-                return;
+                return $this;
             }
         }
         throw new \InvalidArgumentException('Not valid operator has been given');
