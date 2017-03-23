@@ -74,8 +74,8 @@ class Select extends AbstractComponent
         $where = $this->hasChild('WHERE') ? $this->getChild('WHERE') : new Where($operator);
         if ($condition !== null) {
             $where->addCondition($condition);
-            $this->setChild('WHERE', $where);
         }
+        $this->setChild('WHERE', $where);
         return $where;
     }
 
