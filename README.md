@@ -25,7 +25,7 @@ SQL query builder
             $select->orderBy()
                    ->setOrder('publishTime', Component\Direction::ASC);
             $select->limit($num, $offset);
-            $builder->addComponent($select);
+            $builder->addComponent($select); // SELECT `publishTime`, `title` FROM news WHERE (`title` like :paramName) AND (`pubishTime` BETWEEN :param1 AND :param2) LIMIT 1, 10;
             $query = $builder->asString();
 
             $statement = $this->db->prepare($query);
