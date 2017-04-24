@@ -21,10 +21,6 @@ class Insert extends AbstractComponent
     const PARAM_NAME_COLUMNS = 'columns';
     const PARAM_NAME_VALUES = 'value';
 
-    protected $format = 'INSERT INTO :' . self::PARAM_NAME_TABLE . '-table_name '
-            . '[:' . self::PARAM_NAME_COLUMNS . '-insert_columns]'
-            . ' VALUES (:' . self::PARAM_NAME_VALUES . '-literal+)';
-
     /**
      * 
      * @param string $tableName
@@ -43,7 +39,9 @@ class Insert extends AbstractComponent
      */
     public function getFormat()
     {
-        return $this->format;
+        return 'INSERT INTO :' . self::PARAM_NAME_TABLE . '-table_name '
+            . '[:' . self::PARAM_NAME_COLUMNS . '-insert_columns]'
+            . ' VALUES (:' . self::PARAM_NAME_VALUES . '-literal+)';
     }
 
     /**
