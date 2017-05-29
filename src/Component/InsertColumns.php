@@ -14,15 +14,13 @@ namespace LegoW\LiterateSpoon\Component;
 class InsertColumns extends AbstractComponent
 {
     const PARAM_NAME_COLUMNS = 'columns';
-    
-    protected $format = '(:'.self::PARAM_NAME_COLUMNS.'-columns)';
-    
+        
     /**
      * {@inheritDoc}
      */
     public function getFormat()
     {
-        return $this->format;
+        return '(:'.self::PARAM_NAME_COLUMNS.'-columns)';
     }
     
     public function __construct(array $columns = null)

@@ -28,14 +28,12 @@ class Between extends Condition
     const PARAM_NAME_FIRST = 'first';
     const PARAM_NAME_SECOND = 'second';
 
-    protected $format = '(:' . self::PARAM_NAME_COLUMN . '-column BETWEEN :' . self::PARAM_NAME_FIRST . '-literal AND :' . self::PARAM_NAME_SECOND . '-literal)';
-
     /**
      * @return string
      */
     public function getFormat()
     {
-        return $this->format;
+        return '(:' . self::PARAM_NAME_COLUMN . '-column BETWEEN :' . self::PARAM_NAME_FIRST . '-literal AND :' . self::PARAM_NAME_SECOND . '-literal)';
     }
 
     public function __construct()
