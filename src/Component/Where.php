@@ -56,7 +56,7 @@ class Where extends AbstractComponent
      */
     public function addCondition(Condition $condition)
     {
-        $this->params[self::PARAM_NAME_CONDITIONS]->addValue($condition);
+        $this->getParams()[self::PARAM_NAME_CONDITIONS]->addValue($condition);
         return $this;
     }
     
