@@ -12,16 +12,19 @@
 
 namespace LegoW\LiterateSpoon\Component;
 
+use LegoW\LiterateSpoon\Component\WhereableInterface;
+use LegoW\LiterateSpoon\Component\Traits\WhereableTrait;
 /**
  * Description of Update
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Update extends AbstractComponent
+class Update extends AbstractComponent implements WhereableInterface
 {
+    use WhereableTrait;
+    
     const PARAM_NAME_TABLE = 'table';
     const PARAM_NAME_SET_COLUMN = 'column';
-    const CHILD_WHERE = 'WHERE';
     
     //put your code here
     public function getFormat()
