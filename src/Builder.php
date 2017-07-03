@@ -21,21 +21,21 @@ class Builder
      * 
      * @var string
      */
-    protected $queryString;
+    private $queryString;
 
     /**
      * Holds the query components
      * 
      * @var Components[]|\Traversable
      */
-    protected $components;
+    private $components;
 
     /**
      * Indicates whether query string is outdated
      * 
      * @var bool
      */
-    protected $isStringOutdated = true;
+    private $isStringOutdated = true;
     
     /**
      * @param Components[]|\Traversable $components
@@ -72,5 +72,5 @@ class Builder
         $this->components[] = $component;
         return $this;
     }
-
+    
 }
