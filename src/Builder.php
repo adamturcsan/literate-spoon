@@ -73,4 +73,55 @@ class Builder
         return $this;
     }
     
+    /**
+     * Creates and returns a new Component\Select instance added to this Builder instance
+     * 
+     * @param string $tableName
+     * @param array $columns
+     * @return \LegoW\LiterateSpoon\Component\Select
+     */
+    public function select($tableName = null, array $columns = null)
+    {
+        $select = new Component\Select($tableName, $columns);
+        $this->addComponent($select);
+        return $select;
+    }
+    
+    /**
+     * Creates and returns a new Component\Insert instance added to this Builder instance
+     * 
+     * @param string $tableName
+     * @return \LegoW\LiterateSpoon\Component\Insert
+     */
+    public function insert($tableName = null)
+    {
+        $insert = new Component\Insert($tableName);
+        $this->addComponent($insert);
+        return $insert;
+    }
+    
+    /**
+     * Creates and returns a new Component\Union instance added to this Builder instance
+     * 
+     * @return \LegoW\LiterateSpoon\Component\Union
+     */
+    public function union()
+    {
+        $union = new Component\Union();
+        $this->addComponent($union);
+        return $union;
+    }
+    
+    /**
+     * Creates and returns a new Component\Delete instance added to this Builder instance
+     * 
+     * @return \LegoW\LiterateSpoon\Component\Delete
+     */
+    public function delete($tableName = null)
+    {
+        $delete = new Component\Delete($tableName);
+        $this->addComponent($delete);
+        return $delete;
+    }
+    
 }

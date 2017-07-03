@@ -11,6 +11,9 @@ use LegoW\LiterateSpoon\Builder;
 use LegoW\LiterateSpoon\Component\Select;
 use LegoW\LiterateSpoon\Component\Columns;
 use LegoW\LiterateSpoon\Component\TableName;
+use LegoW\LiterateSpoon\Component\Insert;
+use LegoW\LiterateSpoon\Component\Union;
+use LegoW\LiterateSpoon\Component\Delete;
 
 /**
  * Description of BuilderTest
@@ -95,6 +98,116 @@ class BuilderTest extends TestCase
         $expectedString = 'SELECT * FROM test;';
 
         $this->assertEquals($expectedString, $queryString);
+    }
+
+    /**
+     * @covers ::select
+     */
+    public function testFluentEmptySelect()
+    {
+        $builder = new Builder();
+
+        $selectString = (string) (new Select());
+        $fluentSelect = $builder->select();
+
+        $this->assertSame($selectString, (string) $fluentSelect);
+        $this->assertSame($selectString . ';', $builder->asString());
+    }
+
+    /**
+     * @covers ::select
+     */
+    public function testFluentTableSelect()
+    {
+        $builder = new Builder();
+
+        $selectString = (string) (new Select('tableName'));
+        $fluentSelect = $builder->select('tableName');
+        $this->assertSame($selectString, (string) $fluentSelect);
+        $this->assertSame($selectString . ';', $builder->asString());
+    }
+
+    /**
+     * @covers ::select
+     */
+    public function testFluentTableAndColumnSelect()
+    {
+        $builder = new Builder();
+
+        $selectString = (string) (new Select('tableName', ['column1', 'column2']));
+        $fluentSelect = $builder->select('tableName', ['column1', 'column2']);
+        $this->assertSame($selectString, (string) $fluentSelect);
+        $this->assertSame($selectString . ';', $builder->asString());
+    }
+
+    /**
+     * @covers ::insert
+     */
+    public function testFluentEmptyInsert()
+    {
+        $builder = new Builder();
+
+        $insertString = (string) (new Insert());
+        $fluentInsert = $builder->insert();
+
+        $this->assertSame($insertString, (string) $fluentInsert);
+        $this->assertSame($insertString . ';', $builder->asString());
+    }
+
+    /**
+     * @covers ::insert
+     */
+    public function testFluentTableInsert()
+    {
+        $builder = new Builder();
+
+        $insertString = (string) (new Insert('tableName'));
+        $fluentInsert = $builder->insert('tableName');
+
+        $this->assertSame($insertString, (string) $fluentInsert);
+        $this->assertSame($insertString . ';', $builder->asString());
+    }
+
+    /**
+     * @covers ::union
+     */
+    public function testFluentUnion()
+    {
+        $builder = new Builder();
+
+        $unionString = (string) (new Union());
+        $fluentUnion = $builder->union();
+
+        $this->assertSame($unionString, (string) $fluentUnion);
+        $this->assertSame($unionString . ';', $builder->asString());
+    }
+
+    /**
+     * @covers ::delete
+     */
+    public function testFluentEmptyDelete()
+    {
+        $builder = new Builder();
+
+        $deleteString = (string) (new Delete());
+        $fluentDelete = $builder->delete();
+
+        $this->assertSame($deleteString, (string) $fluentDelete);
+        $this->assertSame($deleteString . ';', $builder->asString());
+    }
+
+    /**
+     * @covers ::delete
+     */
+    public function testFluentTableDelete()
+    {
+        $builder = new Builder();
+
+        $deleteString = (string) (new Delete('tableName'));
+        $fluentDelete = $builder->delete('tableName');
+
+        $this->assertSame($deleteString, (string) $fluentDelete);
+        $this->assertSame($deleteString . ';', $builder->asString());
     }
 
 }
