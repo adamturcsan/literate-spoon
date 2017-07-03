@@ -14,6 +14,7 @@ namespace LegoW\LiterateSpoon\Component\Traits;
 
 use LegoW\LiterateSpoon\Component\Condition;
 use LegoW\LiterateSpoon\Component\Where;
+use LegoW\LiterateSpoon\Component\ComponentInterface;
 
 /**
  * Description of WhereableTrait
@@ -22,6 +23,9 @@ use LegoW\LiterateSpoon\Component\Where;
  */
 trait WhereableTrait
 {
+    abstract public function getChild($name);
+    abstract public function hasChild($name);
+    abstract public function setChild($name, ComponentInterface $component);
 
     /**
      * @param \LegoW\LiterateSpoon\Component\Condition $condition
