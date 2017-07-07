@@ -115,6 +115,7 @@ class Builder
     /**
      * Creates and returns a new Component\Delete instance added to this Builder instance
      * 
+     * @param string $tableName
      * @return \LegoW\LiterateSpoon\Component\Delete
      */
     public function delete($tableName = null)
@@ -124,6 +125,12 @@ class Builder
         return $delete;
     }
     
+    /**
+     * Creates and returns a new Component\Update instance added to this Builder instance
+     * 
+     * @param string $tableName
+     * @return \LegoW\LiterateSpoon\Component\Update
+     */
     public function update($tableName = null)
     {
         $update = new Component\Update($tableName);
