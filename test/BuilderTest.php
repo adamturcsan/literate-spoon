@@ -14,6 +14,7 @@ use LegoW\LiterateSpoon\Component\TableName;
 use LegoW\LiterateSpoon\Component\Insert;
 use LegoW\LiterateSpoon\Component\Union;
 use LegoW\LiterateSpoon\Component\Delete;
+use LegoW\LiterateSpoon\Component\Update;
 
 /**
  * Description of BuilderTest
@@ -208,6 +209,28 @@ class BuilderTest extends TestCase
 
         $this->assertSame($deleteString, (string) $fluentDelete);
         $this->assertSame($deleteString . ';', $builder->asString());
+    }
+
+    public function testFluentEmptyUpdate()
+    {
+        $builder = new Builder();
+
+        $updateString = (string) (new Update());
+        $fluentUpdate = $builder->update();
+
+        $this->assertSame($updateString, (string) $fluentUpdate);
+        $this->assertSame($updateString . ';', $builder->asString());
+    }
+    
+    public function testFluentTableUpdate()
+    {
+        $builder = new Builder();
+        
+        $updateString = (string) (new Update('tableName'));
+        $fluentUpdate = $builder->update('tableName');
+        
+        $this->assertSame($updateString, (string) $fluentUpdate);
+        $this->assertSame($updateString . ';', $builder->asString());
     }
 
 }

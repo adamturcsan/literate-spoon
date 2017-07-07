@@ -124,4 +124,11 @@ class Builder
         return $delete;
     }
     
+    public function update($tableName = null)
+    {
+        $update = new Component\Update($tableName);
+        $this->addComponent($update);
+        return $update;
+    }
+    
 }
