@@ -30,6 +30,7 @@ class Custom extends Columns
             $value = '';
         }
         $this->setValue($value);
+        parent::__construct();
     }
     
     /**

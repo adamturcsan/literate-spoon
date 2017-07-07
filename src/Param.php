@@ -20,31 +20,31 @@ class Param
      * Indicates whether parameter is optional
      * @var bool
      */
-    protected $optional;
+    private $optional;
 
     /**
      * Indicates whether parameter can have multiple values
      * @var bool
      */
-    protected $multiple;
+    private $multiple;
 
     /**
      * Parameter name
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * Parameter value(s)
      * @var ComponentInterface[]
      */
-    protected $values;
+    private $values;
 
     /**
      * Classname of type the param accepts as value
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @param string $name
@@ -123,7 +123,7 @@ class Param
      * @param string $typeName Type name from format string
      * @return string Actual Class name with fullnamespace
      */
-    protected function setType($typeName)
+    private function setType($typeName)
     {
         $componentNamespace = 'LegoW\\LiterateSpoon\\Component\\';
         $stdulyCaps = str_replace(' ', '',

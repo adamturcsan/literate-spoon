@@ -58,7 +58,7 @@ class Group extends Condition
      */
     public function addCondition(Condition $condition)
     {
-        $this->params[self::PARAM_NAME_CONDITIONS]->addValue($condition);
+        $this->getParams()[self::PARAM_NAME_CONDITIONS]->addValue($condition);
         return $this;
     }
 
@@ -73,7 +73,7 @@ class Group extends Condition
         $compare = new Condition\Compare($operator);
         $compare->setParam(Compare::PARAM_NAME_COLUMN, $column);
         $compare->setParam(Compare::PARAM_NAME_VALUE, $value);
-        $this->params[self::PARAM_NAME_CONDITIONS]->addValue($compare);
+        $this->addCondition($compare);
         return $this;
     }
 

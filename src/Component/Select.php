@@ -6,16 +6,18 @@
 
 namespace LegoW\LiterateSpoon\Component;
 
+use LegoW\LiterateSpoon\Component\WhereableInterface;
+use LegoW\LiterateSpoon\Component\Traits\WhereableTrait;
 /**
  * Description of Select
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Select extends AbstractComponent
+class Select extends AbstractComponent implements WhereableInterface
 {
+    use WhereableTrait;
 
-    const CHiLD_JOIN = 'JOIN';
-    const CHILD_WHERE = 'WHERE';
+    const CHILD_JOIN = 'JOIN';
     const CHILD_ORDER_BY = 'ORDERBY';
     const CHILD_HAVING = 'HAVING';
     const CHILD_LIMIT = 'LIMIT';
@@ -29,7 +31,7 @@ class Select extends AbstractComponent
 
     public function __construct($tableName = null, array $columns = null)
     {
-        $possibleChildren = [self::CHiLD_JOIN, self::CHILD_WHERE, self::CHILD_ORDER_BY, self::CHILD_HAVING, self::CHILD_LIMIT];
+        $possibleChildren = [self::CHILD_JOIN, self::CHILD_WHERE, self::CHILD_ORDER_BY, self::CHILD_HAVING, self::CHILD_LIMIT];
         parent::__construct($possibleChildren);
         if ($tableName !== null) {
             $this->setTableName($tableName);
@@ -61,22 +63,6 @@ class Select extends AbstractComponent
         $columnsComponent = new Columns($columns);
         $this->setParam(self::PARAM_NAME_COLUMNS, $columnsComponent);
         return $this;
-    }
-
-    /**
-     * 
-     * @param \LegoW\LiterateSpoon\Component\Condition $condition
-     * @param string $operator
-     * @return Where
-     */
-    public function where(Condition $condition = null, $operator = Where::OP_AND)
-    {
-        $where = $this->hasChild('WHERE') ? $this->getChild('WHERE') : new Where($operator);
-        if ($condition !== null) {
-            $where->addCondition($condition);
-        }
-        $this->setChild('WHERE', $where);
-        return $where;
     }
 
     protected function setDefaultColumns()

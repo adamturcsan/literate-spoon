@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use LegoW\LiterateSpoon\Component\Condition\Group;
 use LegoW\LiterateSpoon\Component\Column\Custom;
 use LegoW\LiterateSpoon\Component\Literal\StringLiteral;
+use LegoW\LiterateSpoon\Component\Condition\Compare;
 
 /**
  * Description of GroupTest
@@ -56,6 +57,17 @@ class GroupTest extends TestCase
     {
         $groupCondition = new Group();
         $groupCondition->setOperator('=');
+    }
+    
+    public function testAddCondition()
+    {
+        $group = new Group();
+        $compare = new \LegoW\LiterateSpoon\Component\Condition\Compare('=');
+        $compare->setParam(Compare::PARAM_NAME_COLUMN, new \LegoW\LiterateSpoon\Component\Columns(['test']));
+        $compare->setParam(Compare::PARAM_NAME_VALUE, new StringLiteral('test'));
+        $group->addCondition($compare);
+        
+        $this->assertSame('((`test` = "test"))', (string)$group);
     }
 
     public function testChainingCompare()

@@ -13,6 +13,7 @@
 namespace LegoW\LiterateSpoon\Component;
 
 use LegoW\LiterateSpoon\Param;
+use LegoW\LiterateSpoon\ParamBuilder;
 
 /**
  * Description of AbstractComponent
@@ -26,16 +27,19 @@ abstract class AbstractComponent implements ComponentInterface
     /**
      * @var Param[]
      */
-    protected $params = [];
+    protected $params = null;
     protected $possibleChildren;
     protected $possibleParams;
     protected $paramGlue = ', ';
     protected $childGlue = ' ';
+    private $paramBuilder;
 
-    public function __construct(array $possibleChildren)
+    public function __construct(array $possibleChildren, ParamBuilder $paramBuilder = null)
     {
+        if($paramBuilder === null) {
+            $this->paramBuilder = new ParamBuilder();
+        }
         $this->possibleChildren = $possibleChildren;
-        $this->initParams($this->getFormat());
     }
 
     /**
@@ -51,6 +55,9 @@ abstract class AbstractComponent implements ComponentInterface
      */
     public function getParams()
     {
+        if($this->params === null) {
+            $this->params = $this->paramBuilder->createFromFormat($this->getFormat());
+        }
         return $this->params;
     }
 
@@ -83,7 +90,7 @@ abstract class AbstractComponent implements ComponentInterface
 
     public function setParam($name, ComponentInterface $value)
     {
-        if (array_key_exists($name, $this->params)) {
+        if (array_key_exists($name, $this->getParams())) {
             if (!$this->params[$name]->isMultiple()) {
                 $this->params[$name]->setValue($value);
                 return $this;
@@ -97,7 +104,7 @@ abstract class AbstractComponent implements ComponentInterface
     {
         $string = $this->getFormat();
         /* @var $param Param */
-        foreach ($this->params as $param) {
+        foreach ($this->getParams() as $param) {
             $values = $param->getValues();
             if (count($values)) {
                 $string = str_replace($param->getName(),
@@ -112,22 +119,6 @@ abstract class AbstractComponent implements ComponentInterface
                             $this->getChildren());
         }
         return $this->beautifyEndString($string);
-    }
-
-    private function initParams($format)
-    {
-        $matches = null;
-        preg_match_all('/(?<optional1>\[)?:(?<name>[a-zA-Z][a-zA-Z0-9_]*)-(?<type>[a-zA-Z_]+)(?<optional2>\])?(?<isMultiple>\+)?/',
-                $format, $matches);
-
-        foreach ($matches[0] as $key => $param) {
-            $name = $matches['name'][$key];
-            $type = $matches['type'][$key];
-            $isMultiple = $matches['isMultiple'][$key] === '+';
-            $isOptional = $matches['optional1'][$key] === '[' && $matches['optional2'][$key] === ']';
-            $this->params[$name] = new Param($param, $type, $isOptional,
-                    $isMultiple);
-        }
     }
     
     /**

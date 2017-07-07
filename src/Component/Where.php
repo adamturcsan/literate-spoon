@@ -56,7 +56,7 @@ class Where extends AbstractComponent
      */
     public function addCondition(Condition $condition)
     {
-        $this->params[self::PARAM_NAME_CONDITIONS]->addValue($condition);
+        $this->getParams()[self::PARAM_NAME_CONDITIONS]->addValue($condition);
         return $this;
     }
     
@@ -90,6 +90,13 @@ class Where extends AbstractComponent
                 ->setSecondParam($secondParamName);
         $this->addCondition($between);
         return $this;
+    }
+    
+    public function group($operator = self::OP_AND)
+    {
+        $group = new Condition\Group($operator);
+        $this->addCondition($group);
+        return $group;
     }
 
 }
