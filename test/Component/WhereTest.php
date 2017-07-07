@@ -116,4 +116,18 @@ class WhereTest extends TestCase
         $this->assertSame('WHERE (`test1` > :param1) AND (`test2` BETWEEN :param2 AND :param3)', (string)$where);
         $this->assertSame($where, $whereB);
     }
+    
+    public function testGroupFluentBuilder()
+    {
+        $where = new Where();
+        
+        $condition = new Compare('=', new \LegoW\LiterateSpoon\Component\Column('test'), new Placeholder('testValue'));
+        $condition2 = clone $condition;
+        $condition2->setOperator('>');
+        $where->group(\LegoW\LiterateSpoon\Component\Condition\Group::OP_OR)
+                ->addCondition($condition)
+                ->addCondition($condition2);
+        
+        $this->assertSame('WHERE ((`test` = :testValue) OR (`test` > :testValue))', (string)$where);
+    }
 }

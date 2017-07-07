@@ -91,5 +91,12 @@ class Where extends AbstractComponent
         $this->addCondition($between);
         return $this;
     }
+    
+    public function group($operator = self::OP_AND)
+    {
+        $group = new Condition\Group($operator);
+        $this->addCondition($group);
+        return $group;
+    }
 
 }

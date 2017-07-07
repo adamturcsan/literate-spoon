@@ -25,12 +25,23 @@ class TableNameTest extends TestCase
     
     /**
      * Should throw error because name argument must be set
-     * @expectedException \PHPUnit_Framework_Error
-     * @expectedExceptionMessage Missing argument 1
+     * It was taken into account, that on different PHP versions different kind
+     * of exceptions are thrown
      */
     public function testDefaultConstructor()
     {
-        new TableName();
+        if(class_exists('\ArgumentCountError')) {
+            try {
+                new TableName();
+            } catch (\ArgumentCountError $ex) {
+                return; //TEST OK
+            }
+        }
+        try {
+            new TableName();
+        } catch (\PHPUnit_Framework_Error $ex) {
+            return; //TEST OK
+        }
     }
     
     public function testConstructorWithName()
