@@ -28,12 +28,11 @@ class BooleanLiteral extends Literal
 
     public function __construct($value)
     {
-        if (!is_bool($value)) {
+        if (! is_bool($value)) {
             throw new \InvalidArgumentException('Only accepts bool value');
         }
         $this->format = $value;
         $possibleChildren = [];
         parent::__construct($possibleChildren);
     }
-
 }

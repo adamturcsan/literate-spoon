@@ -76,5 +76,4 @@ class Group extends Condition
         $this->addCondition($compare);
         return $this;
     }
-
 }

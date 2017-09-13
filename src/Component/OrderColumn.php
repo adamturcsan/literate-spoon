@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -32,21 +32,20 @@ class OrderColumn extends AbstractComponent
     {
         return ':' . self::PARAM_NAME_COLUMN . '-columns :' . self::PARAM_NAME_DIRECTION . '-direction';
     }
-    
+
     public function __construct($columnName = null, $direction = 'ASC')
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
         $this->setParam(self::PARAM_NAME_DIRECTION, new Direction($direction));
-        if($columnName !== null) {
+        if ($columnName !== null) {
             $this->setColumn($columnName);
         }
     }
-    
+
     private function setColumn($columnName)
     {
         $column = new Columns([$columnName]);
         $this->setParam(self::PARAM_NAME_COLUMN, $column);
     }
-
 }

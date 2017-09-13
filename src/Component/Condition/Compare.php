@@ -19,7 +19,7 @@ class Compare extends Condition
 {
     const PARAM_NAME_COLUMN = 'column';
     const PARAM_NAME_VALUE = 'value';
-    
+
     /**
      * @return string
      */
@@ -27,20 +27,20 @@ class Compare extends Condition
     {
         return '(:'.self::PARAM_NAME_COLUMN.'-columns '.$this->getOperator().' :'.self::PARAM_NAME_VALUE.'-literal)';
     }
-    
+
     public function __construct($operator = '=', Columns $columns = null, Literal $value = null)
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
         $this->setOperator($operator);
-        if($columns != null) {
+        if ($columns != null) {
             $this->setParam('column', $columns);
         }
-        if($value != null) {
+        if ($value != null) {
             $this->setParam('value', $value);
         }
     }
-    
+
     /**
      * @return string
      */
@@ -58,6 +58,4 @@ class Compare extends Condition
         $this->paramGlue = $operator;
         return $this;
     }
-
-
 }

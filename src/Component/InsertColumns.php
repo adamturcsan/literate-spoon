@@ -14,7 +14,7 @@ namespace LegoW\LiterateSpoon\Component;
 class InsertColumns extends AbstractComponent
 {
     const PARAM_NAME_COLUMNS = 'columns';
-        
+
     /**
      * {@inheritDoc}
      */
@@ -22,16 +22,16 @@ class InsertColumns extends AbstractComponent
     {
         return '(:'.self::PARAM_NAME_COLUMNS.'-columns)';
     }
-    
+
     public function __construct(array $columns = null)
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        if($columns != null) {
+        if ($columns != null) {
             $this->setColumns($columns);
         }
     }
-    
+
     /**
      * @param array $columns
      */

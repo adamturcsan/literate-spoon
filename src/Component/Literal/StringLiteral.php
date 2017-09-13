@@ -32,5 +32,4 @@ class StringLiteral extends Literal
         $possibleChildren = [];
         parent::__construct($possibleChildren);
     }
-
 }

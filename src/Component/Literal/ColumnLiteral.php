@@ -32,5 +32,4 @@ class ColumnLiteral extends Literal
         $possibleChildren = [];
         parent::__construct($possibleChildren);
     }
-
 }

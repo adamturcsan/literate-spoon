@@ -8,6 +8,7 @@ namespace LegoW\LiterateSpoon\Component;
 
 use LegoW\LiterateSpoon\Component\WhereableInterface;
 use LegoW\LiterateSpoon\Component\Traits\WhereableTrait;
+
 /**
  * Description of Select
  *
@@ -29,9 +30,20 @@ class Select extends AbstractComponent implements WhereableInterface
         return 'SELECT :' . self::PARAM_NAME_COLUMNS . '-columns FROM :' . self::PARAM_NAME_TABLE . '-table_name';
     }
 
+    /**
+     * 
+     * @param string $tableName
+     * @param string[] $columns
+     */
     public function __construct($tableName = null, array $columns = null)
     {
-        $possibleChildren = [self::CHILD_JOIN, self::CHILD_WHERE, self::CHILD_ORDER_BY, self::CHILD_HAVING, self::CHILD_LIMIT];
+        $possibleChildren = [
+            self::CHILD_JOIN,
+            self::CHILD_WHERE,
+            self::CHILD_ORDER_BY,
+            self::CHILD_HAVING,
+            self::CHILD_LIMIT
+        ];
         parent::__construct($possibleChildren);
         if ($tableName !== null) {
             $this->setTableName($tableName);
@@ -84,7 +96,7 @@ class Select extends AbstractComponent implements WhereableInterface
         $this->setChild('ORDERBY', $order);
         return $order;
     }
-    
+
     public function limit($num = 1, $offset = 0)
     {
         /* @var $limit Limit */
@@ -93,5 +105,4 @@ class Select extends AbstractComponent implements WhereableInterface
         $this->setChild(self::CHILD_LIMIT, $limit);
         return $this;
     }
-
 }

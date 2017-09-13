@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -20,7 +20,7 @@ namespace LegoW\LiterateSpoon\Component;
 class Column extends Columns
 {
     protected $format = '*';
-    
+
     /**
      * {@inheritDoc}
      */
@@ -28,16 +28,16 @@ class Column extends Columns
     {
         return $this->format;
     }
-    
+
     public function __construct($name = null)
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        if($name !== null) {
+        if ($name !== null) {
             $this->setName($name);
         }
     }
-    
+
     /**
      * @param string $name
      * @return $this
@@ -47,5 +47,4 @@ class Column extends Columns
         $this->format = '`'.$name.'`';
         return $this;
     }
-
 }

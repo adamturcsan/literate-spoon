@@ -22,7 +22,7 @@ class Insert extends AbstractComponent
     const PARAM_NAME_VALUES = 'value';
 
     /**
-     * 
+     *
      * @param string $tableName
      */
     public function __construct($tableName = null)
@@ -45,7 +45,7 @@ class Insert extends AbstractComponent
     }
 
     /**
-     * 
+     *
      * @param string $tableName
      */
     public function setTableName($tableName)
@@ -54,7 +54,7 @@ class Insert extends AbstractComponent
         $this->setParam(self::PARAM_NAME_TABLE, $tableName);
         return $this;
     }
-    
+
     /**
      * Add one column to the insert statement
      * @param string $columnName
@@ -66,14 +66,14 @@ class Insert extends AbstractComponent
         $this->setParam(self::PARAM_NAME_COLUMNS, $columns);
         return $this;
     }
-    
+
     public function addColumns(array $columns)
     {
         $columnsObj = new InsertColumns($columns);
         $this->setParam(self::PARAM_NAME_COLUMNS, $columnsObj);
         return $this;
     }
-    
+
     /**
      * Add <b>:placeHolderName</b> style placeholder helping further
      * value bindig mechanisms
@@ -86,5 +86,4 @@ class Insert extends AbstractComponent
         $this->setParam(self::PARAM_NAME_VALUES, $placeHolder);
         return $this;
     }
-
 }

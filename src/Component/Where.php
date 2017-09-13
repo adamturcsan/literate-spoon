@@ -16,7 +16,7 @@ class Where extends AbstractComponent
 
     const OP_AND = ' AND ';
     const OP_OR = ' OR ';
-    
+
     const PARAM_NAME_CONDITIONS = 'conditions';
 
     public function getFormat()
@@ -32,7 +32,7 @@ class Where extends AbstractComponent
     }
 
     /**
-     * 
+     *
      * @param string $operator
      * @return $this
      * @throws \InvalidArgumentException
@@ -49,7 +49,7 @@ class Where extends AbstractComponent
         }
         throw new \InvalidArgumentException('Not valid operator has been given');
     }
-    
+
     /**
      * @param \LegoW\LiterateSpoon\Component\Condition $condition
      * @return $this
@@ -59,9 +59,9 @@ class Where extends AbstractComponent
         $this->getParams()[self::PARAM_NAME_CONDITIONS]->addValue($condition);
         return $this;
     }
-    
+
     /**
-     * @param type $operator
+     * @param string $operator
      * @param \LegoW\LiterateSpoon\Component\Columns $column
      * @param \LegoW\LiterateSpoon\Component\Literal $value
      * @return $this
@@ -74,14 +74,28 @@ class Where extends AbstractComponent
         $this->addCondition($compare);
         return $this;
     }
-    
+
+    /**
+     * Sets a new compare condition with the given parameters
+     * @param string $operator
+     * @param string $columnName
+     * @param string $paramName
+     * @return $this
+     */
     public function compareColumn($operator, $columnName, $paramName)
     {
         $columns = new Columns([$columnName]);
         $param = new Literal\Placeholder($paramName);
         return $this->compare($operator, $columns, $param);
     }
-    
+
+    /**
+     * Set a new between condition with the given parameters
+     * @param string $columnName
+     * @param string $firstParamName
+     * @param string $secondParamName
+     * @return $this
+     */
     public function betweenColumn($columnName, $firstParamName, $secondParamName)
     {
         $between = new Condition\Between();
@@ -91,12 +105,16 @@ class Where extends AbstractComponent
         $this->addCondition($between);
         return $this;
     }
-    
+
+    /**
+     * Returns a new condition group attached to this Where instance
+     * @param string $operator
+     * @return \LegoW\LiterateSpoon\Component\Condition\Group
+     */
     public function group($operator = self::OP_AND)
     {
         $group = new Condition\Group($operator);
         $this->addCondition($group);
         return $group;
     }
-
 }

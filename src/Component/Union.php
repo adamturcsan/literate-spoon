@@ -40,5 +40,4 @@ class Union extends AbstractComponent
         $this->setParam(self::PARAM_NAME_SELECT, $select);
         return $this;
     }
-
 }
