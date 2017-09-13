@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -20,7 +20,7 @@ interface WhereableInterface
 {
     const CHILD_WHERE = 'WHERE';
     /**
-     * 
+     *
      * @param \LegoW\LiterateSpoon\Test\Component\Condition $condition
      * @param string $operator
      * @returns \LegoW\LiterateSpoon\Component\Where

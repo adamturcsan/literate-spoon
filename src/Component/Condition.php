@@ -12,4 +12,6 @@ namespace LegoW\LiterateSpoon\Component;
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
 abstract class Condition extends AbstractComponent
-{}
+{
+
+}

@@ -18,32 +18,32 @@ class Builder
 
     /**
      * Holds builded query string
-     * 
+     *
      * @var string
      */
     private $queryString;
 
     /**
      * Holds the query components
-     * 
+     *
      * @var Components[]|\Traversable
      */
     private $components;
 
     /**
      * Indicates whether query string is outdated
-     * 
+     *
      * @var bool
      */
     private $isStringOutdated = true;
-    
+
     /**
      * @param Components[]|\Traversable $components
      * @throws \InvalidArgumentException
      */
     public function __construct($components = null)
     {
-        if ( $components != null && (!is_array($components) && !$components instanceof \Traversable)) {
+        if ($components != null && (! is_array($components) && ! $components instanceof \Traversable)) {
             throw new \InvalidArgumentException('$components argument should be iterable');
         }
         $this->components = $components;
@@ -61,7 +61,7 @@ class Builder
         }
         return $this->queryString;
     }
-    
+
     /**
      * @param ComponentInterface $component
      * @returns $this
@@ -72,10 +72,10 @@ class Builder
         $this->components[] = $component;
         return $this;
     }
-    
+
     /**
      * Creates and returns a new Component\Select instance added to this Builder instance
-     * 
+     *
      * @param string $tableName
      * @param array $columns
      * @return \LegoW\LiterateSpoon\Component\Select
@@ -86,10 +86,10 @@ class Builder
         $this->addComponent($select);
         return $select;
     }
-    
+
     /**
      * Creates and returns a new Component\Insert instance added to this Builder instance
-     * 
+     *
      * @param string $tableName
      * @return \LegoW\LiterateSpoon\Component\Insert
      */
@@ -99,10 +99,10 @@ class Builder
         $this->addComponent($insert);
         return $insert;
     }
-    
+
     /**
      * Creates and returns a new Component\Union instance added to this Builder instance
-     * 
+     *
      * @return \LegoW\LiterateSpoon\Component\Union
      */
     public function union()
@@ -111,10 +111,10 @@ class Builder
         $this->addComponent($union);
         return $union;
     }
-    
+
     /**
      * Creates and returns a new Component\Delete instance added to this Builder instance
-     * 
+     *
      * @param string $tableName
      * @return \LegoW\LiterateSpoon\Component\Delete
      */
@@ -124,10 +124,10 @@ class Builder
         $this->addComponent($delete);
         return $delete;
     }
-    
+
     /**
      * Creates and returns a new Component\Update instance added to this Builder instance
-     * 
+     *
      * @param string $tableName
      * @return \LegoW\LiterateSpoon\Component\Update
      */
@@ -137,5 +137,4 @@ class Builder
         $this->addComponent($update);
         return $update;
     }
-    
 }

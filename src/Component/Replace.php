@@ -22,5 +22,4 @@ class Replace extends Insert
         $format = parent::getFormat();
         return str_replace('INSERT INTO', 'REPLACE INTO', $format);
     }
-
 }

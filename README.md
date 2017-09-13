@@ -10,7 +10,7 @@ SQL query builder
 <?php
 
     use LegoW\LiterateSpoon\Builder;
-    use LegoW\LiterateSpoon\Component;
+    use LegoW\LiterateSpoon\Component\Direction;
 
     class TestClass {
         use SomeTrait\With\Database;
@@ -18,19 +18,19 @@ SQL query builder
         public function getNewsList($num, $offset)
         {
             $builder = new Builder();
-            $select = new Component\Select('news', ['publishTime', 'title']);
+            $select = $builder->select('news', ['publishTime', 'title']);
             $select->where()
-                   ->compareColumn('like', 'title', 'paramName')
-                   ->between('publishTime', 'param1', 'param2');
+                    ->compareColumn('like', 'title', 'paramName')
+                    ->betweenColumn('publishTime', 'param1', 'param2');
             $select->orderBy()
-                   ->setOrder('publishTime', Component\Direction::ASC);
+                   ->setOrder('publishTime', Direction::ASC);
             $select->limit($num, $offset);
-            $builder->addComponent($select); // SELECT `publishTime`, `title` FROM news WHERE (`title` like :paramName) AND (`pubishTime` BETWEEN :param1 AND :param2) LIMIT 1, 10;
+
             $query = $builder->asString();
 
             $statement = $this->db->prepare($query);
             $result = $statement->execute([
-                'paramName' => '%',
+                'paramName' => '%builder%',
                 'param1'    => (new \DateTime('-1 year'))->format('Y-d-m H:i:s'),
                 'param2'    => (new \DateTime())->format('Y-d-m H:i:s'),
             ]);

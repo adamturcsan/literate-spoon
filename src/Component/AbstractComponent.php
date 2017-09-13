@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -36,7 +36,7 @@ abstract class AbstractComponent implements ComponentInterface
 
     public function __construct(array $possibleChildren, ParamBuilder $paramBuilder = null)
     {
-        if($paramBuilder === null) {
+        if ($paramBuilder === null) {
             $this->paramBuilder = new ParamBuilder();
         }
         $this->possibleChildren = $possibleChildren;
@@ -55,7 +55,7 @@ abstract class AbstractComponent implements ComponentInterface
      */
     public function getParams()
     {
-        if($this->params === null) {
+        if ($this->params === null) {
             $this->params = $this->paramBuilder->createFromFormat($this->getFormat());
         }
         return $this->params;
@@ -91,7 +91,7 @@ abstract class AbstractComponent implements ComponentInterface
     public function setParam($name, ComponentInterface $value)
     {
         if (array_key_exists($name, $this->getParams())) {
-            if (!$this->params[$name]->isMultiple()) {
+            if (! $this->params[$name]->isMultiple()) {
                 $this->params[$name]->setValue($value);
                 return $this;
             }
@@ -107,20 +107,25 @@ abstract class AbstractComponent implements ComponentInterface
         foreach ($this->getParams() as $param) {
             $values = $param->getValues();
             if (count($values)) {
-                $string = str_replace($param->getName(),
-                        implode($this->paramGlue, $values), $string);
+                $string = str_replace(
+                    $param->getName(),
+                    implode($this->paramGlue, $values),
+                    $string
+                );
             } elseif ($param->isOptional()) {
                 $string = str_replace($param->getName(), '', $string);
             }
         }
         $children = $this->getChildren();
         if (count($children)) {
-            $string .= $this->childGlue . implode($this->childGlue,
-                            $this->getChildren());
+            $string .= $this->childGlue . implode(
+                $this->childGlue,
+                $this->getChildren()
+            );
         }
         return $this->beautifyEndString($string);
     }
-    
+
     /**
      * @param string $string
      * @return string
@@ -128,10 +133,9 @@ abstract class AbstractComponent implements ComponentInterface
     private function beautifyEndString($string)
     {
         $endString = $string;
-        while(strpos($endString, '  ') !== FALSE) {
+        while (strpos($endString, '  ') !== false) {
             $endString = str_replace('  ', ' ', $endString);
         }
         return $endString;
     }
-
 }

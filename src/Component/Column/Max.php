@@ -37,5 +37,4 @@ class Max extends Columns
             $this->setParam(self::PARAM_NAME_COLUMNS, $columnsComponent);
         }
     }
-
 }

@@ -7,6 +7,7 @@
 namespace LegoW\LiterateSpoon\Component\Column;
 
 use LegoW\LiterateSpoon\Component\Columns;
+
 /**
  * Description of Custom
  *
@@ -23,16 +24,16 @@ class Custom extends Columns
     {
         return $this->format;
     }
-    
+
     public function __construct($value = null)
     {
-        if($value == null) {
+        if ($value == null) {
             $value = '';
         }
         $this->setValue($value);
         parent::__construct();
     }
-    
+
     /**
      * @param string $value
      * @returns $this

@@ -16,7 +16,7 @@ use LegoW\LiterateSpoon\Component\Literal;
 class Placeholder extends Literal
 {
     protected $format;
-    
+
     /**
      * @return string
      */
@@ -24,7 +24,7 @@ class Placeholder extends Literal
     {
         return $this->format;
     }
-    
+
     public function __construct($value)
     {
         $possibleChildren = [];
@@ -32,10 +32,10 @@ class Placeholder extends Literal
         $this->setFormat($value);
         $this->params = []; //Ensure, this component shouldn't have any params and make enable param-like format syntax
     }
-    
+
     protected function setFormat($value)
     {
-        if(substr($value, 0, 1) == ':') {
+        if (substr($value, 0, 1) == ':') {
             $this->format = $value;
             return;
         }

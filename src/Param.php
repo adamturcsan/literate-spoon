@@ -81,36 +81,36 @@ class Param
      */
     public function setValue(ComponentInterface $value)
     {
-        if (!$value instanceof $this->type) {
+        if (! $value instanceof $this->type) {
             throw new \InvalidArgumentException('Wrong value type was provided: '.get_class($value));
         }
-        if (!$this->isMultiple()) {
+        if (! $this->isMultiple()) {
             $this->values[0] = $value;
         }
         return $this;
     }
-    
+
     public function addValue(ComponentInterface $value)
     {
-        if(!$value instanceof $this->type) {
+        if (! $value instanceof $this->type) {
             throw new \InvalidArgumentException('Wrong value type was provided: '.get_class($value));
         }
-        if($this->isMultiple()) {
+        if ($this->isMultiple()) {
             $this->values[] = $value;
         }
         return $this;
     }
 
     /**
-     * @return Component[]
+     * @return ComponentInterface[]
      */
     public function getValues()
     {
         return $this->values;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     public function getName()
@@ -119,20 +119,22 @@ class Param
     }
 
     /**
-     * 
+     *
      * @param string $typeName Type name from format string
      * @return string Actual Class name with fullnamespace
      */
     private function setType($typeName)
     {
         $componentNamespace = 'LegoW\\LiterateSpoon\\Component\\';
-        $stdulyCaps = str_replace(' ', '',
-                ucwords(str_replace('_', ' ', $typeName)));
+        $stdulyCaps = str_replace(
+            ' ',
+            '',
+            ucwords(str_replace('_', ' ', $typeName))
+        );
         $className = $componentNamespace . $stdulyCaps;
-        if (!class_exists($className)) {
+        if (! class_exists($className)) {
             throw new \RuntimeException('Given Component type (' . $typeName . ') doesn\'t exists for Param');
         }
         $this->type = $className;
     }
-
 }

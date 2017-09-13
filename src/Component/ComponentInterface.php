@@ -18,7 +18,7 @@ interface ComponentInterface
 
     /**
      * Format string gives the actual query string format with named parameters
-     * 
+     *
      * @return string
      */
     public function getFormat();
@@ -40,7 +40,7 @@ interface ComponentInterface
     public function getChildren();
 
     /**
-     * 
+     *
      * @param string $name
      * @param ComponentInterface $component
      */

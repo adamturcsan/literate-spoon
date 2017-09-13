@@ -22,17 +22,16 @@ class TableName extends AbstractComponent
     }
 
     /**
-     * 
+     *
      * @param string $name
      */
     public function __construct($name)
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        if (!is_string($name)) {
+        if (! is_string($name)) {
             throw new \InvalidArgumentException('TableName\'s name must be a string');
         }
         $this->format = $name;
     }
-
 }

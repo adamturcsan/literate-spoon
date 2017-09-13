@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -33,7 +33,11 @@ class Between extends Condition
      */
     public function getFormat()
     {
-        return '(:' . self::PARAM_NAME_COLUMN . '-column BETWEEN :' . self::PARAM_NAME_FIRST . '-literal AND :' . self::PARAM_NAME_SECOND . '-literal)';
+        return '(:'
+               . self::PARAM_NAME_COLUMN . '-column BETWEEN '
+               . ':' . self::PARAM_NAME_FIRST . '-literal AND '
+               . ':' . self::PARAM_NAME_SECOND . '-literal'
+               . ')';
     }
 
     public function __construct()
@@ -51,7 +55,7 @@ class Between extends Condition
         $this->setParam(self::PARAM_NAME_COLUMN, $column);
         return $this;
     }
-    
+
     /**
      * @param string $columnName
      * @return $this
@@ -61,7 +65,7 @@ class Between extends Condition
         $this->setColumn(new Column($columnName));
         return $this;
     }
-    
+
     /**
      * @param Literal $value
      * @return $this
@@ -71,7 +75,7 @@ class Between extends Condition
         $this->setParam(self::PARAM_NAME_FIRST, $value);
         return $this;
     }
-    
+
     /**
      * @param string $paramName
      * @return $this
@@ -81,7 +85,7 @@ class Between extends Condition
         $this->setParam(self::PARAM_NAME_FIRST, new Literal\Placeholder($paramName));
         return $this;
     }
-    
+
     /**
      * @param Literal $value
      * @return $this
@@ -91,7 +95,7 @@ class Between extends Condition
         $this->setParam(self::PARAM_NAME_SECOND, $value);
         return $this;
     }
-    
+
     /**
      * @param string $paramName
      * @return $this
@@ -101,5 +105,4 @@ class Between extends Condition
         $this->setParam(self::PARAM_NAME_SECOND, new Literal\Placeholder($paramName));
         return $this;
     }
-
 }

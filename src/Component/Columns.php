@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -20,7 +20,7 @@ namespace LegoW\LiterateSpoon\Component;
 class Columns extends AbstractComponent
 {
     protected $format = '*';
-    
+
     /**
      * {@inheritDoc}
      */
@@ -28,24 +28,24 @@ class Columns extends AbstractComponent
     {
         return $this->format;
     }
-    
+
     public function __construct(array $columns = null)
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        if($columns != null) {
+        if ($columns != null) {
             $this->setColumns($columns);
         }
     }
-    
+
     /**
      * @param array $columns
      */
     public function setColumns(array $columns)
     {
         $columnsWithBackTick = [];
-        foreach($columns as $column) {
-            if($column instanceof Column) {
+        foreach ($columns as $column) {
+            if ($column instanceof Column) {
                 $columnsWithBackTick[] = (string)$column;
             } else {
                 $columnsWithBackTick[] = '`'.$column.'`';
