@@ -31,7 +31,6 @@ class Select extends AbstractComponent implements WhereableInterface
     }
 
     /**
-     * 
      * @param string $tableName
      * @param string[] $columns
      */
@@ -93,10 +92,15 @@ class Select extends AbstractComponent implements WhereableInterface
         if ($orderColumn !== null) {
             $order->addOrderColumn($orderColumn);
         }
-        $this->setChild('ORDERBY', $order);
+        $this->setChild(self::CHILD_ORDER_BY, $order);
         return $order;
     }
 
+    /**
+     * @param int $num
+     * @param int $offset
+     * @return $this
+     */
     public function limit($num = 1, $offset = 0)
     {
         /* @var $limit Limit */
@@ -104,5 +108,13 @@ class Select extends AbstractComponent implements WhereableInterface
         $limit->setLimit($num, $offset);
         $this->setChild(self::CHILD_LIMIT, $limit);
         return $this;
+    }
+
+    public function join($type = null, $tableName = null)
+    {
+        $joinComponent = $this->hasChild(self::CHILD_JOIN) ? $this->getChild(self::CHILD_JOIN) :
+                         new Join($type, $tableName);
+        $this->setChild(self::CHILD_JOIN, $joinComponent);
+        return $joinComponent;
     }
 }

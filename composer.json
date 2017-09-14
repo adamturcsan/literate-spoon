@@ -23,5 +23,11 @@
         "psr-4": {
             "LegoW\\LiterateSpoon\\Test\\": "test/"
         }
+    },
+    "scripts": {
+        "run-tests": "composer run-unit-tests && composer cs-check",
+        "run-unit-tests": "./vendor/bin/phpunit -c phpunit.xml",
+        "cs-check": "./vendor/bin/phpcs",
+        "cs-fix": "./vendor/bin/phpcbf"
     }
 }
