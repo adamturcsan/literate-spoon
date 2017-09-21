@@ -29,7 +29,7 @@ class Insert extends AbstractComponent
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        if ($tableName != null) {
+        if ($tableName !== null) {
             $this->setTableName($tableName);
         }
     }

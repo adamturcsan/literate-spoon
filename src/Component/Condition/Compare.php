@@ -33,10 +33,10 @@ class Compare extends Condition
         $possibleChildren = [];
         parent::__construct($possibleChildren);
         $this->setOperator($operator);
-        if ($columns != null) {
+        if ($columns !== null) {
             $this->setParam('column', $columns);
         }
-        if ($value != null) {
+        if ($value !== null) {
             $this->setParam('value', $value);
         }
     }

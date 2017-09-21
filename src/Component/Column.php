@@ -31,8 +31,7 @@ class Column extends Columns
 
     public function __construct($name = null)
     {
-        $possibleChildren = [];
-        parent::__construct($possibleChildren);
+        parent::__construct();
         if ($name !== null) {
             $this->setName($name);
         }

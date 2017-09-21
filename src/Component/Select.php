@@ -47,7 +47,7 @@ class Select extends AbstractComponent implements WhereableInterface
         if ($tableName !== null) {
             $this->setTableName($tableName);
         }
-        if ($columns == null) {
+        if ($columns === null) {
             $this->setDefaultColumns();
         } else {
             $this->setColumns($columns);
