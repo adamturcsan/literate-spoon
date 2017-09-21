@@ -2,19 +2,33 @@ sudo: false
 
 language: php
 
-php:
-    - 5.6
-    - 7.0
-    - 7.1
+env:
+    global:
+        - COMPOSER_ARGS="--no-interaction --ignore-platform-reqs"
+
+matrix:
+    include:
+        - php: 5.6
+          env:
+                - STAN=off
+        - php: 7.0
+          env:
+                - STAN=on
+        - php: 7.1
+          env:
+                - STAN=on
     
 before_install:
     - composer self-update
     
 install:
+    - if [[ $STAN == 'off' ]]; then travis_retry composer remove --dev phpstan/phpstan ; fi
     - travis_retry composer install --no-interaction --ignore-platform-reqs
- 
+
 script:
     - ./vendor/bin/phpunit --configuration phpunit.xml.dist test
+    - ./vendor/bin/phpcs
+    - if [[ $STAN == 'on' ]]; ./vendor/bin/phpstan analyze -l 3 src/ ; fi
 
 after_script:
     - composer require --dev satooshi/php-coveralls:^1.0
