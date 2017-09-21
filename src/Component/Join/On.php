@@ -13,6 +13,7 @@
 namespace LegoW\LiterateSpoon\Component\Join;
 
 use LegoW\LiterateSpoon\Component\AbstractComponent;
+use LegoW\LiterateSpoon\Component\Condition;
 
 /**
  * Description of On
@@ -21,9 +22,18 @@ use LegoW\LiterateSpoon\Component\AbstractComponent;
  */
 class On extends AbstractComponent
 {
+    const PARAM_NAME_CONDITIONS = 'conditions';
 
-    //put your code here
     public function getFormat()
     {
+        return 'ON :' . self::PARAM_NAME_CONDITIONS .'-condition';
+    }
+
+    public function __construct(Condition $condition = null)
+    {
+        parent::__construct([]);
+        if ($condition !== null) {
+            $this->setParam(self::PARAM_NAME_CONDITIONS, $condition);
+        }
     }
 }

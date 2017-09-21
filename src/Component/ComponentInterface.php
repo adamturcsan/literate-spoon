@@ -35,7 +35,7 @@ interface ComponentInterface
     public function setParam($name, ComponentInterface $value);
 
     /**
-     * @return \Traversable
+     * @return array
      */
     public function getChildren();
 

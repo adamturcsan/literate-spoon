@@ -12,6 +12,9 @@
 
 namespace LegoW\LiterateSpoon\Component\Traits;
 
+use LegoW\LiterateSpoon\Component\ComponentInterface;
+use LegoW\LiterateSpoon\Component\TableName;
+
 /**
  * Description of TableNameAwareTrait
  *
@@ -19,7 +22,7 @@ namespace LegoW\LiterateSpoon\Component\Traits;
  */
 trait TableNameAwareTrait
 {
-
+    abstract public function setParam($name, ComponentInterface $param);
     /**
      * @param string $name
      * @return $this

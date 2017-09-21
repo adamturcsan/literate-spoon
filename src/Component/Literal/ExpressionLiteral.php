@@ -21,6 +21,11 @@ use LegoW\LiterateSpoon\Component\Literal;
  */
 class ExpressionLiteral extends Literal
 {
+    /**
+     * @var string
+     */
+    private $format;
+
     public function getFormat()
     {
         return $this->format;
@@ -30,6 +35,6 @@ class ExpressionLiteral extends Literal
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        $this->format = $value;
+        $this->format = $expression;
     }
 }
