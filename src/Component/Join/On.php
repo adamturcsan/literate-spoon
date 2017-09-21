@@ -10,40 +10,30 @@
  *  file that was distributed with this source code.
  */
 
-namespace LegoW\LiterateSpoon\Component;
+namespace LegoW\LiterateSpoon\Component\Join;
+
+use LegoW\LiterateSpoon\Component\AbstractComponent;
+use LegoW\LiterateSpoon\Component\Condition;
 
 /**
- * Description of Column
+ * Description of On
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Column extends Columns
+class On extends AbstractComponent
 {
-    protected $format = '*';
+    const PARAM_NAME_CONDITIONS = 'conditions';
 
-    /**
-     * {@inheritDoc}
-     */
     public function getFormat()
     {
-        return $this->format;
+        return 'ON :' . self::PARAM_NAME_CONDITIONS .'-condition';
     }
 
-    public function __construct($name = null)
+    public function __construct(Condition $condition = null)
     {
-        parent::__construct();
-        if ($name !== null) {
-            $this->setName($name);
+        parent::__construct([]);
+        if ($condition !== null) {
+            $this->setParam(self::PARAM_NAME_CONDITIONS, $condition);
         }
-    }
-
-    /**
-     * @param string $name
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->format = '`'.$name.'`';
-        return $this;
     }
 }

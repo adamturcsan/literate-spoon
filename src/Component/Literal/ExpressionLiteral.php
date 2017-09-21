@@ -10,40 +10,31 @@
  *  file that was distributed with this source code.
  */
 
-namespace LegoW\LiterateSpoon\Component;
+namespace LegoW\LiterateSpoon\Component\Literal;
+
+use LegoW\LiterateSpoon\Component\Literal;
 
 /**
- * Description of Column
+ * Description of ExpressionLiteral
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Column extends Columns
+class ExpressionLiteral extends Literal
 {
-    protected $format = '*';
-
     /**
-     * {@inheritDoc}
+     * @var string
      */
+    private $format;
+
     public function getFormat()
     {
         return $this->format;
     }
 
-    public function __construct($name = null)
+    public function __construct($expression)
     {
-        parent::__construct();
-        if ($name !== null) {
-            $this->setName($name);
-        }
-    }
-
-    /**
-     * @param string $name
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->format = '`'.$name.'`';
-        return $this;
+        $possibleChildren = [];
+        parent::__construct($possibleChildren);
+        $this->format = $expression;
     }
 }

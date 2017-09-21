@@ -12,6 +12,7 @@
 
 namespace LegoW\LiterateSpoon\Component;
 
+use InvalidArgumentException;
 use LegoW\LiterateSpoon\Param;
 use LegoW\LiterateSpoon\ParamBuilder;
 
@@ -66,9 +67,10 @@ abstract class AbstractComponent implements ComponentInterface
      */
     public function setChild($name, ComponentInterface $component)
     {
-        if (array_search($name, $this->possibleChildren) !== false) {
-            $this->children[$name] = $component;
+        if (array_search($name, $this->possibleChildren) === false) {
+            throw new InvalidArgumentException(sprintf('Child name "%s" is not valid for this component', $name));
         }
+        $this->children[$name] = $component;
         return $this;
     }
 

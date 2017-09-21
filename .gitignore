@@ -1,3 +1,5 @@
 /vendor/
 /temp/
 /phpunit.xml
+clover.xml
+phpunit-xdebug

@@ -32,12 +32,24 @@ class Union extends AbstractComponent
     }
 
     /**
-     * @param \LegoW\LiterateSpoon\Component\Select $select
+     * @param Select $select
      * @return $this
      */
     public function addSelect(Select $select)
     {
         $this->setParam(self::PARAM_NAME_SELECT, $select);
         return $this;
+    }
+
+    /**
+     * @param string $tableName
+     * @param array $columns
+     * @return Select
+     */
+    public function addNewSelect($tableName = null, array $columns = null)
+    {
+        $select = new Select($tableName, $columns);
+        $this->addSelect($select);
+        return $select;
     }
 }

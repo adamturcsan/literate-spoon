@@ -6,24 +6,26 @@
 
 namespace LegoW\LiterateSpoon\Component;
 
-use LegoW\LiterateSpoon\Component\WhereableInterface;
+use LegoW\LiterateSpoon\Component\Traits\TableNameAwareTrait;
 use LegoW\LiterateSpoon\Component\Traits\WhereableTrait;
+use LegoW\LiterateSpoon\Component\WhereableInterface;
+use LegoW\LiterateSpoon\Component\TableNameAwareInterface;
 
 /**
  * Description of Select
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Select extends AbstractComponent implements WhereableInterface
+class Select extends AbstractComponent implements WhereableInterface, TableNameAwareInterface
 {
     use WhereableTrait;
+    use TableNameAwareTrait;
 
     const CHILD_JOIN = 'JOIN';
     const CHILD_ORDER_BY = 'ORDERBY';
     const CHILD_HAVING = 'HAVING';
     const CHILD_LIMIT = 'LIMIT';
     const PARAM_NAME_COLUMNS = 'columns';
-    const PARAM_NAME_TABLE = 'table';
 
     public function getFormat()
     {
@@ -31,7 +33,6 @@ class Select extends AbstractComponent implements WhereableInterface
     }
 
     /**
-     * 
      * @param string $tableName
      * @param string[] $columns
      */
@@ -48,22 +49,11 @@ class Select extends AbstractComponent implements WhereableInterface
         if ($tableName !== null) {
             $this->setTableName($tableName);
         }
-        if ($columns == null) {
+        if ($columns === null) {
             $this->setDefaultColumns();
         } else {
             $this->setColumns($columns);
         }
-    }
-
-    /**
-     * @param string $name
-     * @return $this
-     */
-    public function setTableName($name)
-    {
-        $tableName = new TableName($name);
-        $this->setParam(self::PARAM_NAME_TABLE, $tableName);
-        return $this;
     }
 
     /**
@@ -84,8 +74,8 @@ class Select extends AbstractComponent implements WhereableInterface
     }
 
     /**
-     * @param \LegoW\LiterateSpoon\Component\OrderColumn $orderColumn
-     * @return \LegoW\LiterateSpoon\Component\OrderBy
+     * @param OrderColumn $orderColumn
+     * @return OrderBy
      */
     public function orderBy(OrderColumn $orderColumn = null)
     {
@@ -93,10 +83,15 @@ class Select extends AbstractComponent implements WhereableInterface
         if ($orderColumn !== null) {
             $order->addOrderColumn($orderColumn);
         }
-        $this->setChild('ORDERBY', $order);
+        $this->setChild(self::CHILD_ORDER_BY, $order);
         return $order;
     }
 
+    /**
+     * @param int $num
+     * @param int $offset
+     * @return $this
+     */
     public function limit($num = 1, $offset = 0)
     {
         /* @var $limit Limit */
@@ -104,5 +99,18 @@ class Select extends AbstractComponent implements WhereableInterface
         $limit->setLimit($num, $offset);
         $this->setChild(self::CHILD_LIMIT, $limit);
         return $this;
+    }
+
+    /**
+     * @param string $tableName
+     * @param string $type
+     * @return Join
+     */
+    public function join($tableName = null, $type = null)
+    {
+        $joinComponent = $this->hasChild(self::CHILD_JOIN) ? $this->getChild(self::CHILD_JOIN) :
+                         new Join($tableName, $type);
+        $this->setChild(self::CHILD_JOIN, $joinComponent);
+        return $joinComponent;
     }
 }

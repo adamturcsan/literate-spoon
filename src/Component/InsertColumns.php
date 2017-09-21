@@ -27,7 +27,7 @@ class InsertColumns extends AbstractComponent
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        if ($columns != null) {
+        if ($columns !== null) {
             $this->setColumns($columns);
         }
     }

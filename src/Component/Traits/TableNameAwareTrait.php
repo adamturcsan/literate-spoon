@@ -10,40 +10,27 @@
  *  file that was distributed with this source code.
  */
 
-namespace LegoW\LiterateSpoon\Component;
+namespace LegoW\LiterateSpoon\Component\Traits;
+
+use LegoW\LiterateSpoon\Component\ComponentInterface;
+use LegoW\LiterateSpoon\Component\TableName;
 
 /**
- * Description of Column
+ * Description of TableNameAwareTrait
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Column extends Columns
+trait TableNameAwareTrait
 {
-    protected $format = '*';
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getFormat()
-    {
-        return $this->format;
-    }
-
-    public function __construct($name = null)
-    {
-        parent::__construct();
-        if ($name !== null) {
-            $this->setName($name);
-        }
-    }
-
+    abstract public function setParam($name, ComponentInterface $param);
     /**
      * @param string $name
      * @return $this
      */
-    public function setName($name)
+    public function setTableName($name)
     {
-        $this->format = '`'.$name.'`';
+        $tableName = new TableName($name);
+        $this->setParam(self::PARAM_NAME_TABLE, $tableName);
         return $this;
     }
 }

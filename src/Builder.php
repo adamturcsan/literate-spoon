@@ -26,7 +26,7 @@ class Builder
     /**
      * Holds the query components
      *
-     * @var Components[]|\Traversable
+     * @var ComponentInterface[]|\Traversable
      */
     private $components;
 
@@ -38,12 +38,12 @@ class Builder
     private $isStringOutdated = true;
 
     /**
-     * @param Components[]|\Traversable $components
+     * @param ComponentInterface[]|\Traversable $components
      * @throws \InvalidArgumentException
      */
-    public function __construct($components = null)
+    public function __construct($components = [])
     {
-        if ($components != null && (! is_array($components) && ! $components instanceof \Traversable)) {
+        if ($components !== null && (! is_array($components) && ! $components instanceof \Traversable)) {
             throw new \InvalidArgumentException('$components argument should be iterable');
         }
         $this->components = $components;
@@ -55,7 +55,7 @@ class Builder
      */
     public function asString()
     {
-        if ($this->queryString == null || $this->isStringOutdated) {
+        if ($this->queryString === null || $this->isStringOutdated) {
             $this->queryString = trim(implode(' ', $this->components)).';';
             $this->isStringOutdated = false;
         }

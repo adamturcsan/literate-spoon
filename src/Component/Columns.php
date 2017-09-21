@@ -33,7 +33,7 @@ class Columns extends AbstractComponent
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
-        if ($columns != null) {
+        if (! empty($columns)) {
             $this->setColumns($columns);
         }
     }

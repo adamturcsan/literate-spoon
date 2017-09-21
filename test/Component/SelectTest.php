@@ -12,13 +12,18 @@
 
 namespace LegoW\LiterateSpoon\Test\Component;
 
-use PHPUnit\Framework\TestCase;
-use LegoW\LiterateSpoon\Component\Select;
-use LegoW\LiterateSpoon\Component\Condition\Compare;
 use LegoW\LiterateSpoon\Component\Columns;
-use LegoW\LiterateSpoon\Component\Literal\Placeholder;
+use LegoW\LiterateSpoon\Component\ComponentInterface;
+use LegoW\LiterateSpoon\Component\Condition\Compare;
 use LegoW\LiterateSpoon\Component\Direction;
+use LegoW\LiterateSpoon\Component\Join;
+use LegoW\LiterateSpoon\Component\Literal\Placeholder;
+use LegoW\LiterateSpoon\Component\OrderBy;
+use LegoW\LiterateSpoon\Component\OrderColumn;
+use LegoW\LiterateSpoon\Component\Select;
 use LegoW\LiterateSpoon\Component\Where;
+use LegoW\LiterateSpoon\Param;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of SelectTest
@@ -100,7 +105,7 @@ class SelectTest extends TestCase
     public function testSetChild()
     {
         $select = new Select();
-        $mockComponent = $this->createMock(\LegoW\LiterateSpoon\Component\ComponentInterface::class);
+        $mockComponent = $this->createMock(ComponentInterface::class);
 
         $select->setChild('WHERE', $mockComponent);
         $this->assertAttributeContains($mockComponent, 'children', $select);
@@ -119,7 +124,7 @@ class SelectTest extends TestCase
     public function testGetChild()
     {
         $select = new Select();
-        $mockComponent = $this->createMock(\LegoW\LiterateSpoon\Component\ComponentInterface::class);
+        $mockComponent = $this->createMock(ComponentInterface::class);
 
         $select->setChild('WHERE', $mockComponent);
         $this->assertSame($mockComponent, $select->getChild('WHERE'));
@@ -135,10 +140,10 @@ class SelectTest extends TestCase
     public function testOrderByColumn()
     {
         $select = new Select('test', ['test1']);
-        $orderColumn = new \LegoW\LiterateSpoon\Component\OrderColumn('test1', Direction::DESC);
+        $orderColumn = new OrderColumn('test1', Direction::DESC);
         $order = $select->orderBy($orderColumn);
         $this->assertSame('SELECT `test1` FROM test ORDER BY `test1` DESC', (string)$select);
-        $this->assertInstanceOf(\LegoW\LiterateSpoon\Component\OrderBy::class, $order);
+        $this->assertInstanceOf(OrderBy::class, $order);
     }
 
     public function testLimit()
@@ -152,6 +157,16 @@ class SelectTest extends TestCase
         $component = new Select();
         $params = $component->getParams();
         $this->assertCount(2, $params);
-        $this->assertContainsOnly(\LegoW\LiterateSpoon\Param::class, $params);
+        $this->assertContainsOnly(Param::class, $params);
+    }
+
+    public function testJoin()
+    {
+        $select = new Select('test', ['test1']);
+        $join = $select->join();
+        $this->assertInstanceOf(Join::class, $join);
+        $join->setTableName('testTable');
+        $this->assertSame((string)$join, (string)$select->join());
+        $this->assertSame('SELECT `test1` FROM test JOIN testTable', (string)$select);
     }
 }
