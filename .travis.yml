@@ -28,7 +28,7 @@ install:
 script:
     - ./vendor/bin/phpunit --configuration phpunit.xml.dist test
     - ./vendor/bin/phpcs
-    - if [[ $STAN == 'on' ]]; ./vendor/bin/phpstan analyze -l 3 src/ ; fi
+    - if [[ $STAN == 'on' ]]; then ./vendor/bin/phpstan analyze -l 3 src/ ; fi
 
 after_script:
     - composer require --dev satooshi/php-coveralls:^1.0
