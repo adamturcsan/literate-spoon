@@ -6,24 +6,26 @@
 
 namespace LegoW\LiterateSpoon\Component;
 
-use LegoW\LiterateSpoon\Component\WhereableInterface;
+use LegoW\LiterateSpoon\Component\Traits\TableNameAwareTrait;
 use LegoW\LiterateSpoon\Component\Traits\WhereableTrait;
+use LegoW\LiterateSpoon\Component\WhereableInterface;
+use LegoW\LiterateSpoon\Component\TableNameAwareInterface;
 
 /**
  * Description of Select
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Select extends AbstractComponent implements WhereableInterface
+class Select extends AbstractComponent implements WhereableInterface, TableNameAwareInterface
 {
     use WhereableTrait;
+    use TableNameAwareTrait;
 
     const CHILD_JOIN = 'JOIN';
     const CHILD_ORDER_BY = 'ORDERBY';
     const CHILD_HAVING = 'HAVING';
     const CHILD_LIMIT = 'LIMIT';
     const PARAM_NAME_COLUMNS = 'columns';
-    const PARAM_NAME_TABLE = 'table';
 
     public function getFormat()
     {
@@ -55,17 +57,6 @@ class Select extends AbstractComponent implements WhereableInterface
     }
 
     /**
-     * @param string $name
-     * @return $this
-     */
-    public function setTableName($name)
-    {
-        $tableName = new TableName($name);
-        $this->setParam(self::PARAM_NAME_TABLE, $tableName);
-        return $this;
-    }
-
-    /**
      * @param string[] $columns
      * @return $this
      */
@@ -83,8 +74,8 @@ class Select extends AbstractComponent implements WhereableInterface
     }
 
     /**
-     * @param \LegoW\LiterateSpoon\Component\OrderColumn $orderColumn
-     * @return \LegoW\LiterateSpoon\Component\OrderBy
+     * @param OrderColumn $orderColumn
+     * @return OrderBy
      */
     public function orderBy(OrderColumn $orderColumn = null)
     {
@@ -110,10 +101,15 @@ class Select extends AbstractComponent implements WhereableInterface
         return $this;
     }
 
-    public function join($type = null, $tableName = null)
+    /**
+     * @param string $tableName
+     * @param string $type
+     * @return Join
+     */
+    public function join($tableName = null, $type = null)
     {
         $joinComponent = $this->hasChild(self::CHILD_JOIN) ? $this->getChild(self::CHILD_JOIN) :
-                         new Join($type, $tableName);
+                         new Join($tableName, $type);
         $this->setChild(self::CHILD_JOIN, $joinComponent);
         return $joinComponent;
     }

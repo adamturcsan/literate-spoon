@@ -13,6 +13,8 @@
 namespace LegoW\LiterateSpoon\Component;
 
 use InvalidArgumentException;
+use LegoW\LiterateSpoon\Component\Join\On;
+use LegoW\LiterateSpoon\Component\Join\Using;
 use LegoW\LiterateSpoon\Component\Literal\ExpressionLiteral;
 use LegoW\LiterateSpoon\Component\Traits\TableNameAwareTrait;
 
@@ -40,21 +42,21 @@ class Join extends AbstractComponent implements TableNameAwareInterface
         self::TYPE_RIGHT
     ];
 
-    public function __construct($type = null, $tableName = null)
+    public function __construct($tableName = null, $type = null)
     {
         $possibleChildren = [self::CHILD_ON, self::CHILD_USING];
         parent::__construct($possibleChildren);
-        if ($type !== null) {
-            $this->setType($type);
-        }
         if ($tableName !== null) {
             $this->setTableName($tableName);
+        }
+        if ($type !== null) {
+            $this->setType($type);
         }
     }
 
     public function getFormat()
     {
-        return ' :' . self::PARAM_NAME_TYPE . '-expression_literal JOIN :' . self::PARAM_NAME_TABLE . '-table_name';
+        return ' [:' . self::PARAM_NAME_TYPE . '-literal] JOIN :' . self::PARAM_NAME_TABLE . '-table_name';
     }
 
     /**
@@ -83,5 +85,25 @@ class Join extends AbstractComponent implements TableNameAwareInterface
             throw new \InvalidArgumentException('Only one should be used from ON or USING');
         }
         return parent::setChild($name, $component);
+    }
+
+    public function on(Condition $condition = null)
+    {
+        if ($this->hasChild(self::CHILD_ON)) {
+            return $this->getChild(self::CHILD_ON);
+        }
+        $on = new On($condition);
+        $this->setChild(self::CHILD_ON, $on);
+        return $on;
+    }
+
+    public function using($columnName = null)
+    {
+        if ($this->hasChild(self::CHILD_USING)) {
+            return $this->getChild(self::CHILD_USING);
+        }
+        $using = new Using($columnName);
+        $this->setChild(self::CHILD_USING, $using);
+        return $using;
     }
 }

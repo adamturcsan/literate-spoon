@@ -6,8 +6,9 @@
 
 namespace LegoW\LiterateSpoon\Test\Component;
 
-use PHPUnit\Framework\TestCase;
+use LegoW\LiterateSpoon\Component\Select;
 use LegoW\LiterateSpoon\Component\Union;
+use PHPUnit\Framework\TestCase;
 /**
  * Description of UnionTest
  *
@@ -29,12 +30,26 @@ class UnionTest extends TestCase
     {
         $union= new Union();
         
-        $select = new \LegoW\LiterateSpoon\Component\Select();
+        $select = new Select();
         $union->addSelect($select);
         
         $this->assertSame((string)$select, (string)$union);
         
         $union->addSelect($select);
         $this->assertSame((string)$select.' UNION '.(string)$select, (string)$union);
+    }
+
+    public function testAddNewSelect()
+    {
+        $union = new Union();
+
+        $select = $union->addNewSelect();
+        $this->assertInstanceOf(Select::class, $select);
+        $this->assertSame((string)$select, (string)$union);
+
+        $select2 = $union->addNewSelect('testTable');
+        $this->assertSame((string)$select.' UNION '.(string)$select2, (string)$union);
+        $select->setTableName('testTableFirst');
+        $this->assertSame((string)$select.' UNION '.(string)$select2, (string)$union);
     }
 }

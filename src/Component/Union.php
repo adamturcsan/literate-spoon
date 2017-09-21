@@ -46,7 +46,7 @@ class Union extends AbstractComponent
      * @param array $columns
      * @return Select
      */
-    public function addNewSelect($tableName, array $columns)
+    public function addNewSelect($tableName = null, array $columns = null)
     {
         $select = new Select($tableName, $columns);
         $this->addSelect($select);

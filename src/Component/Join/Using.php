@@ -14,34 +14,26 @@ namespace LegoW\LiterateSpoon\Component\Join;
 
 use LegoW\LiterateSpoon\Component\AbstractComponent;
 use LegoW\LiterateSpoon\Component\Column;
-use LegoW\LiterateSpoon\Component\TableNameAwareInterface;
-use LegoW\LiterateSpoon\Component\Traits\TableNameAwareTrait;
 
 /**
  * Description of Using
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Using extends AbstractComponent implements TableNameAwareInterface
+class Using extends AbstractComponent
 {
-    use TableNameAwareTrait;
-
-    const PARAM_NAME_TABLE_NAME = 'table-name';
-    const PARAM_NAME_COLUMN_NAME = 'column-name';
+    const PARAM_NAME_COLUMN_NAME = 'column';
 
     public function getFormat()
     {
-        return 'USING :' . self::PARAM_NAME_TABLE_NAME . '-table_name.:' . self::PARAM_NAME_COLUMN_NAME . '-column';
+        return 'USING :' . self::PARAM_NAME_COLUMN_NAME . '-column';
     }
 
-    public function __construct($columnName = null, $tableName = null)
+    public function __construct($columnName = null)
     {
         parent::__construct([]);
         if ($columnName !== null) {
             $this->setColumnName($columnName);
-        }
-        if ($tableName !== null) {
-            $this->setTableName($tableName);
         }
     }
 
