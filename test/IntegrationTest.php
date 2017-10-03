@@ -48,4 +48,15 @@ class IntegrationTest extends TestCase
                 $builder->asString());
     }
 
+    public function testComplexInsertFromBuilder()
+    {
+        $builder = new Builder();
+
+        $builder->insert('testTable')
+                ->addColumn('columnOne')->addValuePlaceHolderFor('one')
+                ->addColumn('columnTwo')->addValuePlaceHolderFor('two');
+
+        $query = $builder->asString();
+        $this->assertSame('INSERT INTO testTable (`columnOne`, `columnTwo`) VALUES (:one, :two);', $query);
+    }
 }

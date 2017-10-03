@@ -62,6 +62,11 @@ class Insert extends AbstractComponent
      */
     public function addColumn($columnName)
     {
+        $param = $this->getParam(self::PARAM_NAME_COLUMNS);
+        if ($param->hasValue()) {
+            $param->getValue()->setParam(InsertColumns::PARAM_NAME_COLUMNS, new Column($columnName));
+            return $this;
+        }
         $columns = new InsertColumns([$columnName]);
         $this->setParam(self::PARAM_NAME_COLUMNS, $columns);
         return $this;

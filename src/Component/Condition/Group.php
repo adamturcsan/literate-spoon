@@ -7,7 +7,7 @@
 namespace LegoW\LiterateSpoon\Component\Condition;
 
 use LegoW\LiterateSpoon\Component\Condition;
-use LegoW\LiterateSpoon\Component\Columns;
+use LegoW\LiterateSpoon\Component\Column;
 use LegoW\LiterateSpoon\Component\Literal;
 
 /**
@@ -64,11 +64,11 @@ class Group extends Condition
 
     /**
      * @param string $operator
-     * @param Columns $column
+     * @param Column $column
      * @param Literal $value
      * @return $this
      */
-    public function compare($operator, Columns $column, Literal $value)
+    public function compare($operator, Column $column, Literal $value)
     {
         $compare = new Condition\Compare($operator);
         $compare->setParam(Compare::PARAM_NAME_COLUMN, $column);

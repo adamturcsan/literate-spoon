@@ -110,6 +110,23 @@ class Param
     }
 
     /**
+     * @return ComponentInterface If param is multiple it returns the first value
+     */
+    public function getValue()
+    {
+        return $this->getValueAt(0);
+    }
+
+    /**
+     * @param int $offset
+     * @return ComponentInterface
+     */
+    public function getValueAt($offset)
+    {
+        return $this->getValues()[$offset];
+    }
+
+    /**
      *
      * @return string
      */
@@ -119,7 +136,14 @@ class Param
     }
 
     /**
-     *
+     * @return bool
+     */
+    public function hasValue()
+    {
+        return ! empty($this->getValues());
+    }
+
+    /**
      * @param string $typeName Type name from format string
      * @return string Actual Class name with fullnamespace
      */

@@ -21,17 +21,17 @@ class CompareTest extends TestCase
     public function testDefaultConstruct()
     {
         $compareCondition = new Compare();
-        $this->assertSame('(:column-columns = :value-literal)',
+        $this->assertSame('(:column-column = :value-literal)',
                 (string) $compareCondition);
     }
 
     public function testOperatorConstruct()
     {
         $compareCondition = new Compare('>');
-        $this->assertSame('(:column-columns > :value-literal)',
+        $this->assertSame('(:column-column > :value-literal)',
                 (string) $compareCondition);
         $compareCondition2 = new Compare('<=');
-        $this->assertSame('(:column-columns <= :value-literal)',
+        $this->assertSame('(:column-column <= :value-literal)',
                 (string) $compareCondition2);
     }
 

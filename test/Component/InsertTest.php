@@ -12,10 +12,11 @@
 
 namespace LegoW\LiterateSpoon\Test\Component;
 
-use PHPUnit\Framework\TestCase;
 use LegoW\LiterateSpoon\Component\Insert;
 use LegoW\LiterateSpoon\Component\InsertColumns;
 use LegoW\LiterateSpoon\Component\Literal\Placeholder;
+use LegoW\LiterateSpoon\Param;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of InsertTest
@@ -77,6 +78,17 @@ class InsertTest extends TestCase
         $this->assertSame($insert, $acInsert, 'Test if it returns itself');
     }
 
+    public function testAddColumnMultipleTimes()
+    {
+        $insert = new Insert('test');
+        $ac1Insert = $insert->addColumn('test1');
+        $ac2Insert = $insert->addColumn('test2');
+        $this->assertSame('INSERT INTO test (`test1`, `test2`) VALUES (:' . Insert::PARAM_NAME_VALUES . '-literal+)',
+                (string) $insert);
+        $this->assertSame($insert, $ac1Insert);
+        $this->assertSame($insert, $ac2Insert);
+    }
+
     public function testColumns()
     {
         $insert = new Insert('test');
@@ -96,4 +108,18 @@ class InsertTest extends TestCase
         $this->assertSame($insert, $aphInsert, 'Test if it returns itself');
     }
 
+    public function testGetParam()
+    {
+        $insert = new Insert('test');
+        $param = $insert->getParam(Insert::PARAM_NAME_TABLE);
+        $this->assertInstanceOf(Param::class, $param);
+        $this->assertEquals('test',$param->getValue());
+    }
+
+    public function testGetNullParam()
+    {
+        $insert = new Insert();
+        $param = $insert->getParam('wrong_name');
+        $this->assertNull($param);
+    }
 }
