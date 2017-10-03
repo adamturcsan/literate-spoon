@@ -39,8 +39,7 @@ class DeleteTest extends TestCase
     {
         $delete = new Delete();
         $this->assertSame('DELETE FROM :table-table_name', (string)$delete);
-        $tableName = new TableName('tableName');
-        $delete->setTableName($tableName);
+        $delete->setTableName('tableName');
         $this->assertSame('DELETE FROM tableName', (string)$delete);
     }
 }
