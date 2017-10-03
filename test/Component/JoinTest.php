@@ -109,10 +109,10 @@ class JoinTest extends TestCase
         $join = new Join('test');
         $using = $join->using();
         $this->assertInstanceOf(Using::class, $using);
-        $this->assertSame('USING :'.Using::PARAM_NAME_COLUMN_NAME.'-column', (string)$using);
+        $this->assertSame('USING (:'.Using::PARAM_NAME_COLUMN_NAME.'-column)', (string)$using);
         $using->setParam(Using::PARAM_NAME_COLUMN_NAME, $this->createMock(Column::class));
-        $this->assertSame('USING ', (string)$using);
-        $this->assertSame('USING ', (string)$join->using());
-        $this->assertSame(' JOIN test USING ', (string)$join);
+        $this->assertSame('USING ()', (string)$using);
+        $this->assertSame('USING ()', (string)$join->using());
+        $this->assertSame(' JOIN test USING ()', (string)$join);
     }    
 }
