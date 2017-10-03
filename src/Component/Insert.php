@@ -8,16 +8,17 @@ namespace LegoW\LiterateSpoon\Component;
 
 use LegoW\LiterateSpoon\Component\TableName;
 use LegoW\LiterateSpoon\Component\Literal\Placeholder;
+use LegoW\LiterateSpoon\Component\Traits\TableNameAwareTrait;
 
 /**
  * Description of Insert
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Insert extends AbstractComponent
+class Insert extends AbstractComponent implements TableNameAwareInterface
 {
+    use TableNameAwareTrait;
 
-    const PARAM_NAME_TABLE = 'table';
     const PARAM_NAME_COLUMNS = 'columns';
     const PARAM_NAME_VALUES = 'value';
 
@@ -42,17 +43,6 @@ class Insert extends AbstractComponent
         return 'INSERT INTO :' . self::PARAM_NAME_TABLE . '-table_name '
             . '[:' . self::PARAM_NAME_COLUMNS . '-insert_columns]'
             . ' VALUES (:' . self::PARAM_NAME_VALUES . '-literal+)';
-    }
-
-    /**
-     *
-     * @param string $tableName
-     */
-    public function setTableName($tableName)
-    {
-        $tableName = new TableName($tableName);
-        $this->setParam(self::PARAM_NAME_TABLE, $tableName);
-        return $this;
     }
 
     /**

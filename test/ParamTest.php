@@ -74,8 +74,9 @@ class ParamTest extends TestCase
     {
         $param = new Param('name', 'Literal', false, false);
         $value = new Component\Literal\StringLiteral('string');
-        $param->setValue($value);
+        $setParam = $param->setValue($value);
         $this->assertAttributeEquals([$value], 'values', $param);
+        $this->assertSame($param, $setParam, 'Param::setValue returns self');
     }
 
     /**
@@ -98,9 +99,10 @@ class ParamTest extends TestCase
     public function testAddValue(Param $param)
     {
         $value = new Component\Literal\StringLiteral('string');
-        $param->addValue($value);
-        $param->addValue($value);
-        $this->assertAttributeEquals([$value, $value], 'values', $param);
+        $paramAdd = $param->addValue($value);
+        $this->assertSame($param, $paramAdd);
+        $paramAdd->addValue($value);
+        $this->assertSame([$value, $value], $param->getValues());
         return $param;
     }
 

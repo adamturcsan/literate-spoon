@@ -55,18 +55,24 @@ class ParamBuilderTest extends TestCase
     {
         $builder = new ParamBuilder();
         
-        $params = $builder->createFromFormat(':mandatory-literal and [:optional-table_name]+');
+        $params = $builder->createFromFormat(
+            ':mandatory-literal and [:optional-table_name]+ and [:not_optional-literal'
+        );
         $this->assertTrue(is_array($params));
         foreach($params as $param) {
             $this->assertInstanceOf(Param::class, $param);
             switch($param->getName()) {
-                case 'mandatory':
+                case ':mandatory-literal':
                     $this->assertFalse($param->isOptional());
                     $this->assertFalse($param->isMultiple());
                     break;
-                case 'optional': 
+                case '[:optional-table_name]+': 
                     $this->assertTrue($param->isOptional());
                     $this->assertTrue($param->isMultiple());
+                    break;
+                case '[:not_optional-literal':
+                    $this->assertFalse($param->isOptional());
+                    $this->assertFalse($param->isMultiple());
                     break;
             }
         }

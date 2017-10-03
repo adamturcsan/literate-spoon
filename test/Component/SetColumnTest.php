@@ -34,8 +34,9 @@ class SetColumnTest extends TestCase
     {
         $setColumn = new SetColumn();
         $column = new Column('name');
-        $setColumn->setColumn($column);
+        $setColumnAfter = $setColumn->setColumn($column);
         $this->assertSame('`name` = :value-literal', (string)$setColumn);
+        $this->assertSame($setColumn, $setColumnAfter);
     }
     
     public function testSetColumnName()
@@ -58,8 +59,9 @@ class SetColumnTest extends TestCase
     {
         $setColumn = new SetColumn('name');
         $value = new Placeholder('value');
-        $setColumn->setValue($value);
+        $setColumnAfter = $setColumn->setValue($value);
         $this->assertSame('`name` = :value', (string)$setColumn);
+        $this->assertSame($setColumn, $setColumnAfter);
     }
     
     /**

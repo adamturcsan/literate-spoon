@@ -70,9 +70,10 @@ class WhereTest extends TestCase
     {
         $condition = new Compare();
         $where = new Where();
-        $where->addCondition($condition);
+        $afterWhere = $where->addCondition($condition);
         
         $this->assertSame('WHERE '.(string)$condition, (string)$where);
+        $this->assertSame($where, $afterWhere);
     }
     
     /**

@@ -33,8 +33,9 @@ class UsingTest extends TestCase
     {
         $using = new Using();
         $this->assertSame('USING (:'.Using::PARAM_NAME_COLUMN_NAME.'-column)', (string)$using);
-        $using->setColumnName('test');
+        $usingAfter = $using->setColumnName('test');
         $this->assertSame('USING (`test`)', (string)$using);
+        $this->assertSame($using, $usingAfter);
     }
 
     public function testConstructionWithColumnName()

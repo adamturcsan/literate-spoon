@@ -35,8 +35,9 @@ class UnionTest extends TestCase
         
         $this->assertSame((string)$select, (string)$union);
         
-        $union->addSelect($select);
+        $unionAfter = $union->addSelect($select);
         $this->assertSame((string)$select.' UNION '.(string)$select, (string)$union);
+        $this->assertSame($union, $unionAfter);
     }
 
     public function testAddNewSelect()

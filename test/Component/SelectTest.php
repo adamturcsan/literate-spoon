@@ -21,6 +21,7 @@ use LegoW\LiterateSpoon\Component\Literal\Placeholder;
 use LegoW\LiterateSpoon\Component\OrderBy;
 use LegoW\LiterateSpoon\Component\OrderColumn;
 use LegoW\LiterateSpoon\Component\Select;
+use LegoW\LiterateSpoon\Component\TableName;
 use LegoW\LiterateSpoon\Component\Where;
 use LegoW\LiterateSpoon\Param;
 use PHPUnit\Framework\TestCase;
@@ -62,8 +63,9 @@ class SelectTest extends TestCase
     public function testSetColumns()
     {
         $select = new Select('test');
-        $select->setColumns(['test', 'test2']);
+        $selectAfter = $select->setColumns(['test', 'test2']);
         $this->assertSame('SELECT `test`, `test2` FROM test', (string) $select);
+        $this->assertSame($select, $selectAfter);
     }
 
     /**
@@ -107,8 +109,9 @@ class SelectTest extends TestCase
         $select = new Select();
         $mockComponent = $this->createMock(ComponentInterface::class);
 
-        $select->setChild('WHERE', $mockComponent);
+        $selectAfter = $select->setChild('WHERE', $mockComponent);
         $this->assertAttributeContains($mockComponent, 'children', $select);
+        $this->assertSame($select, $selectAfter);
     }
 
     public function testGetNullChild()
@@ -149,7 +152,8 @@ class SelectTest extends TestCase
     public function testLimit()
     {
         $select = new Select('test', ['test1', 'test2']);
-        $select->limit(3,6);
+        $selectAfter = $select->limit(3,6);
+        $this->assertSame($select, $selectAfter);
     }
     
     public function testGetParams()
@@ -158,6 +162,23 @@ class SelectTest extends TestCase
         $params = $component->getParams();
         $this->assertCount(2, $params);
         $this->assertContainsOnly(Param::class, $params);
+    }
+
+    public function testSetParams()
+    {
+        $select = new Select();
+        $mockedTableName = $this->createMock(TableName::class);
+        $afterSelect = $select->setParam(
+            Select::PARAM_NAME_TABLE,
+            $mockedTableName
+        );
+        $this->assertSame($select, $afterSelect);
+        $this->assertSame($select->getParam(Select::PARAM_NAME_TABLE)->getValue(), $mockedTableName);
+        $afterSelect2 = $select->setParam(
+            'NonExistantParam',
+            $mockedTableName
+        );
+        $this->assertSame($select, $afterSelect2);
     }
 
     public function testJoin()

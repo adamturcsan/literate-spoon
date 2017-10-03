@@ -65,10 +65,13 @@ class LimitTest extends TestCase
     {
         $limit = new Limit();
         $intLiteral = new IntLiteral(234);
-        $limit->setOffset($intLiteral);
+        $afterLimit = $limit->setOffset($intLiteral);
         $this->assertSame('LIMIT 234, 1', (string)$limit);
+        $this->assertSame($limit, $afterLimit);
         $intLiteral2 = new IntLiteral(321);
-        $limit->setOffset($intLiteral2);
+        $afterLimit2 = $limit->setOffset($intLiteral2);
         $this->assertSame('LIMIT 321, 1', (string)$limit);
+        $this->assertSame($limit, $afterLimit2);
+        $this->assertSame($afterLimit, $afterLimit2);
     }
 }

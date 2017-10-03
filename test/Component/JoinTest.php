@@ -49,6 +49,14 @@ class JoinTest extends TestCase
         $this->assertSame($expected, (string)$join);
     }
 
+    public function testSetType()
+    {
+        $join = new Join();
+        $afterJoin = $join->setType(Join::TYPE_INNER);
+        $this->assertSame(' INNER JOIN :'.Join::PARAM_NAME_TABLE.'-table_name', (string)$join);
+        $this->assertSame($join, $afterJoin);
+    }
+
     public function testSetChildWithWrongChildName()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -114,5 +122,13 @@ class JoinTest extends TestCase
         $this->assertSame('USING ()', (string)$using);
         $this->assertSame('USING ()', (string)$join->using());
         $this->assertSame(' JOIN test USING ()', (string)$join);
-    }    
+    }
+
+    public function testSetTableName()
+    {
+        $join = new Join();
+        $afterJoin = $join->setTableName('test');
+        $this->assertSame(' JOIN test', (string)$join);
+        $this->assertSame($join, $afterJoin);
+    }
 }

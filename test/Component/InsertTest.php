@@ -108,6 +108,9 @@ class InsertTest extends TestCase
         $this->assertSame($insert, $aphInsert, 'Test if it returns itself');
     }
 
+    /**
+     * @covers \LegoW\LiterateSpoon\Component\AbstractComponent::getParam
+     */
     public function testGetParam()
     {
         $insert = new Insert('test');
@@ -116,6 +119,9 @@ class InsertTest extends TestCase
         $this->assertEquals('test',$param->getValue());
     }
 
+    /**
+     * @covers \LegoW\LiterateSpoon\Component\AbstractComponent::getParam
+     */
     public function testGetNullParam()
     {
         $insert = new Insert();
