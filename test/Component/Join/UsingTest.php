@@ -26,21 +26,21 @@ class UsingTest extends TestCase
     {
         $using = new Using();
         $this->assertInstanceOf(Using::class, $using);
-        $this->assertSame('USING :'.Using::PARAM_NAME_COLUMN_NAME.'-column', (string)$using);
+        $this->assertSame('USING (:'.Using::PARAM_NAME_COLUMN_NAME.'-column)', (string)$using);
     }
 
     public function testSetColumnName()
     {
         $using = new Using();
-        $this->assertSame('USING :'.Using::PARAM_NAME_COLUMN_NAME.'-column', (string)$using);
+        $this->assertSame('USING (:'.Using::PARAM_NAME_COLUMN_NAME.'-column)', (string)$using);
         $using->setColumnName('test');
-        $this->assertSame('USING `test`', (string)$using);
+        $this->assertSame('USING (`test`)', (string)$using);
     }
 
     public function testConstructionWithColumnName()
     {
         $using = new Using('test');
         $this->assertInstanceOf(Using::class, $using);
-        $this->assertSame('USING `test`', (string)$using);
+        $this->assertSame('USING (`test`)', (string)$using);
     }
 }

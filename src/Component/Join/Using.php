@@ -26,7 +26,7 @@ class Using extends AbstractComponent
 
     public function getFormat()
     {
-        return 'USING :' . self::PARAM_NAME_COLUMN_NAME . '-column';
+        return 'USING (:' . self::PARAM_NAME_COLUMN_NAME . '-column)';
     }
 
     public function __construct($columnName = null)
