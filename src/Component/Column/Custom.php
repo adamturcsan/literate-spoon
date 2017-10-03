@@ -6,14 +6,14 @@
 
 namespace LegoW\LiterateSpoon\Component\Column;
 
-use LegoW\LiterateSpoon\Component\Columns;
+use LegoW\LiterateSpoon\Component\Column;
 
 /**
  * Description of Custom
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Custom extends Columns
+class Custom extends Column
 {
     protected $format;
 
