@@ -233,4 +233,16 @@ class BuilderTest extends TestCase
         $this->assertSame($updateString . ';', $builder->asString());
     }
 
+    public function testIfAsStringDoesNotCreateQueryStringIfItIsUnnecessary()
+    {
+        $builder = new Builder();
+
+        $reflectionClass = new \ReflectionClass($builder);
+        $select = $builder->select('test');
+        $query = $builder->asString();
+        $select->setTableName('modified');
+        $queryModified = $builder->asString();
+        $this->assertNotEquals($queryModified, $query);
+    }
+
 }

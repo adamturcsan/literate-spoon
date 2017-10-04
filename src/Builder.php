@@ -17,25 +17,11 @@ class Builder
 {
 
     /**
-     * Holds builded query string
-     *
-     * @var string
-     */
-    private $queryString;
-
-    /**
      * Holds the query components
      *
      * @var ComponentInterface[]|\Traversable
      */
     private $components;
-
-    /**
-     * Indicates whether query string is outdated
-     *
-     * @var bool
-     */
-    private $isStringOutdated = true;
 
     /**
      * @param ComponentInterface[]|\Traversable $components
@@ -55,11 +41,7 @@ class Builder
      */
     public function asString()
     {
-        if ($this->queryString === null || $this->isStringOutdated) {
-            $this->queryString = trim(implode(' ', $this->components)).';';
-            $this->isStringOutdated = false;
-        }
-        return $this->queryString;
+        return trim(implode(' ', $this->components)).';';
     }
 
     /**
@@ -68,7 +50,6 @@ class Builder
      */
     public function addComponent(ComponentInterface $component)
     {
-        $this->isStringOutdated = true;
         $this->components[] = $component;
         return $this;
     }
