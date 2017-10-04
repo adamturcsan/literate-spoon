@@ -21,8 +21,8 @@ class ParamTest extends TestCase
 
     /**
      * @covers ::__construct
-     * @covers ::setType 
-     * @return Param   
+     * @covers ::setType
+     * @return Param
      */
     public function testDefaultConstructor()
     {
@@ -147,5 +147,4 @@ class ParamTest extends TestCase
     {
         new Param('parameter', 'wrongType', true, true);
     }
-
 }

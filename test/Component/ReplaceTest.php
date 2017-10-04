@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -22,11 +22,12 @@ use LegoW\LiterateSpoon\Component\Replace;
  */
 class ReplaceTest extends TestCase
 {
-    
+
     public function testDefaultConstructor()
     {
         $replace = new Replace();
-        $this->assertSame('REPLACE INTO :'.Replace::PARAM_NAME_TABLE.'-table_name VALUES (:'.Replace::PARAM_NAME_VALUES.'-literal+)', (string)$replace);
+        $expected = 'REPLACE INTO :'.Replace::PARAM_NAME_TABLE.'-table_name VALUES (:'
+                   .Replace::PARAM_NAME_VALUES.'-literal+)';
+        $this->assertSame($expected, (string)$replace);
     }
-    
 }

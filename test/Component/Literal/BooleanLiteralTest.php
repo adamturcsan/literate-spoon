@@ -32,5 +32,4 @@ class BooleanLiteralTest extends TestCase
     {
         new BooleanLiteral('true');
     }
-
 }

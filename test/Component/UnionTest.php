@@ -9,6 +9,7 @@ namespace LegoW\LiterateSpoon\Test\Component;
 use LegoW\LiterateSpoon\Component\Select;
 use LegoW\LiterateSpoon\Component\Union;
 use PHPUnit\Framework\TestCase;
+
 /**
  * Description of UnionTest
  *
@@ -25,16 +26,16 @@ class UnionTest extends TestCase
         $union = new Union();
         $this->assertSame(':select-select+', (string)$union);
     }
-    
+
     public function testAddSelect()
     {
-        $union= new Union();
-        
+        $union = new Union();
+
         $select = new Select();
         $union->addSelect($select);
-        
+
         $this->assertSame((string)$select, (string)$union);
-        
+
         $unionAfter = $union->addSelect($select);
         $this->assertSame((string)$select.' UNION '.(string)$select, (string)$union);
         $this->assertSame($union, $unionAfter);

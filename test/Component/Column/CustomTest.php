@@ -22,7 +22,7 @@ class CustomTest extends TestCase
         $customColumn = new Custom('test');
         $this->assertSame('test', (string)$customColumn);
     }
-    
+
     public function testSetValue()
     {
         $customColumn = new Custom();
@@ -31,5 +31,4 @@ class CustomTest extends TestCase
         $this->assertSame('test', (string)$customColumn);
         $this->assertSame($customColumn, $svCustomColumn, 'Test if it returns itself');
     }
-    
 }
