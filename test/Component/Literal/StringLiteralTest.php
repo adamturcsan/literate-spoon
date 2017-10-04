@@ -22,5 +22,4 @@ class StringLiteralTest extends TestCase
         $stringLiteral = new StringLiteral('testText');
         $this->assertSame('"testText"', (string)$stringLiteral);
     }
-    
 }

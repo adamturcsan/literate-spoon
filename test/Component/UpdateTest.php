@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -28,20 +28,20 @@ class UpdateTest extends TestCase
         $update = new Update();
         $this->assertSame('UPDATE :table-table_name SET :column-set_column+', (string)$update);
     }
-    
+
     public function testSetTableName()
     {
         $update = new Update();
         $update->setTableName('test_table');
         $this->assertSame('UPDATE test_table SET :column-set_column+', (string)$update);
     }
-    
+
     public function testTableNameConstructor()
     {
         $update = new Update('test_table');
         $this->assertSame('UPDATE test_table SET :column-set_column+', (string)$update);
     }
-    
+
     /**
      * @depends testTableNameConstructor
      */
@@ -57,7 +57,7 @@ class UpdateTest extends TestCase
         $update->addSetColumn($setColumn2);
         $this->assertSame('UPDATE test_table SET `columnName` = :value, `newColumn` = :newValue', (string)$update);
     }
-    
+
     /**
      * @depends testAddSetColumn
      */
@@ -67,6 +67,7 @@ class UpdateTest extends TestCase
         $update->set('columnName', 'value')
                ->set('newColumn', 'newValue')
                ->set('newestColumn', 'newestValue');
-        $this->assertSame('UPDATE test_table SET `columnName` = :value, `newColumn` = :newValue, `newestColumn` = :newestValue', (string)$update);
+        $query = 'UPDATE test_table SET `columnName` = :value, `newColumn` = :newValue, `newestColumn` = :newestValue';
+        $this->assertSame($query, (string)$update);
     }
 }

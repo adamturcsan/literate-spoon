@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -30,7 +30,7 @@ class OrderByTest extends TestCase
         $this->assertSame('ORDER BY :ordercolumn-order_column+', (string)$orderBy);
         return $orderBy;
     }
-    
+
     /**
      * @depends testDefaultConstructor
      * @param OrderBy $orderBy
@@ -40,7 +40,7 @@ class OrderByTest extends TestCase
         $orderBy->addOrderColumn(new OrderColumn('test', Direction::DESC));
         $this->assertSame('ORDER BY `test` DESC', (string)$orderBy);
     }
-    
+
     public function testMultipleOrderColumn()
     {
         $orderBy = new OrderBy();
@@ -48,7 +48,7 @@ class OrderByTest extends TestCase
                 ->addOrderColumn(new OrderColumn('test2', Direction::DESC));
         $this->assertSame('ORDER BY `test1` ASC, `test2` DESC', (string)$orderBy);
     }
-    
+
     public function testAddOrderColumn()
     {
         $orderBy = new OrderBy();
@@ -56,7 +56,7 @@ class OrderByTest extends TestCase
         $orderBy->addOrderColumn($orderColumn);
         $this->assertSame('ORDER BY `test` DESC', (string)$orderBy);
     }
-    
+
     public function testSetOrder()
     {
         $orderBy = new OrderBy();

@@ -22,5 +22,4 @@ class IntLiteralTest extends TestCase
         $intLiteral = new IntLiteral(1);
         $this->assertSame('1', (string) $intLiteral);
     }
-    
 }

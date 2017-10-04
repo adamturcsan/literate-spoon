@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -30,8 +30,10 @@ class IntegrationTest extends TestCase
     {
         $select = new Select('test', ['test1', 'test2']);
         $select->limit(15, 10);
-        $this->assertSame('SELECT `test1`, `test2` FROM test LIMIT 10, 15',
-                (string) $select);
+        $this->assertSame(
+            'SELECT `test1`, `test2` FROM test LIMIT 10, 15',
+            (string) $select
+        );
     }
 
     public function testBuilderWithMultipleComponent()
@@ -44,8 +46,10 @@ class IntegrationTest extends TestCase
         $builder->addComponent($select);
         $builder->addComponent($limit);
 
-        $this->assertSame('SELECT `test1`, `test2` FROM test LIMIT 10, 23;',
-                $builder->asString());
+        $this->assertSame(
+            'SELECT `test1`, `test2` FROM test LIMIT 10, 23;',
+            $builder->asString()
+        );
     }
 
     public function testComplexInsertFromBuilder()
