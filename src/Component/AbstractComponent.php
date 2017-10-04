@@ -30,9 +30,9 @@ abstract class AbstractComponent implements ComponentInterface
      */
     protected $params = null;
     protected $possibleChildren;
-    protected $possibleParams;
     protected $paramGlue = ', ';
     protected $childGlue = ' ';
+    protected $format = '';
     private $paramBuilder;
 
     public function __construct(array $possibleChildren, ParamBuilder $paramBuilder = null)
@@ -145,6 +145,16 @@ abstract class AbstractComponent implements ComponentInterface
             );
         }
         return $this->beautifyEndString($string);
+    }
+
+    /**
+     * Rebuilds params list and sets the format
+     * @param string $format
+     */
+    protected function setFormat($format)
+    {
+        $this->format = $format;
+        $this->params = $this->paramBuilder->createFromFormat($this->format);
     }
 
     /**

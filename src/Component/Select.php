@@ -57,7 +57,7 @@ class Select extends AbstractComponent implements WhereableInterface, TableNameA
     }
 
     /**
-     * @param string[] $columns
+     * @param string[]|Column[] $columns
      * @return $this
      */
     public function setColumns(array $columns)

@@ -15,7 +15,7 @@ namespace LegoW\LiterateSpoon\Test\Component;
 use PHPUnit\Framework\TestCase;
 use LegoW\LiterateSpoon\Component\Where;
 use LegoW\LiterateSpoon\Component\Condition\Compare;
-use LegoW\LiterateSpoon\Component\Columns;
+use LegoW\LiterateSpoon\Component\Column;
 use LegoW\LiterateSpoon\Component\Literal\Placeholder;
 
 /**
@@ -83,7 +83,7 @@ class WhereTest extends TestCase
     {
         $where = new Where();
 
-        $whereCmp = $where->compare('=', new Columns(['test']), new Placeholder('test'));
+        $whereCmp = $where->compare('=', new Column('test'), new Placeholder('test'));
 
         $this->assertSame('WHERE (`test` = :test)', (string)$where);
 

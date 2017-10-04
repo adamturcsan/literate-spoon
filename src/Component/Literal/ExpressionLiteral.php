@@ -24,7 +24,7 @@ class ExpressionLiteral extends Literal
     /**
      * @var string
      */
-    private $format;
+    protected $format;
 
     public function getFormat()
     {

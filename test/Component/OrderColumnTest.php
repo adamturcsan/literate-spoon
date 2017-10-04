@@ -27,7 +27,7 @@ class OrderColumnTest extends TestCase
     public function testDefaultConstructor()
     {
         $orderColumn = new OrderColumn();
-        $this->assertSame(':column-columns ASC', (string) $orderColumn);
+        $this->assertSame(':column-column ASC', (string) $orderColumn);
     }
 
     public function testColumnConstructor()

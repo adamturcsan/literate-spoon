@@ -17,8 +17,13 @@ namespace LegoW\LiterateSpoon\Component;
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Columns extends Column
+class Columns extends AbstractComponent
 {
+    const PARAM_NAME_COLUMN = 'column';
+
+    /**
+     * @var string
+     */
     protected $format = '*';
 
     /**
@@ -31,7 +36,8 @@ class Columns extends Column
 
     public function __construct(array $columns = null)
     {
-        parent::__construct();
+        $possibleChildren = [];
+        parent::__construct($possibleChildren);
         if (! empty($columns)) {
             $this->setColumns($columns);
         }
@@ -42,15 +48,26 @@ class Columns extends Column
      */
     public function setColumns(array $columns)
     {
-        $columnsWithBackTick = [];
         foreach ($columns as $column) {
             if ($column instanceof Column) {
-                $columnsWithBackTick[] = (string)$column;
+                $this->setParam(self::PARAM_NAME_COLUMN, $column);
             } else {
-                $columnsWithBackTick[] = '`'.$column.'`';
+                $this->setParam(self::PARAM_NAME_COLUMN, new Column($column));
             }
         }
-        $this->format = implode(', ', $columnsWithBackTick);
         return $this;
+    }
+
+    public function setParam($name, ComponentInterface $value)
+    {
+        if ($name === self::PARAM_NAME_COLUMN && empty($this->params)) {
+            $this->setFormatToHaveParams();
+        }
+        parent::setParam($name, $value);
+    }
+
+    private function setFormatToHaveParams()
+    {
+        $this->setFormat(':'.self::PARAM_NAME_COLUMN.'-column+');
     }
 }

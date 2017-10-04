@@ -14,7 +14,6 @@ namespace LegoW\LiterateSpoon\Component\Traits;
 
 use InvalidArgumentException;
 use LegoW\LiterateSpoon\Component\Column;
-use LegoW\LiterateSpoon\Component\Columns;
 use LegoW\LiterateSpoon\Component\Condition;
 use LegoW\LiterateSpoon\Component\Literal;
 use ReflectionClass;
@@ -80,7 +79,7 @@ trait ConditionAwareTrait
      */
     public function compareColumn($operator, $columnName, $paramName)
     {
-        $columns = new Columns([$columnName]);
+        $columns = new Column($columnName);
         $param = new Literal\Placeholder($paramName);
         return $this->compare($operator, $columns, $param);
     }
