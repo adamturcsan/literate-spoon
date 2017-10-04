@@ -12,7 +12,7 @@
 
 namespace LegoW\LiterateSpoon\Test\Component;
 
-use LegoW\LiterateSpoon\Component\Columns;
+use LegoW\LiterateSpoon\Component\Column;
 use LegoW\LiterateSpoon\Component\ComponentInterface;
 use LegoW\LiterateSpoon\Component\Condition\Compare;
 use LegoW\LiterateSpoon\Component\Direction;
@@ -87,7 +87,7 @@ class SelectTest extends TestCase
         $select = new Select('test', ['test', 'test2']);
         $select->where(new Compare(
             '=',
-            new Columns(['test']),
+            new Column('test'),
             new Placeholder('test')
         ));
 
@@ -100,9 +100,9 @@ class SelectTest extends TestCase
     public function testWhereMethodChaining()
     {
         $select = new Select('test', ['test', 'test2']);
-        $select->where(new Compare('=', new Columns(['test']), new Placeholder('test')))
+        $select->where(new Compare('=', new Column('test'), new Placeholder('test')))
                 ->setOperator(Where::OP_OR)
-                ->addCondition(new Compare('<', new Columns(['test2']), new Placeholder('test2')));
+                ->addCondition(new Compare('<', new Column('test2'), new Placeholder('test2')));
         $this->assertSame(
             'SELECT `test`, `test2` FROM test WHERE (`test` = :test) OR (`test2` < :test2)',
             (string) $select

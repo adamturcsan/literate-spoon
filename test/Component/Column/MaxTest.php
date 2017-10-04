@@ -20,20 +20,12 @@ class MaxTest extends TestCase
     public function testEmptyConstructor()
     {
         $maxColumn = new Max();
-        $this->assertSame('MAX(:column-columns)', (string) $maxColumn);
+        $this->assertSame('MAX(:column-column)', (string) $maxColumn);
     }
 
     public function testNonEmptyConstructor()
     {
-        $maxColumn = new Max(['test']);
+        $maxColumn = new Max('test');
         $this->assertSame('MAX(`test`)', (string)$maxColumn);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testWronArgumentConstructor()
-    {
-        $maxColumn = new Max(['test', 'test2']);
     }
 }

@@ -6,14 +6,14 @@
 
 namespace LegoW\LiterateSpoon\Component\Column;
 
-use LegoW\LiterateSpoon\Component\Columns;
+use LegoW\LiterateSpoon\Component\Column;
 
 /**
  * Description of Max
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Max extends Columns
+class Max extends Column
 {
 
     const PARAM_NAME_COLUMNS = 'column';
@@ -23,17 +23,17 @@ class Max extends Columns
      */
     public function getFormat()
     {
-        return "MAX(:".self::PARAM_NAME_COLUMNS."-columns)";
+        return "MAX(:".self::PARAM_NAME_COLUMNS."-column)";
     }
 
-    public function __construct(array $columns = null)
+    /**
+     * @param string $column
+     */
+    public function __construct($column = null)
     {
-        if ($columns !== null && count($columns) > 1) {
-            throw new \InvalidArgumentException('Only one column is accepted as parameter');
-        }
         parent::__construct();
-        if ($columns !== null) {
-            $columnsComponent = new Columns($columns);
+        if ($column !== null) {
+            $columnsComponent = new Column($column);
             $this->setParam(self::PARAM_NAME_COLUMNS, $columnsComponent);
         }
     }

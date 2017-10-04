@@ -34,7 +34,7 @@ class OrderBy extends AbstractComponent
     }
 
     /**
-     * @param \LegoW\LiterateSpoon\Component\OrderColumn $order
+     * @param OrderColumn $order
      * @return $this
      */
     public function addOrderColumn(OrderColumn $order)

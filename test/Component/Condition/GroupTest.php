@@ -66,7 +66,7 @@ class GroupTest extends TestCase
     {
         $group = new Group();
         $compare = new \LegoW\LiterateSpoon\Component\Condition\Compare('=');
-        $compare->setParam(Compare::PARAM_NAME_COLUMN, new \LegoW\LiterateSpoon\Component\Columns(['test']));
+        $compare->setParam(Compare::PARAM_NAME_COLUMN, new \LegoW\LiterateSpoon\Component\Column('test'));
         $compare->setParam(Compare::PARAM_NAME_VALUE, new StringLiteral('test'));
         $group->addCondition($compare);
 

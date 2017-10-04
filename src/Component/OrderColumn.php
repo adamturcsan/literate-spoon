@@ -12,8 +12,6 @@
 
 namespace LegoW\LiterateSpoon\Component;
 
-use LegoW\LiterateSpoon\Component\Columns;
-
 /**
  * Description of OrderColumn
  *
@@ -30,7 +28,7 @@ class OrderColumn extends AbstractComponent
      */
     public function getFormat()
     {
-        return ':' . self::PARAM_NAME_COLUMN . '-columns :' . self::PARAM_NAME_DIRECTION . '-direction';
+        return ':' . self::PARAM_NAME_COLUMN . '-column :' . self::PARAM_NAME_DIRECTION . '-direction';
     }
 
     public function __construct($columnName = null, $direction = 'ASC')
@@ -45,7 +43,7 @@ class OrderColumn extends AbstractComponent
 
     private function setColumn($columnName)
     {
-        $column = new Columns([$columnName]);
+        $column = new Column($columnName);
         $this->setParam(self::PARAM_NAME_COLUMN, $column);
     }
 }
