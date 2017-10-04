@@ -22,7 +22,7 @@ class MaxTest extends TestCase
         $maxColumn = new Max();
         $this->assertSame('MAX(:column-columns)', (string) $maxColumn);
     }
-    
+
     public function testNonEmptyConstructor()
     {
         $maxColumn = new Max(['test']);

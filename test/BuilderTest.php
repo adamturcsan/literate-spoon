@@ -73,7 +73,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testAddComponent
      * @covers ::asString
-     * @param Builder $builder 
+     * @param Builder $builder
      */
     public function testAsStringWithoutParams(Builder $builder)
     {
@@ -221,16 +221,27 @@ class BuilderTest extends TestCase
         $this->assertSame($updateString, (string) $fluentUpdate);
         $this->assertSame($updateString . ';', $builder->asString());
     }
-    
+
     public function testFluentTableUpdate()
     {
         $builder = new Builder();
-        
+
         $updateString = (string) (new Update('tableName'));
         $fluentUpdate = $builder->update('tableName');
-        
+
         $this->assertSame($updateString, (string) $fluentUpdate);
         $this->assertSame($updateString . ';', $builder->asString());
     }
 
+    public function testIfAsStringDoesNotCreateQueryStringIfItIsUnnecessary()
+    {
+        $builder = new Builder();
+
+        $reflectionClass = new \ReflectionClass($builder);
+        $select = $builder->select('test');
+        $query = $builder->asString();
+        $select->setTableName('modified');
+        $queryModified = $builder->asString();
+        $this->assertNotEquals($queryModified, $query);
+    }
 }

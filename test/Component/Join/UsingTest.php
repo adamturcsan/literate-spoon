@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -33,8 +33,9 @@ class UsingTest extends TestCase
     {
         $using = new Using();
         $this->assertSame('USING (:'.Using::PARAM_NAME_COLUMN_NAME.'-column)', (string)$using);
-        $using->setColumnName('test');
+        $usingAfter = $using->setColumnName('test');
         $this->assertSame('USING (`test`)', (string)$using);
+        $this->assertSame($using, $usingAfter);
     }
 
     public function testConstructionWithColumnName()

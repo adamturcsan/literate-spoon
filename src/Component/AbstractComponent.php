@@ -82,6 +82,9 @@ abstract class AbstractComponent implements ComponentInterface
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getChild($name)
     {
         if ($this->hasChild($name)) {
@@ -90,16 +93,32 @@ abstract class AbstractComponent implements ComponentInterface
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setParam($name, ComponentInterface $value)
     {
-        if (array_key_exists($name, $this->getParams())) {
-            if (! $this->params[$name]->isMultiple()) {
-                $this->params[$name]->setValue($value);
+        $param = $this->getParam($name);
+        if ($param !== null) {
+            if (! $param->isMultiple()) {
+                $param->setValue($value);
                 return $this;
             }
-            $this->params[$name]->addValue($value);
+            $param->addValue($value);
         }
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getParam($name)
+    {
+        $params = $this->getParams();
+        if (array_key_exists($name, $params)) {
+            return $params[$name];
+        }
+        return null;
     }
 
     public function __toString()

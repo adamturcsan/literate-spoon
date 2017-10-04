@@ -30,6 +30,12 @@ interface ComponentInterface
 
     /**
      * @param string $name
+     * @return Param|null
+     */
+    public function getParam($name);
+
+    /**
+     * @param string $name
      * @param ComponentInterface $value
      */
     public function setParam($name, ComponentInterface $value);

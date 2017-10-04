@@ -14,17 +14,18 @@ namespace LegoW\LiterateSpoon\Component;
 
 use LegoW\LiterateSpoon\Component\WhereableInterface;
 use LegoW\LiterateSpoon\Component\Traits\WhereableTrait;
+use LegoW\LiterateSpoon\Component\Traits\TableNameAwareTrait;
 
 /**
  * Description of Delete
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Delete extends AbstractComponent implements WhereableInterface
+class Delete extends AbstractComponent implements WhereableInterface, TableNameAwareInterface
 {
     use WhereableTrait;
+    use TableNameAwareTrait;
 
-    const PARAM_NAME_TABLE = 'table';
     const CHILD_LIMIT = 'LIMIT';
 
     public function getFormat()
@@ -37,14 +38,7 @@ class Delete extends AbstractComponent implements WhereableInterface
         $possibleChildren = [self::CHILD_WHERE, self::CHILD_LIMIT];
         parent::__construct($possibleChildren);
         if ($table !== null) {
-            $tableName = new TableName($table);
-            $this->setTableName($tableName);
+            $this->setTableName($table);
         }
-    }
-
-    public function setTableName(TableName $tableName)
-    {
-        $this->setParam(self::PARAM_NAME_TABLE, $tableName);
-        return $this;
     }
 }

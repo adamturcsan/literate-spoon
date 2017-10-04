@@ -17,7 +17,7 @@ namespace LegoW\LiterateSpoon\Component;
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Column extends Columns
+class Column extends AbstractComponent
 {
     protected $format = '*';
 
@@ -31,7 +31,8 @@ class Column extends Columns
 
     public function __construct($name = null)
     {
-        parent::__construct();
+        $possibleChildren = [];
+        parent::__construct($possibleChildren);
         if ($name !== null) {
             $this->setName($name);
         }

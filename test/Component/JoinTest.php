@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -47,6 +47,14 @@ class JoinTest extends TestCase
         $join = new Join('testTable', Join::TYPE_LEFT);
         $expected = ' LEFT JOIN testTable';
         $this->assertSame($expected, (string)$join);
+    }
+
+    public function testSetType()
+    {
+        $join = new Join();
+        $afterJoin = $join->setType(Join::TYPE_INNER);
+        $this->assertSame(' INNER JOIN :'.Join::PARAM_NAME_TABLE.'-table_name', (string)$join);
+        $this->assertSame($join, $afterJoin);
     }
 
     public function testSetChildWithWrongChildName()
@@ -114,5 +122,13 @@ class JoinTest extends TestCase
         $this->assertSame('USING ()', (string)$using);
         $this->assertSame('USING ()', (string)$join->using());
         $this->assertSame(' JOIN test USING ()', (string)$join);
-    }    
+    }
+
+    public function testSetTableName()
+    {
+        $join = new Join();
+        $afterJoin = $join->setTableName('test');
+        $this->assertSame(' JOIN test', (string)$join);
+        $this->assertSame($join, $afterJoin);
+    }
 }

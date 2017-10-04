@@ -7,7 +7,7 @@
 namespace LegoW\LiterateSpoon\Component\Condition;
 
 use LegoW\LiterateSpoon\Component\Condition;
-use LegoW\LiterateSpoon\Component\Columns;
+use LegoW\LiterateSpoon\Component\Column;
 use LegoW\LiterateSpoon\Component\Literal;
 
 /**
@@ -25,16 +25,16 @@ class Compare extends Condition
      */
     public function getFormat()
     {
-        return '(:'.self::PARAM_NAME_COLUMN.'-columns '.$this->getOperator().' :'.self::PARAM_NAME_VALUE.'-literal)';
+        return '(:'.self::PARAM_NAME_COLUMN.'-column '.$this->getOperator().' :'.self::PARAM_NAME_VALUE.'-literal)';
     }
 
-    public function __construct($operator = '=', Columns $columns = null, Literal $value = null)
+    public function __construct($operator = '=', Column $column = null, Literal $value = null)
     {
         $possibleChildren = [];
         parent::__construct($possibleChildren);
         $this->setOperator($operator);
-        if ($columns !== null) {
-            $this->setParam('column', $columns);
+        if ($column !== null) {
+            $this->setParam('column', $column);
         }
         if ($value !== null) {
             $this->setParam('value', $value);

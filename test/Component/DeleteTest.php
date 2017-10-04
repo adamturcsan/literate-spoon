@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -28,19 +28,18 @@ class DeleteTest extends TestCase
         $delete = new Delete();
         $this->assertSame('DELETE FROM :table-table_name', (string)$delete);
     }
-    
+
     public function testTableNameConstruct()
     {
         $delete = new Delete('tableName');
         $this->assertSame('DELETE FROM tableName', (string)$delete);
     }
-    
+
     public function testSetTable()
     {
         $delete = new Delete();
         $this->assertSame('DELETE FROM :table-table_name', (string)$delete);
-        $tableName = new TableName('tableName');
-        $delete->setTableName($tableName);
+        $delete->setTableName('tableName');
         $this->assertSame('DELETE FROM tableName', (string)$delete);
     }
 }

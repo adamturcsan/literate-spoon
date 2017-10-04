@@ -21,18 +21,24 @@ class CompareTest extends TestCase
     public function testDefaultConstruct()
     {
         $compareCondition = new Compare();
-        $this->assertSame('(:column-columns = :value-literal)',
-                (string) $compareCondition);
+        $this->assertSame(
+            '(:column-column = :value-literal)',
+            (string) $compareCondition
+        );
     }
 
     public function testOperatorConstruct()
     {
         $compareCondition = new Compare('>');
-        $this->assertSame('(:column-columns > :value-literal)',
-                (string) $compareCondition);
+        $this->assertSame(
+            '(:column-column > :value-literal)',
+            (string) $compareCondition
+        );
         $compareCondition2 = new Compare('<=');
-        $this->assertSame('(:column-columns <= :value-literal)',
-                (string) $compareCondition2);
+        $this->assertSame(
+            '(:column-column <= :value-literal)',
+            (string) $compareCondition2
+        );
     }
 
     public function testColumnsConstruct()
@@ -49,7 +55,7 @@ class CompareTest extends TestCase
         $compareCondition = new Compare('=', $column, $value);
         $this->assertSame('(test = true)', (string) $compareCondition);
     }
-    
+
     public function testGetOperator()
     {
         $compareCondition = new Compare();
@@ -57,7 +63,7 @@ class CompareTest extends TestCase
         $compareCondition2 = new Compare('>=');
         $this->assertSame('>=', $compareCondition2->getOperator());
     }
-    
+
     /**
      * @depends testGetOperator
      */
@@ -70,5 +76,4 @@ class CompareTest extends TestCase
         $this->assertSame('<>', $compareCondition->getOperator());
         $this->assertSame($compareCondition, $soCompareCondition, 'Test if it returns itself');
     }
-
 }

@@ -14,20 +14,20 @@ namespace LegoW\LiterateSpoon\Component;
 
 use LegoW\LiterateSpoon\Component\WhereableInterface;
 use LegoW\LiterateSpoon\Component\Traits\WhereableTrait;
+use LegoW\LiterateSpoon\Component\Traits\TableNameAwareTrait;
 
 /**
  * Description of Update
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Update extends AbstractComponent implements WhereableInterface
+class Update extends AbstractComponent implements WhereableInterface, TableNameAwareInterface
 {
     use WhereableTrait;
+    use TableNameAwareTrait;
 
-    const PARAM_NAME_TABLE = 'table';
     const PARAM_NAME_SET_COLUMN = 'column';
 
-    //put your code here
     public function getFormat()
     {
         return 'UPDATE :'.self::PARAM_NAME_TABLE.'-table_name '
@@ -41,13 +41,6 @@ class Update extends AbstractComponent implements WhereableInterface
         if ($tableName !== null) {
             $this->setTableName($tableName);
         }
-    }
-
-    public function setTableName($tableName)
-    {
-        $tableNameComponent = new TableName($tableName);
-        $this->setParam(self::PARAM_NAME_TABLE, $tableNameComponent);
-        return $this;
     }
 
     public function addSetColumn(SetColumn $column)

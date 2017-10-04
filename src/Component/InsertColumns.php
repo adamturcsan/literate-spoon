@@ -20,7 +20,7 @@ class InsertColumns extends AbstractComponent
      */
     public function getFormat()
     {
-        return '(:'.self::PARAM_NAME_COLUMNS.'-columns)';
+        return '(:'.self::PARAM_NAME_COLUMNS.'-column+)';
     }
 
     public function __construct(array $columns = null)
@@ -32,11 +32,23 @@ class InsertColumns extends AbstractComponent
         }
     }
 
+    public function addColumnByName($columnName)
+    {
+        $this->addColumn(new Column($columnName));
+    }
+
+    public function addColumn(Column $column)
+    {
+        $this->setParam(self::PARAM_NAME_COLUMNS, $column);
+    }
+
     /**
      * @param array $columns
      */
     public function setColumns(array $columns)
     {
-        $this->setParam(self::PARAM_NAME_COLUMNS, new Columns($columns));
+        foreach ($columns as $columnName) {
+            $this->addColumnByName($columnName);
+        }
     }
 }

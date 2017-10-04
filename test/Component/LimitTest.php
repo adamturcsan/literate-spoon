@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -40,7 +40,7 @@ class LimitTest extends TestCase
         $limit = new Limit(100, 1000);
         $this->assertSame('LIMIT 1000, 100', (string)$limit);
     }
-    
+
     public function testSetLimit()
     {
         $limit = new Limit();
@@ -49,7 +49,7 @@ class LimitTest extends TestCase
         $limit->setLimit(234, 567);
         $this->assertSame('LIMIT 567, 234', (string)$limit);
     }
-    
+
     public function testSetNum()
     {
         $limit = new Limit();
@@ -60,15 +60,18 @@ class LimitTest extends TestCase
         $limit->setNum($intLiteral2);
         $this->assertSame('LIMIT 0, 321', (string)$limit);
     }
-    
+
     public function testSetOffset()
     {
         $limit = new Limit();
         $intLiteral = new IntLiteral(234);
-        $limit->setOffset($intLiteral);
+        $afterLimit = $limit->setOffset($intLiteral);
         $this->assertSame('LIMIT 234, 1', (string)$limit);
+        $this->assertSame($limit, $afterLimit);
         $intLiteral2 = new IntLiteral(321);
-        $limit->setOffset($intLiteral2);
+        $afterLimit2 = $limit->setOffset($intLiteral2);
         $this->assertSame('LIMIT 321, 1', (string)$limit);
+        $this->assertSame($limit, $afterLimit2);
+        $this->assertSame($afterLimit, $afterLimit2);
     }
 }

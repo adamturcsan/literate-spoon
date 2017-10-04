@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -21,6 +21,7 @@ use LegoW\LiterateSpoon\Component\Literal\Placeholder;
 use LegoW\LiterateSpoon\Component\OrderBy;
 use LegoW\LiterateSpoon\Component\OrderColumn;
 use LegoW\LiterateSpoon\Component\Select;
+use LegoW\LiterateSpoon\Component\TableName;
 use LegoW\LiterateSpoon\Component\Where;
 use LegoW\LiterateSpoon\Param;
 use PHPUnit\Framework\TestCase;
@@ -36,8 +37,10 @@ class SelectTest extends TestCase
     public function testDefaultConstructor()
     {
         $select = new Select();
-        $this->assertSame('SELECT * FROM :' . Select::PARAM_NAME_TABLE . '-table_name',
-                (string) $select);
+        $this->assertSame(
+            'SELECT * FROM :' . Select::PARAM_NAME_TABLE . '-table_name',
+            (string) $select
+        );
     }
 
     public function testSetTable()
@@ -62,8 +65,9 @@ class SelectTest extends TestCase
     public function testSetColumns()
     {
         $select = new Select('test');
-        $select->setColumns(['test', 'test2']);
+        $selectAfter = $select->setColumns(['test', 'test2']);
         $this->assertSame('SELECT `test`, `test2` FROM test', (string) $select);
+        $this->assertSame($select, $selectAfter);
     }
 
     /**
@@ -81,21 +85,28 @@ class SelectTest extends TestCase
     public function testWhere()
     {
         $select = new Select('test', ['test', 'test2']);
-        $select->where(new Compare('=', new Columns(['test']),
-                new Placeholder('test')));
+        $select->where(new Compare(
+            '=',
+            new Columns(['test']),
+            new Placeholder('test')
+        ));
 
-        $this->assertSame('SELECT `test`, `test2` FROM test WHERE (`test` = :test)',
-                (string) $select);
+        $this->assertSame(
+            'SELECT `test`, `test2` FROM test WHERE (`test` = :test)',
+            (string) $select
+        );
     }
-    
+
     public function testWhereMethodChaining()
     {
         $select = new Select('test', ['test', 'test2']);
         $select->where(new Compare('=', new Columns(['test']), new Placeholder('test')))
                 ->setOperator(Where::OP_OR)
                 ->addCondition(new Compare('<', new Columns(['test2']), new Placeholder('test2')));
-        $this->assertSame('SELECT `test`, `test2` FROM test WHERE (`test` = :test) OR (`test2` < :test2)',
-                (string) $select);
+        $this->assertSame(
+            'SELECT `test`, `test2` FROM test WHERE (`test` = :test) OR (`test2` < :test2)',
+            (string) $select
+        );
     }
 
     /*
@@ -107,8 +118,9 @@ class SelectTest extends TestCase
         $select = new Select();
         $mockComponent = $this->createMock(ComponentInterface::class);
 
-        $select->setChild('WHERE', $mockComponent);
+        $selectAfter = $select->setChild('WHERE', $mockComponent);
         $this->assertAttributeContains($mockComponent, 'children', $select);
+        $this->assertSame($select, $selectAfter);
     }
 
     public function testGetNullChild()
@@ -129,14 +141,14 @@ class SelectTest extends TestCase
         $select->setChild('WHERE', $mockComponent);
         $this->assertSame($mockComponent, $select->getChild('WHERE'));
     }
-    
+
     public function testSetOrder()
     {
         $select = new Select('test', ['test1', 'test2']);
         $select->orderBy()->setOrder('test1', Direction::DESC);
         $this->assertSame('SELECT `test1`, `test2` FROM test ORDER BY `test1` DESC', (string)$select);
     }
-    
+
     public function testOrderByColumn()
     {
         $select = new Select('test', ['test1']);
@@ -149,15 +161,33 @@ class SelectTest extends TestCase
     public function testLimit()
     {
         $select = new Select('test', ['test1', 'test2']);
-        $select->limit(3,6);
+        $selectAfter = $select->limit(3, 6);
+        $this->assertSame($select, $selectAfter);
     }
-    
+
     public function testGetParams()
     {
         $component = new Select();
         $params = $component->getParams();
         $this->assertCount(2, $params);
         $this->assertContainsOnly(Param::class, $params);
+    }
+
+    public function testSetParams()
+    {
+        $select = new Select();
+        $mockedTableName = $this->createMock(TableName::class);
+        $afterSelect = $select->setParam(
+            Select::PARAM_NAME_TABLE,
+            $mockedTableName
+        );
+        $this->assertSame($select, $afterSelect);
+        $this->assertSame($select->getParam(Select::PARAM_NAME_TABLE)->getValue(), $mockedTableName);
+        $afterSelect2 = $select->setParam(
+            'NonExistantParam',
+            $mockedTableName
+        );
+        $this->assertSame($select, $afterSelect2);
     }
 
     public function testJoin()
