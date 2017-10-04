@@ -22,5 +22,4 @@ class ColumnLiteralTest extends TestCase
         $columnLiteral = new ColumnLiteral('test');
         $this->assertSame('`test`', (string) $columnLiteral);
     }
-
 }

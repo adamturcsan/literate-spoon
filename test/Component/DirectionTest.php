@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -22,20 +22,20 @@ use LegoW\LiterateSpoon\Component\Direction;
  */
 class DirectionTest extends TestCase
 {
-    
+
     public function testDefaultConstructor()
     {
         $direction = new Direction();
         $this->assertEquals('ASC', (string)$direction);
     }
-    
+
     public function testConstructorWithDirection()
     {
         $direction = new Direction('DESC');
         $this->assertEquals('DESC', (string)$direction);
         return $direction;
     }
-    
+
     /**
      * @depends testConstructorWithDirection
      * @param Direction $direction
@@ -45,7 +45,7 @@ class DirectionTest extends TestCase
         $direction->setDirection(Direction::ASC);
         $this->assertEquals(Direction::ASC, (string)$direction);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Direction must be

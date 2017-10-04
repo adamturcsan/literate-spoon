@@ -46,8 +46,11 @@ class GroupTest extends TestCase
         $this->assertAttributeSame(Group::OP_AND, 'paramGlue', $groupCondition);
         $soGroupCondition = $groupCondition->setOperator(Group::OP_OR);
         $this->assertAttributeSame(Group::OP_OR, 'paramGlue', $groupCondition);
-        $this->assertSame($groupCondition, $soGroupCondition,
-                'Test if it returns itself');
+        $this->assertSame(
+            $groupCondition,
+            $soGroupCondition,
+            'Test if it returns itself'
+        );
     }
 
     /**
@@ -58,7 +61,7 @@ class GroupTest extends TestCase
         $groupCondition = new Group();
         $groupCondition->setOperator('=');
     }
-    
+
     public function testAddCondition()
     {
         $group = new Group();
@@ -66,24 +69,31 @@ class GroupTest extends TestCase
         $compare->setParam(Compare::PARAM_NAME_COLUMN, new \LegoW\LiterateSpoon\Component\Columns(['test']));
         $compare->setParam(Compare::PARAM_NAME_VALUE, new StringLiteral('test'));
         $group->addCondition($compare);
-        
+
         $this->assertSame('((`test` = "test"))', (string)$group);
     }
 
     public function testChainingCompare()
     {
         $groupCondition = new Group();
-        $cGroupCondition = $groupCondition->compare('=', new Custom('test'),
-                new StringLiteral('test'));
+        $cGroupCondition = $groupCondition->compare(
+            '=',
+            new Custom('test'),
+            new StringLiteral('test')
+        );
         $this->assertSame('((test = "test"))', (string) $groupCondition);
-        $this->assertSame($groupCondition, $cGroupCondition,
-                'Test if it returns itself');
+        $this->assertSame(
+            $groupCondition,
+            $cGroupCondition,
+            'Test if it returns itself'
+        );
 
         $groupCondition
                 ->compare('>', new Custom('test2'), new StringLiteral('test2'))
                 ->compare('<', new Custom('test3'), new StringLiteral('test3'));
-        $this->assertSame('((test = "test") AND (test2 > "test2") AND (test3 < "test3"))',
-                (string) $groupCondition);
+        $this->assertSame(
+            '((test = "test") AND (test2 > "test2") AND (test3 < "test3"))',
+            (string) $groupCondition
+        );
     }
-
 }

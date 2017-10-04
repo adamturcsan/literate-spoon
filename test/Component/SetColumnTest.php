@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -29,7 +29,7 @@ class SetColumnTest extends TestCase
         $setColumn = new SetColumn();
         $this->assertSame(':column-column = :value-literal', (string)$setColumn);
     }
-    
+
     public function testSetColumn()
     {
         $setColumn = new SetColumn();
@@ -38,20 +38,20 @@ class SetColumnTest extends TestCase
         $this->assertSame('`name` = :value-literal', (string)$setColumn);
         $this->assertSame($setColumn, $setColumnAfter);
     }
-    
+
     public function testSetColumnName()
     {
         $setColumn = new SetColumn();
         $setColumn->setColumnName('name');
         $this->assertSame('`name` = :value-literal', (string)$setColumn);
     }
-    
+
     public function testColumnNameConstructor()
     {
         $setColumn = new SetColumn('name');
         $this->assertSame('`name` = :value-literal', (string)$setColumn);
     }
-    
+
     /**
      * @depends testColumnNameConstructor
      */
@@ -63,7 +63,7 @@ class SetColumnTest extends TestCase
         $this->assertSame('`name` = :value', (string)$setColumn);
         $this->assertSame($setColumn, $setColumnAfter);
     }
-    
+
     /**
      * @depends testColumnNameConstructor
      */

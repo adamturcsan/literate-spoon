@@ -2,7 +2,7 @@
 
 /*
  * LegoW\LiterateSpoon (https://github.com/adamturcsan/literate-spoon)
- * 
+ *
  * @package legow/literate-spoon
  * @copyright Copyright (c) 2014-2017 Legow Hosting Kft. (http://www.legow.hu)
  * @license https://opensource.org/licenses/MIT MIT License
@@ -22,7 +22,7 @@ use LegoW\LiterateSpoon\Component\TableName;
  */
 class TableNameTest extends TestCase
 {
-    
+
     /**
      * Should throw error because name argument must be set
      * It was taken into account, that on different PHP versions different kind
@@ -30,7 +30,7 @@ class TableNameTest extends TestCase
      */
     public function testDefaultConstructor()
     {
-        if(class_exists('\ArgumentCountError')) {
+        if (class_exists('\ArgumentCountError')) {
             try {
                 new TableName();
             } catch (\ArgumentCountError $ex) {
@@ -43,13 +43,13 @@ class TableNameTest extends TestCase
             return; //TEST OK
         }
     }
-    
+
     public function testConstructorWithName()
     {
         $tableName = new TableName('table');
         $this->assertSame('table', (string)$tableName);
     }
-    
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -57,5 +57,4 @@ class TableNameTest extends TestCase
     {
         new TableName([]);
     }
-    
 }
