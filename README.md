@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/adamturcsan/literate-spoon.svg?branch=master)](https://travis-ci.org/adamturcsan/literate-spoon)
 [![Coverage Status](https://coveralls.io/repos/github/adamturcsan/literate-spoon/badge.svg?branch=master)](https://coveralls.io/github/adamturcsan/literate-spoon?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/434a9863-29f8-4140-a389-7d61f9643107/mini.png)](https://insight.sensiolabs.com/projects/434a9863-29f8-4140-a389-7d61f9643107)
 
 # literate-spoon
 SQL query builder
