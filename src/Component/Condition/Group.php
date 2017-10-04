@@ -7,20 +7,17 @@
 namespace LegoW\LiterateSpoon\Component\Condition;
 
 use LegoW\LiterateSpoon\Component\Condition;
-use LegoW\LiterateSpoon\Component\Column;
-use LegoW\LiterateSpoon\Component\Literal;
+use LegoW\LiterateSpoon\Component\ConditionAwareInterface;
+use LegoW\LiterateSpoon\Component\Traits\ConditionAwareTrait;
 
 /**
  * Description of SubWhere
  *
  * @author Turcsán Ádám <turcsan.adam@legow.hu>
  */
-class Group extends Condition
+class Group extends Condition implements ConditionAwareInterface
 {
-
-    const OP_AND = ' AND ';
-    const OP_OR = ' OR ';
-    const PARAM_NAME_CONDITIONS = 'conditions';
+    use ConditionAwareTrait;
 
     public function getFormat()
     {
@@ -32,48 +29,5 @@ class Group extends Condition
         $possibleChildren = [];
         parent::__construct($possibleChildren);
         $this->setOperator($operator);
-    }
-
-    /**
-     * @param string $operator
-     * @return $this
-     * @throws \InvalidArgumentException
-     */
-    public function setOperator($operator)
-    {
-        $reflection = new \ReflectionClass($this);
-        $constants = $reflection->getConstants();
-        foreach ($constants as $name => $value) {
-            if (substr($name, 0, 3) === 'OP_' && $value === $operator) {
-                $this->paramGlue = $operator;
-                return $this;
-            }
-        }
-        throw new \InvalidArgumentException('Not valid operator has been given');
-    }
-
-    /**
-     * @param Condition $condition
-     * @return $this
-     */
-    public function addCondition(Condition $condition)
-    {
-        $this->getParams()[self::PARAM_NAME_CONDITIONS]->addValue($condition);
-        return $this;
-    }
-
-    /**
-     * @param string $operator
-     * @param Column $column
-     * @param Literal $value
-     * @return $this
-     */
-    public function compare($operator, Column $column, Literal $value)
-    {
-        $compare = new Condition\Compare($operator);
-        $compare->setParam(Compare::PARAM_NAME_COLUMN, $column);
-        $compare->setParam(Compare::PARAM_NAME_VALUE, $value);
-        $this->addCondition($compare);
-        return $this;
     }
 }
