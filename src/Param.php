@@ -144,21 +144,37 @@ class Param
     }
 
     /**
-     * @param string $typeName Type name from format string
+     * @param string $typeFormat Type name from format string,
+     *                         which is a snakecase class name with double underscores (__) as namespace separator
      * @return string Actual Class name with fullnamespace
      */
-    private function setType($typeName)
+    private function setType($typeFormat)
+    {
+        $fqcn = $this->getTypeFromFormat($typeFormat);
+        $this->type = $fqcn;
+    }
+
+    private function getTypeFromFormat($typeFormat)
     {
         $componentNamespace = 'LegoW\\LiterateSpoon\\Component\\';
-        $stdulyCaps = str_replace(
-            ' ',
-            '',
-            ucwords(str_replace('_', ' ', $typeName))
-        );
-        $className = $componentNamespace . $stdulyCaps;
-        if (! class_exists($className)) {
-            throw new \RuntimeException('Given Component type (' . $typeName . ') doesn\'t exists for Param');
+        $relativeName = $this->getRelativeClassNameFromTypeFormat($typeFormat);
+        $fqcn = $componentNamespace . $relativeName;
+        if (! class_exists($fqcn)) {
+            throw new \RuntimeException('Given Component type (' . $typeFormat . ') doesn\'t exists for Param');
         }
-        $this->type = $className;
+        return $fqcn;
+    }
+
+    /**
+     * From type format like "namespace__class_name" creates "Namespace\ClassName"
+     * @param string $typeFormat
+     * @return string
+     */
+    private function getRelativeClassNameFromTypeFormat($typeFormat)
+    {
+        $withNameSpaces = str_replace('__', '\\ ', $typeFormat);
+        $studlyCaps = ucwords(str_replace('_', ' ', $withNameSpaces));
+        $className = str_replace(' ', '', $studlyCaps);
+        return $className;
     }
 }
