@@ -12,7 +12,9 @@
 
 namespace LegoW\LiterateSpoon\Component;
 
+use InvalidArgumentException;
 use LegoW\LiterateSpoon\Component\Condition\Group;
+use LegoW\LiterateSpoon\Component\Condition\In;
 
 /**
  *
@@ -28,7 +30,7 @@ interface ConditionAwareInterface
     /**
      * @param string $operator
      * @return self
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setOperator($operator);
 
@@ -70,4 +72,18 @@ interface ConditionAwareInterface
      * @return Group
      */
     public function group($operator = self::OP_AND);
+
+    /**
+     * Returns a new 'in' condition
+     * @return In
+     */
+    public function in();
+
+    /**
+     * Set a new 'in' condition with column name and initial elementset set
+     * @param string $columnName
+     * @param Literal[] $set
+     * @return self
+     */
+    public function columnInSet($columnName, array $set);
 }

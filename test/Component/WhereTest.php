@@ -12,11 +12,14 @@
 
 namespace LegoW\LiterateSpoon\Test\Component;
 
-use PHPUnit\Framework\TestCase;
-use LegoW\LiterateSpoon\Component\Where;
-use LegoW\LiterateSpoon\Component\Condition\Compare;
+use InvalidArgumentException;
 use LegoW\LiterateSpoon\Component\Column;
+use LegoW\LiterateSpoon\Component\Condition\Compare;
+use LegoW\LiterateSpoon\Component\Condition\Group;
+use LegoW\LiterateSpoon\Component\Condition\In;
 use LegoW\LiterateSpoon\Component\Literal\Placeholder;
+use LegoW\LiterateSpoon\Component\Where;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of WhereTest
@@ -58,7 +61,7 @@ class WhereTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
     public function testSetOperatorBadParam()
     {
@@ -122,13 +125,37 @@ class WhereTest extends TestCase
     {
         $where = new Where();
 
-        $condition = new Compare('=', new \LegoW\LiterateSpoon\Component\Column('test'), new Placeholder('testValue'));
+        $condition = new Compare('=', new Column('test'), new Placeholder('testValue'));
         $condition2 = clone $condition;
         $condition2->setOperator('>');
-        $where->group(\LegoW\LiterateSpoon\Component\Condition\Group::OP_OR)
+        $where->group(Group::OP_OR)
                 ->addCondition($condition)
                 ->addCondition($condition2);
 
         $this->assertSame('WHERE ((`test` = :testValue) OR (`test` > :testValue))', (string)$where);
+    }
+
+    public function testInFluentBuilder()
+    {
+        $where = new Where();
+
+        $whereIn = $where->in();
+        $this->assertSame(
+            'WHERE (:'.In::PARAM_NAME_COLUMN.'-column IN (:'.In::PARAM_NAME_ELEMENT.'-literal+))',
+            (string)$where
+        );
+        $whereIn->setColumnName('test')
+                ->addElementPlaceholder('elem1')
+                ->addElementPlaceholder('elem2');
+        $this->assertSame('WHERE (`test` IN (:elem1, :elem2))', (string)$where);
+    }
+
+    public function testInParametrizedFluentBuilder()
+    {
+        $where = new Where();
+
+        $whereAfterIn = $where->columnInSet('test', [new Placeholder('elem1'), new Placeholder('elem2')]);
+        $this->assertSame('WHERE (`test` IN (:elem1, :elem2))', (string)$where);
+        $this->assertSame($where, $whereAfterIn);
     }
 }

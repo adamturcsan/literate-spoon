@@ -112,4 +112,28 @@ trait ConditionAwareTrait
         $this->addCondition($group);
         return $group;
     }
+
+    /**
+     * Returns a new 'in' condition
+     * @return In
+     */
+    public function in()
+    {
+        $in = new Condition\In();
+        $this->addCondition($in);
+        return $in;
+    }
+
+    /**
+     * Set a new 'in' condition with column name and initial elementset set
+     * @param string $columnName
+     * @param Literal[] $set
+     * @return self
+     */
+    public function columnInSet($columnName, array $set)
+    {
+        $in = new Condition\In($columnName, $set);
+        $this->addCondition($in);
+        return $this;
+    }
 }
