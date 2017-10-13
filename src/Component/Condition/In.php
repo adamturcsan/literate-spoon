@@ -31,7 +31,7 @@ class In extends Condition
 
     public function getFormat()
     {
-        return ' :column-column IN (:' . self::PARAM_NAME_ELEMENT . '-literal+)';
+        return '(:column-column IN (:' . self::PARAM_NAME_ELEMENT . '-literal+))';
     }
 
     public function __construct($columnName = null, array $elementSet = null)
