@@ -47,8 +47,15 @@ class InTest extends TestCase
     }
     public function testElementsConstructWithWrongTypes()
     {
-        $this->expectException(TypeError::class);
-        new In(null, [1,2]);
+        if (class_exists('\TypeError')) {
+            $this->expectException(TypeError::class);
+            new In(null, [1,2]);
+        }
+        try {
+            new In(null, [1,2]);
+        } catch (\PHPUnit_Framework_Error $ex) {
+            return;
+        }
     }
 
     public function testAddElements()

@@ -31,11 +31,8 @@ class TableNameTest extends TestCase
     public function testDefaultConstructor()
     {
         if (class_exists('\ArgumentCountError')) {
-            try {
-                new TableName();
-            } catch (\ArgumentCountError $ex) {
-                return; //TEST OK
-            }
+            $this->expectException(\ArgumentCountError::class);
+            new TableName();
         }
         try {
             new TableName();
