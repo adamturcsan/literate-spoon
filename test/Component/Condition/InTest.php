@@ -10,8 +10,6 @@
  *  file that was distributed with this source code.
  */
 
-declare (strict_types = 1);
-
 namespace LegoW\LiterateSpoon\Test\Component\Condition;
 
 use LegoW\LiterateSpoon\Component\Condition\In;
